@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{23b43a60-b18d-42a1-abd9-8a52b9a9be65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GUI">
+      <UniqueIdentifier>{5f7ea619-cdc6-4da7-9ea8-28118671e795}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\Core">
+      <UniqueIdentifier>{4e7b7e82-53d8-4b6c-83b7-9b563bd78179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resource">
+      <UniqueIdentifier>{03e4a281-7a70-4353-80f4-2b04f7a3166f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{4eb10e31-329e-4abb-bc31-29bdb48fdd4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GUI">
+      <UniqueIdentifier>{f3e330d0-e2bc-42db-baf7-790167948575}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Core">
+      <UniqueIdentifier>{be88bf13-53da-4149-a87e-76725717f61a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resource">
+      <UniqueIdentifier>{559bc92b-4275-4831-8191-ebc113888afd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game\GUI\DialogForNewGame.cpp">
+      <Filter>Source Files\Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GUI\Game.cpp">
+      <Filter>Source Files\Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GUI\LoadGame.cpp">
+      <Filter>Source Files\Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GUI\MainWindow.cpp">
+      <Filter>Source Files\Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GUI\MyApp.cpp">
+      <Filter>Source Files\Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Core\Level.cpp">
+      <Filter>Source Files\Game\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Language.cpp">
+      <Filter>Source Files\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\User.cpp">
+      <Filter>Source Files\Resource</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game\GUI\DialogForNewGame.h">
+      <Filter>Header Files\Game\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\Game.h">
+      <Filter>Header Files\Game\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\LoadGame.h">
+      <Filter>Header Files\Game\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\MyApp.h">
+      <Filter>Header Files\Game\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\MainWindow.h">
+      <Filter>Header Files\Game\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Core\Level.h">
+      <Filter>Header Files\Game\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Language.h">
+      <Filter>Header Files\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\User.h">
+      <Filter>Header Files\Resource</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
