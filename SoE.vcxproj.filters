@@ -63,6 +63,9 @@
     <ClCompile Include="Resource\User.cpp">
       <Filter>Source Files\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GUI\GameScene.cpp">
+      <Filter>Source Files\Game\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\GUI\DialogForNewGame.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="Resource\User.h">
       <Filter>Header Files\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\GameScene.h">
+      <Filter>Header Files\Game\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

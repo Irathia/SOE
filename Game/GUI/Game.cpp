@@ -79,7 +79,7 @@ void Game::OnPaint(wxPaintEvent& event)
     BoxSizer4->Add(Info, 1, wxALL | wxEXPAND, 5);
 
 	BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
-    GameW = new wxPanel(this);
+    GameW = new GameScene(this);
 	GameW->SetBackgroundColour(*wxWHITE);
     BoxSizer2->Add(GameW, 3, wxALL | wxEXPAND, 5);
     BoxSizer2->Add(BoxSizer4, 1,wxALL | wxEXPAND, 0);

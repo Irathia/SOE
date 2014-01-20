@@ -14,6 +14,7 @@
     <ClCompile Include="Game\Core\Level.cpp" />
     <ClCompile Include="Game\GUI\DialogForNewGame.cpp" />
     <ClCompile Include="Game\GUI\Game.cpp" />
+    <ClCompile Include="Game\GUI\GameScene.cpp" />
     <ClCompile Include="Game\GUI\LoadGame.cpp" />
     <ClCompile Include="Game\GUI\MainWindow.cpp" />
     <ClCompile Include="Game\GUI\MyApp.cpp" />
@@ -24,6 +25,7 @@
     <ClInclude Include="Game\Core\Level.h" />
     <ClInclude Include="Game\GUI\DialogForNewGame.h" />
     <ClInclude Include="Game\GUI\Game.h" />
+    <ClInclude Include="Game\GUI\GameScene.h" />
     <ClInclude Include="Game\GUI\LoadGame.h" />
     <ClInclude Include="Game\GUI\MainWindow.h" />
     <ClInclude Include="Game\GUI\MyApp.h" />

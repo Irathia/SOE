@@ -4,6 +4,7 @@
 #include <wx/frame.h>
 #include <string>
 #include <wx/panel.h>
+#include "GameScene.h"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ private:
 	/*wxPanel* gameWindow;
 	wxPanel* mapOfDange;*/
 
-        wxPanel* GameW;
+        GameScene* GameW;
         wxPanel* Map;
         wxPanel* Info;
         wxPanel* Task;
