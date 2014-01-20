@@ -3,17 +3,23 @@
 
 GameScene::GameScene(wxWindow* parent):wxPanel(parent)
 {
-	
+	step = 0;
+	starti = 0;
+	startj = 0;
 	level = new Level(21,50,15, false);
 	level->Save("Image/Level.png");
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(GameScene::OnPaint));
+	pointPX = 0;
+	pointPY = 0;
 	//DrawScene(0,0,21, 50);
 }
 
 void GameScene::OnPaint(wxPaintEvent& event)
 {
+	this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(GameScene::OnPressKeyboard));
 	wxImage::AddHandler(new wxPNGHandler);
 	wxPaintDC dc(this);
+	dc.Clear();
 	int h = 0, w = 0;
 	this->GetSize(&h,&w);
 
@@ -29,37 +35,48 @@ void GameScene::OnPaint(wxPaintEvent& event)
 	wxBitmap *closechest = new wxBitmap("Image/CloseChest.png",wxBITMAP_TYPE_PNG);
 	wxBitmap *openchest = new wxBitmap("Image/OpenChest.png",wxBITMAP_TYPE_PNG);
 	wxBitmap *teleport = new wxBitmap("Image/Teleport.png",wxBITMAP_TYPE_PNG);
+	
 	int** arr = level->GetArr();
 	int endi = level->GetN();
 	int endj = level->GetM();
-
-	for (int i = 0; i < endi; i++)
+	int count = 0;
+	int x = 0, y = 0;
+	if (starti > endi)
+		starti = endi;
+	if (startj >endj)
+		startj = endj;
+	if (starti < 0)
+		starti = 0;
+	if (startj < 0)
+		startj = 0;
+	for (int i = starti; i < endi; i++)
 	{
-		for (int j = 0; j < endj; j++)
+		x = 0;
+		for (int j = startj; j < endj; j++)
 		{
 			switch (arr[i][j])
 			{
 			case 0:
-				dc.DrawBitmap(*back,j*20,i*20,false);
+				dc.DrawBitmap(*back,x,y,false);
 				break;
 			case 1:
-				dc.DrawBitmap(*wall,j*20,i*20,false);
+				dc.DrawBitmap(*wall,x,y,false);
 				break;
 			case 2:
-				dc.DrawBitmap(*back,j*20,i*20,false);
-				dc.DrawBitmap(*teleport,j*20,i*20,true);
+				dc.DrawBitmap(*back,x,y,false);
+				dc.DrawBitmap(*teleport,x,y,true);
 				break;
 			case 3:
-				dc.DrawBitmap(*back,j*20,i*20,false);
-				dc.DrawBitmap(*closechest,j*20,i*20,true);
+				dc.DrawBitmap(*back,x,y,false);
+				dc.DrawBitmap(*closechest,x,y,true);
 				break;
 			case 4:
-				dc.DrawBitmap(*back,j*20,i*20,false);
-				dc.DrawBitmap(*ladder,j*20,i*20,true);
+				dc.DrawBitmap(*back,x,y,false);
+				dc.DrawBitmap(*ladder,x,y,true);
 				break;
 			case 5:
-				dc.DrawBitmap(*back,j*20,i*20,false);
-				dc.DrawBitmap(*openchest,j*20,i*20,true);
+				dc.DrawBitmap(*back,x,y,false);
+				dc.DrawBitmap(*openchest,x,y,true);
 				break;
 				
 			default: 
@@ -68,14 +85,56 @@ void GameScene::OnPaint(wxPaintEvent& event)
 				break;
 			}
 
-			if (j*20 > h)
+			if (x > h)
 				break;
+			x+=20;
 		}
-		if (i*20 > w)
+		if (y > w)
 			break;
+		y+=20;
+	}
+	wxBitmap *people = new wxBitmap();
+	if (step%2 == 0)
+	{
+		people->LoadFile("Image/One.png",wxBITMAP_TYPE_PNG);
+		dc.DrawBitmap(*people,pointPX,pointPY,true);
+		step++;
+	}
+	else
+	{
+		people->LoadFile("Image/Two.png",wxBITMAP_TYPE_PNG);
+		dc.DrawBitmap(*people,pointPX,pointPY,true);
+		step++;
 	}
 }
 
+
+void GameScene::OnPressKeyboard(wxKeyEvent& event)
+{
+	if (event.GetKeyCode() == WXK_LEFT)
+	{
+		startj -= 1;//pointPX += 1;
+		this->Refresh();
+		//OnPaint(wxPaintEvent());
+	}
+	if (event.GetKeyCode() == WXK_RIGHT)
+	{
+		startj += 1; //pointPX -=1;
+		this->Refresh();
+	}
+	if (event.GetKeyCode() == WXK_UP)
+	{
+		starti -= 1; //pointPY += 1;
+		this->Refresh();
+	}
+	if (event.GetKeyCode() == WXK_DOWN)
+	{
+		starti += 1; //pointPY -= 1;
+		this->Refresh();
+	}
+
+	
+}
 void GameScene::DrawScene(int x, int y, int m, int n)
 {
 	int wall = 1;

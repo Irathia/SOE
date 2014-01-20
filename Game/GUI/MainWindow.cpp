@@ -40,7 +40,6 @@ void MainWindow::OnPaint(wxPaintEvent& event)
 }
 void MainWindow::OnButtonNewGame(wxCommandEvent& event)
 {
-	/*
 	DialogForNewGame* dialog = new DialogForNewGame(this,users);
 
 	int a = dialog->ShowModal();
@@ -50,12 +49,9 @@ void MainWindow::OnButtonNewGame(wxCommandEvent& event)
 		dialog->Close(true);
 		AddUser(name,users);
 		newGame = new Game(this, name);
+		newGame = new Game(this, name);
 	}
-	dialog->Close(true);*/
-
-	newGame = new Game(this, "Erathia");
-
-	//this->Hide();
+	dialog->Close(true);
 }
 void MainWindow::OnButtonLoadGame(wxCommandEvent& event)
 {
@@ -63,8 +59,13 @@ void MainWindow::OnButtonLoadGame(wxCommandEvent& event)
 
 	int a = dialog->ShowModal();
 	if (a  == 1)
+	{
 		name = dialog->GetNameOfUser();
+		newGame = new Game(this, name);
+
+	}
 	dialog->Close(true);
+	
 }
 void MainWindow::OnButtonSettings(wxCommandEvent& event)
 {

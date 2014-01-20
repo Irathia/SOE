@@ -16,6 +16,7 @@ void Game::OnPaint(wxPaintEvent& event)
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(Game::OnPressKeyboard));
+	
 	wxBoxSizer* BoxSizer4;
 	wxBoxSizer* BoxSizer2;
 	wxBoxSizer* BoxSizer1;
@@ -102,15 +103,12 @@ void Game::OnPaint(wxPaintEvent& event)
     SetSizer(BoxSizer1);
 	Layout();
 
-	
+	//this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(GameScene::OnPressKeyboard));
 }
 
 void Game::OnPressKeyboard(wxKeyEvent& event)
 {
 	if (event.GetKeyCode() == WXK_ESCAPE)
 		this->Close(true);
-	if (event.GetKeyCode() == WXK_LEFT)
-		this->Mana->SetValue(Mana->GetValue()-1);
-	if (event.GetKeyCode() == WXK_RIGHT)
-		this->Mana->SetValue(Mana->GetValue()+1);
+	GameW->OnPressKeyboard(event);
 }
