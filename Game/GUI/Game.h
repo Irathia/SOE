@@ -5,6 +5,7 @@
 #include <string>
 #include <wx/panel.h>
 #include "GameScene.h"
+#include "../Core/Player.h"
 
 using namespace std;
 
@@ -16,8 +17,6 @@ public:
 	void OnPaint(wxPaintEvent& event);
 	void OnPressKeyboard(wxKeyEvent& event);
 private:
-	/*wxPanel* gameWindow;
-	wxPanel* mapOfDange;*/
 
         GameScene* GameW;
         wxPanel* Map;
@@ -28,8 +27,6 @@ private:
 
 		wxStaticBitmap* Icon;
 		wxStaticBitmap* LVL;
-		//wxPanel* Icon;
-		//wxPanel* LVL;
 		wxBitmap* bitmap;
 		string name;
 		wxStaticText* Name;

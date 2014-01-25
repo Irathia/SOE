@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Core\Level.cpp" />
+    <ClCompile Include="Game\Core\Player.cpp" />
+    <ClCompile Include="Game\Core\Unit.cpp" />
     <ClCompile Include="Game\GUI\DialogForNewGame.cpp" />
     <ClCompile Include="Game\GUI\Game.cpp" />
     <ClCompile Include="Game\GUI\GameScene.cpp" />
@@ -23,6 +25,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Core\Level.h" />
+    <ClInclude Include="Game\Core\Player.h" />
+    <ClInclude Include="Game\Core\Unit.h" />
     <ClInclude Include="Game\GUI\DialogForNewGame.h" />
     <ClInclude Include="Game\GUI\Game.h" />
     <ClInclude Include="Game\GUI\GameScene.h" />
@@ -92,14 +96,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;__WXMSW__;_WINDOWS;NOPCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\wxWidgets\lib\vc_lib\mswu;C:\wxWidgets\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\wxWidgets3\lib\vc_lib\mswu;C:\wxWidgets3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\wxWidgets\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\wxWidgets3\lib\vc_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>wxmsw30u_core.lib;wxbase30u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;winmm.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;odbc32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

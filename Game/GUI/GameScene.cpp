@@ -1,166 +1,234 @@
 #include "GameScene.h"
 #include <wx/dcclient.h>
-
+#include <wx/dcmemory.h>
+#include <wx/thread.h>
 GameScene::GameScene(wxWindow* parent):wxPanel(parent)
 {
+	wxImage::AddHandler(new wxPNGHandler);
+	wxImage::AddHandler(new wxGIFHandler);
 	step = 0;
 	starti = 0;
 	startj = 0;
 	level = new Level(21,50,15, false);
 	level->Save("Image/Level.png");
+	image = new wxBitmap(level->GetH()*20,level->GetW()*20);
+	CreateImage();
+	wxPoint p = FindStartPositionForPlayer();
+	player = new Player(p);
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(GameScene::OnPaint));
-	pointPX = 0;
-	pointPY = 0;
-	//DrawScene(0,0,21, 50);
 }
 
 void GameScene::OnPaint(wxPaintEvent& event)
 {
 	this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(GameScene::OnPressKeyboard));
-	wxImage::AddHandler(new wxPNGHandler);
+	
+	
+	
 	wxPaintDC dc(this);
-	dc.Clear();
+	//dc.Clear();
 	int h = 0, w = 0;
 	this->GetSize(&h,&w);
-
-	/*int wall = 1;
-	int back = 0;
-	int teleport = 2;
-	int chestclose = 3;
-	int chestopen = 5;
-	int ladder = 4;*/
-	wxBitmap *wall = new wxBitmap("Image/SandBlock.png",wxBITMAP_TYPE_PNG);
-	wxBitmap *back = new wxBitmap("Image/SandBlockBehind.png",wxBITMAP_TYPE_PNG);
-	wxBitmap *ladder = new wxBitmap("Image/Ladder.png",wxBITMAP_TYPE_PNG);
-	wxBitmap *closechest = new wxBitmap("Image/CloseChest.png",wxBITMAP_TYPE_PNG);
-	wxBitmap *openchest = new wxBitmap("Image/OpenChest.png",wxBITMAP_TYPE_PNG);
-	wxBitmap *teleport = new wxBitmap("Image/Teleport.png",wxBITMAP_TYPE_PNG);
-	
-	int** arr = level->GetArr();
-	int endi = level->GetN();
-	int endj = level->GetM();
-	int count = 0;
-	int x = 0, y = 0;
-	if (starti > endi)
-		starti = endi;
-	if (startj >endj)
-		startj = endj;
-	if (starti < 0)
-		starti = 0;
-	if (startj < 0)
-		startj = 0;
-	for (int i = starti; i < endi; i++)
-	{
-		x = 0;
-		for (int j = startj; j < endj; j++)
+	/*if (step == 0)
+	{*/
+		dc.Clear();
+		int endi = level->GetW();
+		int endj = level->GetH();
+		if (starti+(w/20) > endi)
+			starti = endi-(w/20);
+		if (startj+(h/20) >endj)
+			startj = endj-(h/20);
+		if (starti < 0)
+			starti = 0;
+		if (startj < 0)
+			startj = 0;
+		//wxBitmap sub = image->GetSubBitmap(wxRect(0,0,w,h));
+		dc.DrawBitmap(*image,0,0,true);
+		/*step = 2;
+	}
+	if (step == 2)
+	{*/
+		switch(player->GetTypeI())
 		{
-			switch (arr[i][j])
-			{
-			case 0:
-				dc.DrawBitmap(*back,x,y,false);
-				break;
-			case 1:
-				dc.DrawBitmap(*wall,x,y,false);
-				break;
-			case 2:
-				dc.DrawBitmap(*back,x,y,false);
-				dc.DrawBitmap(*teleport,x,y,true);
-				break;
-			case 3:
-				dc.DrawBitmap(*back,x,y,false);
-				dc.DrawBitmap(*closechest,x,y,true);
-				break;
-			case 4:
-				dc.DrawBitmap(*back,x,y,false);
-				dc.DrawBitmap(*ladder,x,y,true);
-				break;
-			case 5:
-				dc.DrawBitmap(*back,x,y,false);
-				dc.DrawBitmap(*openchest,x,y,true);
-				break;
-				
-			default: 
-				//dc.DrawBitmap(*back,j*20,i*20,false);
-				//scene.GetSubImage(wxRect(i*20,j*20,20,20)).SetMaskColour(0,255,0);//LoadFile("C:/Users/Админ/Documents/Visual Studio 2010/Projects/testWidgets/testWidgets/Game/Core/SandBlockBehind.bmp",wxBITMAP_TYPE_BMP);
-				break;
-			}
-
-			if (x > h)
-				break;
-			x+=20;
-		}
-		if (y > w)
+		case 1:
+			if (player->GetP() == false)
+				dc.DrawBitmap(player->GetImage()->GetSubImage(wxRect(0,0,20,30)),(player->GetPosition().y-startj)*20,(player->GetPosition().x-starti)*20-10,true);
+			else
+				dc.DrawBitmap(player->GetImage()->GetSubImage(wxRect(20,0,20,30)),(player->GetPosition().y-startj)*20,(player->GetPosition().x-starti)*20-10,true);
 			break;
-		y+=20;
-	}
-	wxBitmap *people = new wxBitmap();
-	if (step%2 == 0)
-	{
-		people->LoadFile("Image/One.png",wxBITMAP_TYPE_PNG);
-		dc.DrawBitmap(*people,pointPX,pointPY,true);
-		step++;
-	}
-	else
-	{
-		people->LoadFile("Image/Two.png",wxBITMAP_TYPE_PNG);
-		dc.DrawBitmap(*people,pointPX,pointPY,true);
-		step++;
-	}
+		case 2:
+			if (player->GetP() == false)
+				dc.DrawBitmap(player->GetImage()->GetSubImage(wxRect(120,0,20,30)),(player->GetPosition().y-startj)*20,(player->GetPosition().x-starti)*20-10,true);
+			else
+				dc.DrawBitmap(player->GetImage()->GetSubImage(wxRect(100,0,20,30)),(player->GetPosition().y-startj)*20,(player->GetPosition().x-starti)*20-10,true);
+			break;
+		case 3:
+			if (player->GetP() == false)
+				dc.DrawBitmap(player->GetImage()->GetSubImage(wxRect(80,0,20,30)),(player->GetPosition().y-startj)*20,(player->GetPosition().x-starti)*20-10,true);
+			else
+				dc.DrawBitmap(player->GetImage()->GetSubImage(wxRect(60,0,20,30)),(player->GetPosition().y-startj)*20,(player->GetPosition().x-starti)*20-10,true);
+			break;
+		case 4:
+			if (player->GetP() == false)
+				dc.DrawBitmap(player->GetImage()->GetSubImage(wxRect(80,0,20,30)),(player->GetPosition().y-startj)*20,(player->GetPosition().x-starti)*20-10,true);
+			else
+				dc.DrawBitmap(player->GetImage()->GetSubImage(wxRect(60,0,20,30)),(player->GetPosition().y-startj)*20,(player->GetPosition().x-starti)*20-10,true);
+			break;
+		default:
+			break;
+		}
+	//}
+	
+	
 }
 
 
 void GameScene::OnPressKeyboard(wxKeyEvent& event)
 {
-	if (event.GetKeyCode() == WXK_LEFT)
+	switch(event.GetKeyCode())
 	{
-		startj -= 1;//pointPX += 1;
+	case WXK_LEFT:
+		startj -= 1;
 		this->Refresh();
-		//OnPaint(wxPaintEvent());
-	}
-	if (event.GetKeyCode() == WXK_RIGHT)
-	{
-		startj += 1; //pointPX -=1;
+		//step = 0;
+		break;
+	case WXK_RIGHT:
+		startj += 1; 
+		//step = 0;
 		this->Refresh();
-	}
-	if (event.GetKeyCode() == WXK_UP)
-	{
-		starti -= 1; //pointPY += 1;
+		
+		break;
+	case WXK_UP:
+		starti -= 1; 
+		//step = 0;
 		this->Refresh();
-	}
-	if (event.GetKeyCode() == WXK_DOWN)
-	{
-		starti += 1; //pointPY -= 1;
+		break;
+	case WXK_DOWN:
+		starti += 1;
+		//step = 0;
 		this->Refresh();
+		break;
+	default:
+		break;
+
 	}
 
+	switch(event.GetKeyCode()-64)
+	{
+		case WXK_CONTROL_W:
+		player->Move(3);
+		if (!MovingPlayer())
+			player->Move(4);
+		break;
+	case WXK_CONTROL_A:
+		player->Move(2);
+		if (!MovingPlayer())
+			player->Move(1);
+		break;
+	case WXK_CONTROL_D:
+		player->Move(1);
+		if (!MovingPlayer())
+			player->Move(2);
+		break;
+	case WXK_CONTROL_S:
+		player->Move(4);
+		if (!MovingPlayer())
+			player->Move(3);
+		break;
+	default:
+		break;
+	}
+	
+	
+	
 	
 }
-void GameScene::DrawScene(int x, int y, int m, int n)
+
+bool GameScene::MovingPlayer()
 {
-	int wall = 1;
-	int back = 0;
-	int teleport = 2;
-	int chest = 3;
-	int ladder = 4;
-	int** arr = level->GetArr();
-	for (int i = 0; i < m; i++)
+
+	if (player->GetPosition().x < 0 || player->GetPosition().y < 0 || player->GetPosition().x >= level->GetW() || player->GetPosition().y >= level->GetH())
+		return false;
+	if (player->GetTypeI() == 3)
 	{
-		for (int j = 0; j < n; j++)
+		
+		if (level->GetArr()[player->GetPosition().x+1][player->GetPosition().y] == 4 &&  level->GetArr()[player->GetPosition().x][player->GetPosition().y] == 0)
+		{
+			player->SetTypeI(1);
+			this->Refresh();
+			return true;
+		}
+		if (level->GetArr()[player->GetPosition().x][player->GetPosition().y] != 4)
+		{
+			return false;
+		}
+	}
+	if (player->GetTypeI() == 1 || player->GetTypeI() == 2)
+	{
+		if (level->GetArr()[player->GetPosition().x][player->GetPosition().y] == 0 && level->GetArr()[player->GetPosition().x+1][player->GetPosition().y] == 0)
+			return false;
+	}
+	if (level->GetArr()[player->GetPosition().x][player->GetPosition().y] != 1)
+	{
+		//step = 2;
+		this->Refresh();
+		return true;
+	}
+	return false;
+}
+
+wxPoint GameScene::FindStartPositionForPlayer()
+{
+	for(int i = 0; i < level->GetH(); i++)
+	{
+		if (level->GetArr()[0][i] != 1)
+			return wxPoint(1,i);
+	}
+}
+
+Player* GameScene::GetPlayer() const
+{
+	return player;
+}
+
+void GameScene::CreateImage()
+{
+	wxMemoryDC mc(*image);
+	wxBitmap* texture = new wxBitmap("Image/Texture.png",wxBITMAP_TYPE_PNG);
+	int** arr = level->GetArr();
+	for (int i = 0; i < level->GetW(); i++)
+	{
+		for (int j = 0; j < level->GetH(); j++)
 		{
 			switch (arr[i][j])
 			{
+			case 0:
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(20,0,20,20)),j*20,i*20,true);
+				break;
 			case 1:
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(0,0,20,20)),j*20,i*20,true);
 				break;
+			case 2:
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(20,0,20,20)),j*20,i*20,false);
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(60,0,20,20)),j*20,i*20,true);
+				break;
+			case 3:
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(20,0,20,20)),j*20,i*20,false);
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(0,20,20,20)),j*20,i*20,true);
+				break;
+			case 4:
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(20,0,20,20)),j*20,i*20,false);
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(40,0,20,20)),j*20,i*20,true);
+				break;
+			case 5:
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(20,0,20,20)),j*20,i*20,false);
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(20,20,20,20)),j*20,i*20,true);
+				break;
+				
 			default: 
-				//scene.GetSubImage(wxRect(i*20,j*20,20,20)).SetMaskColour(0,255,0);//LoadFile("C:/Users/Админ/Documents/Visual Studio 2010/Projects/testWidgets/testWidgets/Game/Core/SandBlockBehind.bmp",wxBITMAP_TYPE_BMP);
 				break;
-			/*case back: scene.GetSubImage(i*20,j*20).LoadFile("SandBlock.bmp");
-				break;
-			case wall: scene.GetSubImage(i*20,j*20).LoadFile("SandBlock.bmp");
-				break;
-			case wall: scene.GetSubImage(i*20,j*20).LoadFile("SandBlock.bmp");
-				break;*/
 			}
-		}
 	}
+
+	}
+	image->SaveFile("Image/Map.png",wxBITMAP_TYPE_PNG);
 }

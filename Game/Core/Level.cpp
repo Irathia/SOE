@@ -344,12 +344,12 @@ Level::~Level(void)
 	delete [] map;
 }
 
-int Level::GetN() const
+int Level::GetW() const
 {
 	return w;
 }
 
-int Level::GetM() const
+int Level::GetH() const
 {
 	return h;
 }

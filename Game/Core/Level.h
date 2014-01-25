@@ -14,8 +14,8 @@ public:
 	Level(string file_name);
 	void Save(string file_name) const;
 	int** GetArr() const;
-	int GetN() const;
-	int GetM() const;
+	int GetW() const;
+	int GetH() const;
 	~Level(void);
 private:
 	int** map;

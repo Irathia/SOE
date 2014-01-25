@@ -103,12 +103,25 @@ void Game::OnPaint(wxPaintEvent& event)
     SetSizer(BoxSizer1);
 	Layout();
 
-	//this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(GameScene::OnPressKeyboard));
 }
 
 void Game::OnPressKeyboard(wxKeyEvent& event)
 {
-	if (event.GetKeyCode() == WXK_ESCAPE)
+	/*
+	RIGHT = 1
+	LEFT = 2
+	UP = 3
+	DOWN = 4
+	*/
+
+	switch(event.GetKeyCode())
+	{
+	case WXK_ESCAPE:
 		this->Close(true);
-	GameW->OnPressKeyboard(event);
+		break;
+	default:
+		GameW->OnPressKeyboard(event);
+		break;
+	}
+	
 }
