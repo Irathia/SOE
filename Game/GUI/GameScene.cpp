@@ -42,7 +42,9 @@ void GameScene::OnPaint(wxPaintEvent& event)
 		if (startj < 0)
 			startj = 0;
 		//wxBitmap sub = image->GetSubBitmap(wxRect(0,0,w,h));
-		dc.DrawBitmap(*image,0,0,true);
+		wxMemoryDC mc(*image);
+		dc.Blit(0,0,h,w,&mc,startj*20,starti*20);
+		//dc.DrawBitmap(*image,0,0,true);
 		/*step = 2;
 	}
 	if (step == 2)
