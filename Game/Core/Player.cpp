@@ -20,17 +20,18 @@ bool Player::Move(int direction, Level* level)
 	int x = 0;
 	int y = 0;
 	wxPoint newP(0,0);
-	bool p = GetP();
+	GetP();
+	wxPoint last = GetPosition();
+	int xlast = (last.x + 29) / 20;
+	int ylast = (last.y + 19) / 20;
+
+
 	switch(direction)
 	{
 	case 1:
 		newP = GetPosition()+wxSize(0,GetSpeed());
-		y = (newP.y + 20) % 20;
-		if (y == 0)
-			y = newP.y / 20;
-		else
-			y = (int)((newP.y + 20) / 20);
-		x = (int)(newP.x / 20);
+		y = (int)((newP.y + 19) / 20);
+		x = (int)((newP.x +29) / 20);
 		if (level->GetArr()[x][y] != 1)
 		{
 			SetPosition(GetPosition()+=wxSize(0,GetSpeed()));
@@ -46,7 +47,7 @@ bool Player::Move(int direction, Level* level)
 	case 2:
 		newP = GetPosition()+wxSize(0,-GetSpeed());
 		y = (int)(newP.y / 20);
-		x = (int)(newP.x / 20);
+		x = (int)((newP.x +29) / 20);
 		if (level->GetArr()[x][y] != 1)
 		{
 			SetPosition(GetPosition()+=wxSize(0,-GetSpeed()));
@@ -65,7 +66,23 @@ bool Player::Move(int direction, Level* level)
 		if (y != 0)
 			return false;
 		y = (newP.y / 20);
-		x = (int)(newP.x / 20);
+		x = (int)((newP.x +29) / 20);
+		if (level->GetArr()[x][y] == 0)
+		{
+			if (level->GetArr()[xlast][ylast] == 4)
+			{
+				SetPosition(GetPosition()+=wxSize(-GetSpeed(),0));
+				SetCurrentImage(GetImage()->GetSubBitmap(wxRect(0,0,20,30)));
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+
+			
+		}
+
 		if (level->GetArr()[x][y] != 1)
 		{
 			SetPosition(GetPosition()+=wxSize(-GetSpeed(),0));
@@ -76,6 +93,7 @@ bool Player::Move(int direction, Level* level)
 
 			return true;
 		}
+		
 		return false;
 		break;
 	case 4:
@@ -84,7 +102,7 @@ bool Player::Move(int direction, Level* level)
 		if (y != 0)
 			return false;
 		y = (newP.y / 20);
-		x = (int)((newP.x +30) / 20);
+		x = (int)((newP.x +29) / 20);
 		if (level->GetArr()[x][y] != 1)
 		{
 			SetPosition(GetPosition()+=wxSize(GetSpeed(),0));

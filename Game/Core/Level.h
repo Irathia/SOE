@@ -16,6 +16,9 @@ public:
 	int** GetArr() const;
 	int GetW() const;
 	int GetH() const;
+
+	bool OpenChest(wxPoint point);
+	bool ActivatePortal(wxPoint point);
 	~Level(void);
 private:
 	int** map;

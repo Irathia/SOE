@@ -5,7 +5,7 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 	srand(time(0));
 	int wall = 1;
 	int back = 0;
-	int teleport = 2;
+	int teleport = 6;
 	int chest = 3;
 	int ladder = 4;
 
@@ -183,10 +183,7 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 				{
 					if (arr[i][j] == back && arr[i-1][j] == wall && arr[i+1][j] == wall)
 					{
-						//if (rand()%2 == 0)
-							arr[i][j] = chest;
-						//else
-							//arr[i][j] = 5;
+						arr[i][j] = chest;
 						count++;
 					}
 				}
@@ -206,7 +203,7 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 		{
 			for (int j = 0; j < h; j++)
 			{
-				if (arr[i][j] == 3 || arr[i][j] == 5 || arr[i][j] == 2)
+				if (arr[i][j] == 3 || arr[i][j] == 5 || arr[i][j] == 2 || arr[i][j] == 6)
 				{
 					map[t][j] = back;
 					map[t+1][j] = back;
@@ -283,6 +280,16 @@ Level::Level(string file_name)
 			map[i][j] = 4;
 			j++;
 		}
+		else if (a == 0 && b == 255 && c == 255)//open chest
+		{
+			map[i][j] = 5;
+			j++;
+		}
+		else if (a == 255 && b == 0 && c == 255)//deactivate portals
+		{
+			map[i][j] = 6;
+			j++;
+		}
 		if (j == h)
 		{
 			j = 0;
@@ -326,6 +333,7 @@ void Level::Save(string file_name) const
 			case 3: file << "0 255 0" << endl; break;
 			case 4: file << "255 0 0" << endl; break;
 			case 5: file << "0 255 255" << endl; break;
+			case 6: file << "255 0 255" << endl; break;
 			default: break;
 			}
 			
@@ -356,4 +364,16 @@ int Level::GetH() const
 int** Level::GetArr() const
 {
 	return map;
+}
+
+bool Level::OpenChest(wxPoint point)
+{
+	this->map[point.x][point.y] = 5;
+	return true;
+}
+
+bool Level::ActivatePortal(wxPoint point)
+{
+	this->map[point.x][point.y] = 2;
+	return true;
 }

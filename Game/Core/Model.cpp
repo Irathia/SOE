@@ -79,8 +79,10 @@ void Model::CreateImage()
 			case 5:
 				mc.DrawBitmap(texture->GetSubBitmap(wxRect(20,0,20,20)),j*20,i*20,false);
 				mc.DrawBitmap(texture->GetSubBitmap(wxRect(20,20,20,20)),j*20,i*20,true);
+			case 6:
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(20,0,20,20)),j*20,i*20,false);
+				mc.DrawBitmap(texture->GetSubBitmap(wxRect(80,0,20,20)),j*20,i*20,true);
 				break;
-				
 			default: 
 				break;
 			}
@@ -131,7 +133,10 @@ wxBitmap Model::CreateSubImage(wxPoint start, wxPoint end)
 				mc.DrawBitmap(texture.GetSubBitmap(wxRect(20,0,20,20)),x*20,y*20,false);
 				mc.DrawBitmap(texture.GetSubBitmap(wxRect(20,20,20,20)),x*20,y*20,true);
 				break;
-				
+			case 6:
+				mc.DrawBitmap(texture.GetSubBitmap(wxRect(20,0,20,20)),x*20,y*20,false);
+				mc.DrawBitmap(texture.GetSubBitmap(wxRect(80,0,20,20)),x*20,y*20,true);
+			break;	
 			default: 
 				break;
 			}
@@ -197,6 +202,32 @@ void Model::OnPressKeyboard(int key)
 			Endy = (int)((P.y + 20) / 20)+1;
 			Endx = (int)((P.x + 30) / 20)+1;
 			update(wxPoint(Starty*20, Startx*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
+		}
+		break;
+	case WXK_CONTROL_E:
+		P = player->GetPosition();
+		Starty = (int)(P.y / 20);
+		Startx = (int)(P.x / 20)+1;
+
+		if (levels[currentLevel]->GetArr()[Startx][Starty] == 3)
+		{
+			if (levels[currentLevel]->OpenChest(wxPoint(Startx,Starty)))
+			{
+				Endy = (int)((P.y + 20) / 20);
+				Endx = (int)((P.x + 30) / 20);
+				update(wxPoint(Starty*20, Startx*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
+				break;
+			}
+		}
+		if (levels[currentLevel]->GetArr()[Startx][Starty] == 6)
+		{
+			if (levels[currentLevel]->ActivatePortal(wxPoint(Startx,Starty)))
+			{
+				Endy = (int)((P.y + 20) / 20);
+				Endx = (int)((P.x + 30) / 20);
+				update(wxPoint(Starty*20, Startx*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
+				break;
+			}
 		}
 		break;
 	default:
