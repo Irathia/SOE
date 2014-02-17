@@ -1,19 +1,17 @@
 #pragma once
 
 #include "Unit.h"
+#include "Level.h"
 
 class Player : public Unit
 {
 public:
 	Player(wxPoint first);
-	virtual void Move(int direction);
+	bool Move(int direction, Level* level);
 	virtual void Fight();
 	virtual void Death();
 	virtual void LevelUp();
-	int GetTypeI() const;
-	void SetTypeI(int value);
 	bool GetP();
 private:
-	int typeI;
 	bool p;
 };

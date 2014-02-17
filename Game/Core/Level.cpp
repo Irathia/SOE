@@ -183,10 +183,10 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 				{
 					if (arr[i][j] == back && arr[i-1][j] == wall && arr[i+1][j] == wall)
 					{
-						if (rand()%2 == 0)
+						//if (rand()%2 == 0)
 							arr[i][j] = chest;
-						else
-							arr[i][j] = 5;
+						//else
+							//arr[i][j] = 5;
 						count++;
 					}
 				}

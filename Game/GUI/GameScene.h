@@ -1,25 +1,21 @@
 #pragma once
 #include <wx/panel.h>
-#include "../Core/Level.h"
-#include "../Core/Player.h"
+#include <wx/timer.h>
+#include "../Core/Model.h"
 
 class GameScene: public wxPanel
 {
 public:
-	GameScene(wxWindow* parent);
+	GameScene(wxWindow* parent, Model* model);
 	void OnPaint(wxPaintEvent& event);
 	void OnPressKeyboard(wxKeyEvent& event);
-	bool MovingPlayer();
-	wxPoint FindStartPositionForPlayer();
-	void CreateImage();
-	Player* GetPlayer() const;
+	void OnTimer(wxTimerEvent& event);
 private:
-	Level* level;
+	Model* model;
 	int starti;
 	int startj;
-	int step;
-
-	Player* player;
-
 	wxBitmap* image;
+	wxTimer timer;
+
+	DECLARE_EVENT_TABLE()
 };

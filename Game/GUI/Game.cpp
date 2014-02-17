@@ -6,7 +6,7 @@
 
 Game::Game(wxFrame* parent, string name) : wxFrame(parent, 1, "Game", wxDefaultPosition, wxDefaultSize)
 {
-	
+	model = new Model();
 	this->ShowFullScreen(true);
 	this->name = name;
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Game::OnPaint));
@@ -80,7 +80,7 @@ void Game::OnPaint(wxPaintEvent& event)
     BoxSizer4->Add(Info, 1, wxALL | wxEXPAND, 5);
 
 	BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
-    GameW = new GameScene(this);
+    GameW = new GameScene(this, model);
 	GameW->SetBackgroundColour(*wxWHITE);
     BoxSizer2->Add(GameW, 3, wxALL | wxEXPAND, 5);
     BoxSizer2->Add(BoxSizer4, 1,wxALL | wxEXPAND, 0);
@@ -120,7 +120,7 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 		this->Close(true);
 		break;
 	default:
-		GameW->OnPressKeyboard(event);
+		model->OnPressKeyboard(event.GetKeyCode());
 		break;
 	}
 	

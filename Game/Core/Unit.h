@@ -1,12 +1,11 @@
 #pragma once
 
-#include <wx/image.h>
+#include <wx/bitmap.h>
 #include <wx/position.h>
 
 class Unit
 {
 public:
-	virtual void Move(int direction) = 0;
 	virtual void Fight() = 0;
 	virtual void Death() = 0;
 
@@ -17,7 +16,8 @@ public:
 	int GetDefence() const;
 	int GetFactor() const;
 	wxPoint GetPosition() const;
-	wxImage* GetImage() const;
+	wxBitmap* GetImage() const;
+	wxBitmap GetCurrentImage() const;
 
 	void HealthUp(int value);
 	void HealthDown(int value);
@@ -26,7 +26,8 @@ public:
 	void SetSpeed(int value);
 	void SetDamage(int value);
 	void SetDefence(int value);
-	void SetImage(wxImage* value);
+	void SetImage(wxBitmap* value);
+	void SetCurrentImage(wxBitmap bmp);
 	void SetPosition(wxPoint value);
 private:
 	int k;
@@ -36,6 +37,7 @@ private:
 	int level;
 	int mana;
 	int defence;
-	wxImage* image;
+	wxBitmap* image;
+	wxBitmap currentImage;
 	wxPoint coordinate;
 };

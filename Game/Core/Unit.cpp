@@ -35,9 +35,14 @@ wxPoint Unit::GetPosition() const
 	return coordinate;
 }
 
-wxImage* Unit::GetImage() const
+wxBitmap* Unit::GetImage() const
 {
 	return image;
+}
+
+wxBitmap Unit::GetCurrentImage() const
+{
+	return currentImage;
 }
 
 void Unit::HealthUp(int value)
@@ -88,7 +93,7 @@ void Unit::SetDefence(int value)
 	defence = value;
 }
 
-void Unit::SetImage(wxImage* value)
+void Unit::SetImage(wxBitmap* value)
 {
 	image = value;
 }
@@ -96,4 +101,9 @@ void Unit::SetImage(wxImage* value)
 void Unit::SetPosition(wxPoint value)
 {
 	coordinate = value;
+}
+
+void Unit::SetCurrentImage(wxBitmap bmp)
+{
+	currentImage = bmp;
 }

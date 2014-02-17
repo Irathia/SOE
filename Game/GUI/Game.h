@@ -7,6 +7,7 @@
 #include "GameScene.h"
 #include "../Core/Player.h"
 
+
 using namespace std;
 
 class Game : public wxFrame
@@ -17,22 +18,22 @@ public:
 	void OnPaint(wxPaintEvent& event);
 	void OnPressKeyboard(wxKeyEvent& event);
 private:
+	Model* model;
 
-        GameScene* GameW;
-        wxPanel* Map;
-        wxPanel* Info;
-        wxPanel* Task;
-        wxPanel* Inv;
-        wxPanel* Magic;
+    GameScene* GameW;
+    wxPanel* Map;
+    wxPanel* Info;
+    wxPanel* Task;
+    wxPanel* Inv;
+    wxPanel* Magic;
 
-		wxStaticBitmap* Icon;
-		wxStaticBitmap* LVL;
-		wxBitmap* bitmap;
-		string name;
-		wxStaticText* Name;
-		wxStaticText* TextHealth;
-		wxStaticText* TextMana;
-		wxGauge* Exp;
-		wxGauge* Health;
-		wxGauge* Mana;
+	wxStaticBitmap* Icon;
+	wxStaticBitmap* LVL;
+	string name;
+	wxStaticText* Name;
+	wxStaticText* TextHealth;
+	wxStaticText* TextMana;
+	wxGauge* Exp;
+	wxGauge* Health;
+	wxGauge* Mana;
 };

@@ -2,36 +2,38 @@
 #include <wx/dcclient.h>
 #include <wx/dcmemory.h>
 #include <wx/thread.h>
-GameScene::GameScene(wxWindow* parent):wxPanel(parent)
+#define TIMER_ID 1000
+
+GameScene::GameScene(wxWindow* parent, Model* model):wxPanel(parent),timer(this, TIMER_ID)
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	wxImage::AddHandler(new wxGIFHandler);
-	step = 0;
+	//step = 0;
 	starti = 0;
 	startj = 0;
-	level = new Level(21,50,15, false);
+	this->model  = model;
+	image = model->GetImage();
+	/*level = new Level(21,50,15, false);
 	level->Save("Image/Level.png");
 	image = new wxBitmap(level->GetH()*20,level->GetW()*20);
 	CreateImage();
 	wxPoint p = FindStartPositionForPlayer();
-	player = new Player(p);
+	player = new Player(p);*/
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(GameScene::OnPaint));
+	this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(GameScene::OnPressKeyboard));
+	timer.Start(100);
 }
+
+
 
 void GameScene::OnPaint(wxPaintEvent& event)
 {
-	this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(GameScene::OnPressKeyboard));
-	
-	
-	
 	wxPaintDC dc(this);
-	//dc.Clear();
 	int h = 0, w = 0;
 	this->GetSize(&h,&w);
-	/*if (step == 0)
-	{*/
+	image = model->GetImage();
 		dc.Clear();
-		int endi = level->GetW();
+		/*int endi = level->GetW();
 		int endj = level->GetH();
 		if (starti+(w/20) > endi)
 			starti = endi-(w/20);
@@ -40,16 +42,16 @@ void GameScene::OnPaint(wxPaintEvent& event)
 		if (starti < 0)
 			starti = 0;
 		if (startj < 0)
-			startj = 0;
+			startj = 0;*/
 		//wxBitmap sub = image->GetSubBitmap(wxRect(0,0,w,h));
 		wxMemoryDC mc(*image);
 		dc.Blit(0,0,h,w,&mc,startj*20,starti*20);
-		//dc.DrawBitmap(*image,0,0,true);
+
 		/*step = 2;
 	}
 	if (step == 2)
 	{*/
-		switch(player->GetTypeI())
+		/*switch(player->GetTypeI())
 		{
 		case 1:
 			if (player->GetP() == false)
@@ -78,10 +80,16 @@ void GameScene::OnPaint(wxPaintEvent& event)
 		default:
 			break;
 		}
-	//}
+	//}*/
 	
-	
+/*
+	wxBitmap b("Image/Player.png",wxBITMAP_TYPE_PNG);
+	//bckimage = new wxBitmap();
+	p1 = new wxStaticBitmap(this,wxID_ANY,b.GetSubBitmap(wxRect(0,0,20,30)),wxPoint(10,10));
+	p1->SetBackgroundColour(wxTRANSPARENT);*/
 }
+	
+
 
 
 void GameScene::OnPressKeyboard(wxKeyEvent& event)
@@ -114,7 +122,7 @@ void GameScene::OnPressKeyboard(wxKeyEvent& event)
 
 	}
 
-	switch(event.GetKeyCode()-64)
+	/*switch(event.GetKeyCode()-64)
 	{
 		case WXK_CONTROL_W:
 		player->Move(3);
@@ -138,14 +146,14 @@ void GameScene::OnPressKeyboard(wxKeyEvent& event)
 		break;
 	default:
 		break;
-	}
+	}*/
 	
 	
 	
 	
 }
 
-bool GameScene::MovingPlayer()
+/*bool GameScene::MovingPlayer()
 {
 
 	if (player->GetPosition().x < 0 || player->GetPosition().y < 0 || player->GetPosition().x >= level->GetW() || player->GetPosition().y >= level->GetH())
@@ -233,4 +241,12 @@ void GameScene::CreateImage()
 
 	}
 	image->SaveFile("Image/Map.png",wxBITMAP_TYPE_PNG);
+}*/
+
+void GameScene::OnTimer(wxTimerEvent& event)
+{
+	this->Refresh();
 }
+BEGIN_EVENT_TABLE(GameScene, wxPanel)
+	EVT_TIMER(TIMER_ID, GameScene::OnTimer)
+END_EVENT_TABLE()
