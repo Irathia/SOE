@@ -35,6 +35,11 @@ wxPoint Unit::GetPosition() const
 	return coordinate;
 }
 
+wxPoint Unit::GetArrPosition() const
+{
+	return arrcord;
+}
+
 wxBitmap* Unit::GetImage() const
 {
 	return image;
@@ -101,6 +106,11 @@ void Unit::SetImage(wxBitmap* value)
 void Unit::SetPosition(wxPoint value)
 {
 	coordinate = value;
+}
+
+void Unit::SetArrPosition(wxPoint value)
+{
+	arrcord = value;
 }
 
 void Unit::SetCurrentImage(wxBitmap bmp)
