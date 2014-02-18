@@ -9,11 +9,10 @@ public:
 	GameScene(wxWindow* parent, Model* model);
 	void OnPaint(wxPaintEvent& event);
 	void OnPressKeyboard(wxKeyEvent& event);
+	void OnEraseBackground(wxEraseEvent & event);
 	void OnTimer(wxTimerEvent& event);
 private:
 	Model* model;
-	int starti;
-	int startj;
 	wxBitmap* image;
 	wxTimer timer;
 
