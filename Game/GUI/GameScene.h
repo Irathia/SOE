@@ -13,7 +13,7 @@ public:
 	void OnTimer(wxTimerEvent& event);
 private:
 	Model* model;
-	wxBitmap* image;
+	//wxBitmap* image;
 	wxTimer timer;
 
 	DECLARE_EVENT_TABLE()

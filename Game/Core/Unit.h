@@ -16,7 +16,6 @@ public:
 	int GetDefence() const;
 	int GetFactor() const;
 	wxPoint GetPosition() const;
-	wxPoint GetArrPosition() const;
 	wxBitmap* GetImage() const;
 	wxBitmap GetCurrentImage() const;
 
@@ -30,7 +29,6 @@ public:
 	void SetImage(wxBitmap* value);
 	void SetCurrentImage(wxBitmap bmp);
 	void SetPosition(wxPoint value);
-	void SetArrPosition(wxPoint value);
 private:
 	int k;
 	int health;
@@ -42,5 +40,4 @@ private:
 	wxBitmap* image;
 	wxBitmap currentImage;
 	wxPoint coordinate;
-	wxPoint arrcord;
 };

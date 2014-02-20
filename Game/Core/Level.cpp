@@ -9,33 +9,33 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 	int chest = 3;
 	int ladder = 4;
 
-	w = _n;
-	h = _m;
+	h = _n;
+	w = _m;
 	int chest_n = _chest_n;
 	sealed = _sealed;
-	int** arr = new int*[w];
+	int** arr = new int*[h];
 
-	for (int i = 0; i < w; i++)
+	for (int i = 0; i < h; i++)
 	{
-		arr[i] = new int[h];
+		arr[i] = new int[w];
 	}
 	//создание внешних стен
-	for (int i = 0; i < w; i++)
+	for (int i = 0; i < h; i++)
 	{
-		for (int j = 0; j < h; j++)
+		for (int j = 0; j < w; j++)
 		{
 			arr[i][j] = 0;
-			if (i == 0 || i == w-1)
+			if (i == 0 || i == h-1)
 				arr[i][j] = wall;
-			if (j == 0 || j == h-1)
+			if (j == 0 || j == w-1)
 				arr[i][j] = wall;
 
 		}
 	}
 	// создание уровней
-	for (int i = 0; i < w; i++)
+	for (int i = 0; i < h; i++)
 	{
-		for (int j = 0; j < h; j++)
+		for (int j = 0; j < w; j++)
 		{
 			if (i%2 == 0)
 				arr[i][j] = wall;
@@ -43,9 +43,9 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 		}
 	}
 	//создание перегородок в уровнях
-	for (int i = 1; i < w-1; i++)
+	for (int i = 1; i < h-1; i++)
 	{
-		for (int j = 1; j < h-1; j++)
+		for (int j = 1; j < w-1; j++)
 		{
 			int a = rand()%10;
 			if (a == 0)
@@ -56,19 +56,19 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 		}
 	}
 
-	int enter = rand()%(h-2)+1;
-	int exit = rand()%(h-2)+1;
+	int enter = rand()%(w-2)+1;
+	int exit = rand()%(w-2)+1;
 
 	arr[0][enter] = ladder;
 	arr[1][enter] = ladder;
 	arr[1][enter-1] = back;
-	arr[w-1][exit] = ladder;
-	arr[w-2][exit] = back;
+	arr[h-1][exit] = ladder;
+	arr[h-2][exit] = back;
 
 	// создание переходов между уровнями
-	for (int i = 1; i < w-1; i++)
+	for (int i = 1; i < h-1; i++)
 	{
-		for (int j = 1; j < h-1; j++)
+		for (int j = 1; j < w-1; j++)
 		{
 			int count = 0;
 			if (arr[i-1][j] == back)
@@ -84,9 +84,12 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 				int a = rand()%2;
 				if (a == 0)
 				{
-					if (i+1 != w-1)
+					if (i+1 != h-1)
 						arr[i+1][j] = back;
-
+					//**add
+					if (i+1 == h-1)
+						arr[i-1][j] = back;
+					//
 					while (arr[i][j] != wall)
 						j++;
 				}
@@ -95,7 +98,7 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 					while (arr[i][j] != wall)
 						j++;
 
-					if (i+1 != w-1 && j-1 != 0)
+					if (i+1 != h-1 && j-1 != 0)
 						arr[i+1][j-1] = back;
 				}
 
@@ -104,9 +107,9 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 	}
 
 	//создание лестниц
-	for (int i = 1; i < w-1; i++)
+	for (int i = 1; i < h-1; i++)
 	{
-		for (int j = 1; j < h-1; j++)
+		for (int j = 1; j < w-1; j++)
 		{
 			int count = 0;
 			if (arr[i-1][j] == back)
@@ -126,9 +129,9 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 
 		}
 	}
-	for (int i = 1; i < w-1; i++)
+	for (int i = 1; i < h-1; i++)
 	{
-		for (int j = 1; j < h-1; j++)
+		for (int j = 1; j < w-1; j++)
 		{
 			if (arr[i][j] == ladder && arr[i+1][j] == back)
 			{
@@ -138,21 +141,21 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 	}
 
 	//создание телепорта
-	int teleport_x = rand()%(h-2)+1;
-	int teleport_y = rand()%(w-2)+1;
+	int teleport_x = rand()%(w-2)+1;
+	int teleport_y = rand()%(h-2)+1;
 
 	if (arr[teleport_y][teleport_x] == back)
 		arr[teleport_y][teleport_x] = teleport;
 	else
 	{
-		for (int i = 0; i < w; i++)
+		for (int i = 0; i < h; i++)
 		{
-			for (int j = 0; j < h; j++)
+			for (int j = 0; j < w; j++)
 			{
-				if (arr[(teleport_y+i)%(w-2)+1][(teleport_x+j)%(h-2)+1] == back)
+				if (arr[(teleport_y+i)%(h-2)+1][(teleport_x+j)%(w-2)+1] == back)
 				{
-					teleport_x = (teleport_x + j)%(h-2)+1;
-					teleport_y = (teleport_y + i)%(w-2)+1;
+					teleport_x = (teleport_x + j)%(w-2)+1;
+					teleport_y = (teleport_y + i)%(h-2)+1;
 					if (arr[teleport_y+1][teleport_x] == wall && arr[teleport_y-1][teleport_x] == wall)
 					{
 						arr[teleport_y][teleport_x] = teleport;
@@ -170,9 +173,9 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 	int count = 0;
 	while (count != chest_n)
 	{
-		for (int i = 1; i < w-1; i++)
+		for (int i = 1; i < h-1; i++)
 		{
-			for (int j = 1; j < h-1; j++)
+			for (int j = 1; j < w-1; j++)
 			{
 				if (count == chest_n)
 					break;
@@ -192,16 +195,16 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 	}
 
 	
-	map = new int*[2*w-1];
+	map = new int*[2*h-1];
 
-	for (int i = 0; i < 2*w-1; i++)
-		map[i] = new int[h];
+	for (int i = 0; i < 2*h-1; i++)
+		map[i] = new int[w];
 	int t = 0;
-	for (int i = 0; i < w; i++)
+	for (int i = 0; i < h; i++)
 	{
 		if (i%2 != 0)
 		{
-			for (int j = 0; j < h; j++)
+			for (int j = 0; j < w; j++)
 			{
 				if (arr[i][j] == 3 || arr[i][j] == 5 || arr[i][j] == 2 || arr[i][j] == 6)
 				{
@@ -221,7 +224,7 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 		}
 		else
 		{
-			for (int j = 0; j < h; j++)
+			for (int j = 0; j < w; j++)
 			{
 				map[t][j] = arr[i][j];
 			}
@@ -229,7 +232,7 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 		}
 		
 	}
-	w = 2*w-1;
+	h = 2*h-1;
 
 }
 
@@ -243,11 +246,11 @@ Level::Level(string file_name)
 	int a, b, c;
 	file >> a;
 
-	map = new int*[w];
+	map = new int*[h];
 
-	for (int i = 0; i < w; i++)
+	for (int i = 0; i < h; i++)
 	{
-		map[i] = new int[h];
+		map[i] = new int[w];
 	}
 
 	int i = 0, j = 0;
@@ -290,20 +293,20 @@ Level::Level(string file_name)
 			map[i][j] = 6;
 			j++;
 		}
-		if (j == h)
+		if (j == w)
 		{
 			j = 0;
 			i++;
 		}
-		if (i == w)
+		if (i == h)
 			break;
 	}
 
 	file.close();
 
-	for (int i = 0; i < w; i++)
+	for (int i = 0; i < h; i++)
 	{
-		for (int j = 0; j < h; j++)
+		for (int j = 0; j < w; j++)
 		{
 			cout << map[i][j];
 
@@ -321,9 +324,9 @@ void Level::Save(string file_name) const
 	//file <<	255 << " " << 0 << " " << 0 << endl;
 	//file <<	0 << " " << 255 << " " << 0 << endl;
 	//file <<	0 << " " << 0 << " " << 255 << endl;
-	for (int i = 0; i < w; i++)
+	for (int i = 0; i < h; i++)
 	{
-		for (int j = 0; j < h; j++)
+		for (int j = 0; j < w; j++)
 		{
 			switch(map[i][j])
 			{
@@ -344,7 +347,7 @@ void Level::Save(string file_name) const
 }
 Level::~Level(void)
 {
-	for (int i = 0; i < w; i++)
+	for (int i = 0; i < h; i++)
 	{
 		delete [] map[i];
 	}

@@ -11,8 +11,10 @@ class Model
 {
 public:
 	Model();
-	wxBitmap* GetImage() const;
+	wxBitmap GetImage() const;
 	wxPoint FindPositionForPlayer(bool direction);//0 - from top, 1 - from bottom
+	void SetSize(wxSize size);
+	wxPoint FindStartForImage() const;
 	void update(wxPoint point, wxBitmap set);
 	void CreateImage();
 	void OnPressKeyboard(int key);
@@ -23,5 +25,7 @@ private:
 	vector <Level*> levels;
 	Player* player;
 	int currentLevel;
+
+	wxSize size;
 
 };

@@ -9,10 +9,10 @@ GameScene::GameScene(wxWindow* parent, Model* model):wxPanel(parent),timer(this,
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	this->model  = model;
-	image = model->GetImage();
+	//image = model->GetImage());
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(GameScene::OnPaint));
 	this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(GameScene::OnPressKeyboard));
-	timer.Start(100);
+	
 }
 
 
@@ -20,13 +20,20 @@ GameScene::GameScene(wxWindow* parent, Model* model):wxPanel(parent),timer(this,
 
 void GameScene::OnPaint(wxPaintEvent& event)
 {
-	wxBufferedPaintDC dc(this);
+	if (timer.IsRunning() == false)
+		timer.Start(100);
 	int h = 0, w = 0;
-	this->GetSize(&h,&w);
-	image = model->GetImage();
+	this->GetSize(&w,&h);
+	if (w == 0 || h == 0)
+		return;
+	this->model->SetSize(wxSize(w,h));
+	wxBufferedPaintDC dc(this);
+	
+	wxBitmap image = model->GetImage();
 	dc.Clear();
-	wxMemoryDC mc(*image);
-	dc.Blit(0,0,h,w,&mc,0,0);
+	dc.DrawBitmap(image,0,0);
+	//wxMemoryDC mc(image);
+	//dc.Blit(0,0,h,w,&mc,0,0);
 }
 	
 
