@@ -2,7 +2,7 @@
 #include <wx/dcmemory.h>
 #include <wx/event.h>
 
-Model::Model()
+Model::Model():wxEvtHandler()
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	this->size = size;
@@ -10,9 +10,30 @@ Model::Model()
 	levels.push_back(zl);
 	currentLevel = 0;
 	wxPoint p = FindPositionForPlayer(0);
-	player = new Player(p);
+	player = new Player(p,levels[currentLevel]);
 	img = new wxBitmap(levels[0]->GetW()*20, levels[0]->GetH()*20);
 	CreateImage();
+	this->Connect(wxEVT_TIMER,wxTimerEventHandler(Model::OnTimer));
+	int numer = 30;rand()%20;
+
+	for(int i = 0; i < numer; i++)
+	{
+		int t = rand()%2;
+		if (t == 0)
+		{
+			Monster* m = new Monster(levels[currentLevel],wxString("Zomby"),monsters);
+			monsters.push_back(m);
+		}
+		else
+		{
+			Monster* m = new Monster(levels[currentLevel],wxString("Mummy"),monsters);
+			monsters.push_back(m);
+		}
+
+		
+	}
+	timer = new wxTimer(this);
+	timer->Start(1000);
 }
 
 void Model::SetSize(wxSize size)
@@ -20,6 +41,14 @@ void Model::SetSize(wxSize size)
 	this->size = size;
 }
 
+void Model::OnTimer(wxTimerEvent& event)
+{
+	for(int i = 0; i < monsters.size(); i++)
+	{
+		monsters[i]->Move(0);
+		update(wxPoint(((int)((monsters[i]->GetPosition().x-monsters[i]->GetSpeed())/20))*20,((int)((monsters[i]->GetPosition().y-10)/20))*20),CreateSubImage(wxPoint((int)((monsters[i]->GetPosition().x-monsters[i]->GetSpeed())/20),(int)((monsters[i]->GetPosition().y-10)/20)),wxPoint((int)((monsters[i]->GetPosition().x+20+monsters[i]->GetSpeed())/20)+1,(int)((monsters[i]->GetPosition().y+30)/20))));
+	}
+}
 wxBitmap Model::GetImage() const
 {
 	wxPoint start = FindStartForImage();
@@ -54,6 +83,8 @@ void Model::update(wxPoint point, wxBitmap set)
 	wxMemoryDC mc(*img);
 	mc.DrawBitmap(set,point);
 	mc.DrawBitmap(player->GetCurrentImage(),player->GetPosition().x,player->GetPosition().y, true);
+	for(int i = 0; i < monsters.size(); i++)
+		mc.DrawBitmap(monsters[i]->GetCurrentImage(),monsters[i]->GetPosition().x,monsters[i]->GetPosition().y, true);
 	//img->SaveFile("Image/Test.png", wxBITMAP_TYPE_PNG);
 }
 
@@ -177,7 +208,7 @@ wxBitmap Model::CreateSubImage(wxPoint start, wxPoint end)
 	}
 
 	
-	bmp.SaveFile("Image/bmp.png",wxBITMAP_TYPE_PNG);
+	//bmp.SaveFile("Image/bmp.png",wxBITMAP_TYPE_PNG);
 	return bmp;
 }
 
@@ -191,7 +222,7 @@ void Model::OnPressKeyboard(int key)
 		P = player->GetPosition();
 		Endx = (int)((P.x + 20)/ 20)+1;
 		Endy = (int)((P.y  + 30)/ 20)+1;
-		if(player->Move(3,levels[currentLevel]))
+		if(player->Move(3))
 		{
 			P = player->GetPosition();
 			Startx = (int)(P.x / 20);
@@ -203,7 +234,7 @@ void Model::OnPressKeyboard(int key)
 		P = player->GetPosition();
 		Endx = (int)((P.x + 20)/ 20)+1;
 		Endy = (int)((P.y  + 30)/ 20)+1;
-		if(player->Move(2,levels[currentLevel]))
+		if(player->Move(2))
 		{
 			P = player->GetPosition();
 			Starty = (int)(P.y / 20);
@@ -215,7 +246,7 @@ void Model::OnPressKeyboard(int key)
 		P = player->GetPosition();
 		Starty = (int)(P.y / 20);
 		Startx = (int)(P.x / 20);
-		if(player->Move(4,levels[currentLevel]))
+		if(player->Move(4))
 		{
 			P = player->GetPosition();
 			Endx = (int)((P.x + 20) / 20)+1;
@@ -227,7 +258,7 @@ void Model::OnPressKeyboard(int key)
 		P = player->GetPosition();
 		Starty = (int)(P.y / 20);
 		Startx = (int)(P.x / 20);
-		if(player->Move(1,levels[currentLevel]))
+		if(player->Move(1))
 		{
 			P = player->GetPosition();
 			Endx = (int)((P.x + 20) / 20)+1;
@@ -265,4 +296,3 @@ void Model::OnPressKeyboard(int key)
 		break;
 	}
 }
-

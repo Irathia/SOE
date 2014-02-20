@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="Game\Core\Level.cpp" />
     <ClCompile Include="Game\Core\Model.cpp" />
+    <ClCompile Include="Game\Core\Monster.cpp" />
     <ClCompile Include="Game\Core\Player.cpp" />
     <ClCompile Include="Game\Core\Unit.cpp" />
     <ClCompile Include="Game\GUI\DialogForNewGame.cpp" />
@@ -27,6 +28,7 @@
   <ItemGroup>
     <ClInclude Include="Game\Core\Level.h" />
     <ClInclude Include="Game\Core\Model.h" />
+    <ClInclude Include="Game\Core\Monster.h" />
     <ClInclude Include="Game\Core\Player.h" />
     <ClInclude Include="Game\Core\Unit.h" />
     <ClInclude Include="Game\GUI\DialogForNewGame.h" />

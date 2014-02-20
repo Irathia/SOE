@@ -75,6 +75,9 @@
     <ClCompile Include="Game\Core\Model.cpp">
       <Filter>Source Files\Game\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Core\Monster.cpp">
+      <Filter>Source Files\Game\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\GUI\DialogForNewGame.h">
@@ -111,6 +114,9 @@
       <Filter>Header Files\Game\Core</Filter>
     </ClInclude>
     <ClInclude Include="Game\Core\Model.h">
+      <Filter>Header Files\Game\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Core\Monster.h">
       <Filter>Header Files\Game\Core</Filter>
     </ClInclude>
   </ItemGroup>

@@ -45,6 +45,11 @@ wxBitmap Unit::GetCurrentImage() const
 	return currentImage;
 }
 
+Level* Unit::GetCurrentLevel() const
+{
+	return currentLevel;
+}
+
 void Unit::HealthUp(int value)
 {
 	if (health+value >= (k*level)*100)
@@ -107,4 +112,19 @@ void Unit::SetPosition(wxPoint value)
 void Unit::SetCurrentImage(wxBitmap bmp)
 {
 	currentImage = bmp;
+}
+
+void Unit::SetCurrentLevel(Level* value)
+{
+	currentLevel = value;
+}
+
+bool Unit::GetP()
+{
+	bool t = p;
+	if (p == true)
+		p = false;
+	else
+		p = true;
+	return t;
 }

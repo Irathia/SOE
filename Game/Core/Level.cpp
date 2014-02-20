@@ -56,14 +56,7 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 		}
 	}
 
-	int enter = rand()%(w-2)+1;
-	int exit = rand()%(w-2)+1;
-
-	arr[0][enter] = ladder;
-	arr[1][enter] = ladder;
-	arr[1][enter-1] = back;
-	arr[h-1][exit] = ladder;
-	arr[h-2][exit] = back;
+	
 
 	// создание переходов между уровнями
 	for (int i = 1; i < h-1; i++)
@@ -105,6 +98,15 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 			}
 		}
 	}
+
+	int enter = rand()%(w-2)+1;
+	int exit = rand()%(w-2)+1;
+
+	arr[0][enter] = ladder;
+	arr[1][enter] = ladder;
+	arr[1][enter-1] = back;
+	arr[h-1][exit] = ladder;
+	arr[h-2][exit] = back;
 
 	//создание лестниц
 	for (int i = 1; i < h-1; i++)

@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(wxPoint first)
+Player::Player(wxPoint first, Level* level)
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	SetPosition(first);
@@ -8,10 +8,11 @@ Player::Player(wxPoint first)
 	SetImage(bmp);
 	SetCurrentImage(GetImage()->GetSubBitmap(wxRect(60,0,20,30)));
 	SetSpeed(5);
+	SetCurrentLevel(level);
 }
-bool Player::Move(int direction, Level* level)
+int Player::Move(int direction)
 {
-	
+	Level* level = GetCurrentLevel();
 	int const RIGHT = 1;
 	int const LEFT = 2;
 	int const UP = 3;
@@ -20,7 +21,7 @@ bool Player::Move(int direction, Level* level)
 	int x = 0;
 	int y = 0;
 	wxPoint newP(0,0);
-	GetP();
+	bool p = GetP();
 
 	switch(direction)
 	{
@@ -174,12 +175,3 @@ void Player::LevelUp()
 
 }
 
-bool Player::GetP()
-{
-	bool t = p;
-	if (p == true)
-		p = false;
-	else
-		p = true;
-	return t;
-}

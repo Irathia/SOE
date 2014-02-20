@@ -2,13 +2,14 @@
 
 #include <wx/bitmap.h>
 #include <wx/position.h>
+#include "Level.h"
 
 class Unit
 {
 public:
 	virtual void Fight() = 0;
 	virtual void Death() = 0;
-
+	virtual int Move(int direction) = 0;
 	int GetHealth() const;
 	int GetDamage() const;
 	int GetSpeed() const;
@@ -18,6 +19,8 @@ public:
 	wxPoint GetPosition() const;
 	wxBitmap* GetImage() const;
 	wxBitmap GetCurrentImage() const;
+	Level* GetCurrentLevel() const;
+	bool GetP();
 
 	void HealthUp(int value);
 	void HealthDown(int value);
@@ -29,7 +32,9 @@ public:
 	void SetImage(wxBitmap* value);
 	void SetCurrentImage(wxBitmap bmp);
 	void SetPosition(wxPoint value);
+	void SetCurrentLevel(Level* value);
 private:
+	bool p;
 	int k;
 	int health;
 	int speed;
@@ -40,4 +45,5 @@ private:
 	wxBitmap* image;
 	wxBitmap currentImage;
 	wxPoint coordinate;
+	Level* currentLevel;
 };
