@@ -8,7 +8,7 @@ class Monster : public Unit
 public:
 	Monster(Level* level, wxString type, std::vector <Monster*> monster);
 	virtual int Move(int direction);
-	virtual void Fight();
+	virtual void Fight(int a);
 	virtual void Death();
 	virtual void LevelUp();
 

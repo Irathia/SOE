@@ -125,7 +125,7 @@ wxPoint Monster::FindPosition(std::vector <Monster*> monsters)
 	return wxPoint(p.x*20,p.y*20+10);
 }
 
-void Monster::Fight()
+void Monster::Fight(int a)
 {
 }
 void Monster::Death()

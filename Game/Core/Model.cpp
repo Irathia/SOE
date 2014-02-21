@@ -6,7 +6,7 @@ Model::Model():wxEvtHandler()
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	this->size = size;
-	Level* zl = new Level(21,50,15, false);// zerro level h = 21*2-1 w = 50
+	Level* zl = new Level(21,70,20, false);// zerro level h = 21*2-1 w = 50
 	levels.push_back(zl);
 	currentLevel = 0;
 	wxPoint p = FindPositionForPlayer(0);
@@ -14,8 +14,7 @@ Model::Model():wxEvtHandler()
 	img = new wxBitmap(levels[0]->GetW()*20, levels[0]->GetH()*20);
 	CreateImage();
 	this->Connect(wxEVT_TIMER,wxTimerEventHandler(Model::OnTimer));
-	int numer = 30;rand()%20;
-
+	int numer = 30;
 	for(int i = 0; i < numer; i++)
 	{
 		int t = rand()%2;
@@ -33,7 +32,8 @@ Model::Model():wxEvtHandler()
 		
 	}
 	timer = new wxTimer(this);
-	timer->Start(1000);
+	timer->Start(200);
+	counter = 0;
 }
 
 void Model::SetSize(wxSize size)
@@ -43,11 +43,24 @@ void Model::SetSize(wxSize size)
 
 void Model::OnTimer(wxTimerEvent& event)
 {
-	for(int i = 0; i < monsters.size(); i++)
+	if (counter == 5)
 	{
-		monsters[i]->Move(0);
-		update(wxPoint(((int)((monsters[i]->GetPosition().x-monsters[i]->GetSpeed())/20))*20,((int)((monsters[i]->GetPosition().y-10)/20))*20),CreateSubImage(wxPoint((int)((monsters[i]->GetPosition().x-monsters[i]->GetSpeed())/20),(int)((monsters[i]->GetPosition().y-10)/20)),wxPoint((int)((monsters[i]->GetPosition().x+20+monsters[i]->GetSpeed())/20)+1,(int)((monsters[i]->GetPosition().y+30)/20))));
+		for(int i = 0; i < monsters.size(); i++)
+		{
+			monsters[i]->Move(0);
+			update(wxPoint(((int)((monsters[i]->GetPosition().x-monsters[i]->GetSpeed())/20))*20,((int)((monsters[i]->GetPosition().y-10)/20))*20),CreateSubImage(wxPoint((int)((monsters[i]->GetPosition().x-monsters[i]->GetSpeed())/20),(int)((monsters[i]->GetPosition().y-10)/20)),wxPoint((int)((monsters[i]->GetPosition().x+20+monsters[i]->GetSpeed())/20)+1,(int)((monsters[i]->GetPosition().y+30)/20))));
+		}
+		counter = 0;
 	}
+	counter++;
+	player->Move(player->GetDirection());
+	int startx = (int)((player->GetPosition().x - player->GetSpeed())/20);
+	int starty = (int)((player->GetPosition().y - player->GetSpeed())/20);
+	int endx = (int)((player->GetPosition().x + 40 + player->GetSpeed())/20);
+	int endy = (int)((player->GetPosition().y + player->GetSpeed() + 60)/20);
+	player->SetDirection(0);
+
+	update(wxPoint(startx*20,starty*20),CreateSubImage(wxPoint(startx,starty),wxPoint(endx,endy)));
 }
 wxBitmap Model::GetImage() const
 {
@@ -219,7 +232,8 @@ void Model::OnPressKeyboard(int key)
 	switch(key-64)
 	{
 	case WXK_CONTROL_W:
-		P = player->GetPosition();
+		player->SetDirection(3);
+		/*P = player->GetPosition();
 		Endx = (int)((P.x + 20)/ 20)+1;
 		Endy = (int)((P.y  + 30)/ 20)+1;
 		if(player->Move(3))
@@ -228,10 +242,11 @@ void Model::OnPressKeyboard(int key)
 			Startx = (int)(P.x / 20);
 			Starty = (int)(P.y / 20);
 			update(wxPoint(Startx*20, Starty*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
-		}
+		}*/
 		break;
 	case WXK_CONTROL_A:
-		P = player->GetPosition();
+		player->SetDirection(2);
+		/*P = player->GetPosition();
 		Endx = (int)((P.x + 20)/ 20)+1;
 		Endy = (int)((P.y  + 30)/ 20)+1;
 		if(player->Move(2))
@@ -240,10 +255,11 @@ void Model::OnPressKeyboard(int key)
 			Starty = (int)(P.y / 20);
 			Startx = (int)(P.x / 20);
 			update(wxPoint(Startx*20, Starty*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
-		}
+		}*/
 		break;
 	case WXK_CONTROL_S:
-		P = player->GetPosition();
+		player->SetDirection(4);
+		/*P = player->GetPosition();
 		Starty = (int)(P.y / 20);
 		Startx = (int)(P.x / 20);
 		if(player->Move(4))
@@ -252,10 +268,11 @@ void Model::OnPressKeyboard(int key)
 			Endx = (int)((P.x + 20) / 20)+1;
 			Endy = (int)((P.y + 30) / 20)+1;
 			update(wxPoint(Startx*20, Starty*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
-		}
+		}*/
 		break;
 	case WXK_CONTROL_D:
-		P = player->GetPosition();
+		player->SetDirection(1);
+		/*P = player->GetPosition();
 		Starty = (int)(P.y / 20);
 		Startx = (int)(P.x / 20);
 		if(player->Move(1))
@@ -264,7 +281,7 @@ void Model::OnPressKeyboard(int key)
 			Endx = (int)((P.x + 20) / 20)+1;
 			Endy = (int)((P.y + 30) / 20)+1;
 			update(wxPoint(Startx*20, Starty*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
-		}
+		}*/
 		break;
 	case WXK_CONTROL_E:
 		P = player->GetPosition();

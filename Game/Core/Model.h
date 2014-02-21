@@ -33,5 +33,5 @@ private:
 	wxSize size;
 	wxTimer* timer;
 
-
+	int counter;
 };

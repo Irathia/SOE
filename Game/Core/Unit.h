@@ -7,7 +7,7 @@
 class Unit
 {
 public:
-	virtual void Fight() = 0;
+	virtual void Fight(int a) = 0;
 	virtual void Death() = 0;
 	virtual int Move(int direction) = 0;
 	int GetHealth() const;

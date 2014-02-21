@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(wxPoint first, Level* level)
+Player::Player(wxPoint first, Level* level):direction(0)
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	SetPosition(first);
@@ -147,9 +147,9 @@ int Player::Move(int direction)
 			{
 				SetPosition(GetPosition()+=wxSize(0,GetSpeed()));
 				if (p == true)
-					SetCurrentImage(GetImage()->GetSubBitmap(wxRect(80,0,20,30)));
-				else
 					SetCurrentImage(GetImage()->GetSubBitmap(wxRect(60,0,20,30)));
+				else
+					SetCurrentImage(GetImage()->GetSubBitmap(wxRect(80,0,20,30)));
 
 
 				return true;
@@ -162,8 +162,9 @@ int Player::Move(int direction)
 	}
 }
 
-void Player::Fight()
+void Player::Fight(int a)
 {
+	
 }
 
 void Player::Death()
@@ -175,3 +176,12 @@ void Player::LevelUp()
 
 }
 
+int Player::GetDirection() const
+{
+	return direction;
+}
+
+void Player::SetDirection(int value)
+{
+	direction = value;
+}
