@@ -4,6 +4,8 @@ Monster::Monster(Level* level, wxString type, std::vector <Monster*> monsters):d
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	this->type = type;
+	SetHealth(100);
+	SetDamage(20);
 	wxBitmap* bmp = new wxBitmap("Image/"+type+".png", wxBITMAP_TYPE_PNG);
 	SetImage(bmp);
 	SetCurrentImage(GetImage()->GetSubBitmap(wxRect(0,0,20,30)));
@@ -125,11 +127,33 @@ wxPoint Monster::FindPosition(std::vector <Monster*> monsters)
 	return wxPoint(p.x*20,p.y*20+10);
 }
 
-void Monster::Fight(int a)
+void Monster::Fight(Unit* player)
+{
+	if (this->direction == 1)
+	{
+		if (player->GetPosition().x + 8 <= this->GetPosition().x + 17 && player->GetPosition().x + 12 >= this->GetPosition().x + 17 && player->GetPosition().y == this->GetPosition().y)
+		{
+			if (player->HealthDown(this->GetDamage()) == false)
+				player->Death();
+		}
+	}
+	if (this->direction == 2)
+	{
+		if (player->GetPosition().x + 12 >= this->GetPosition().x + 3 && player->GetPosition().x + 8 <= this->GetPosition().x + 3 && player->GetPosition().y == this->GetPosition().y)
+		{
+			if (player->HealthDown(this->GetDamage()) == false)
+				player->Death();
+		}
+	}
+}
+
+
+Monster::~Monster()
 {
 }
 void Monster::Death()
 {
+	//create death
 }
 void Monster::LevelUp()
 {

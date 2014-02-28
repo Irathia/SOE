@@ -80,7 +80,7 @@ void Game::OnPaint(wxPaintEvent& event)
     BoxSizer4->Add(Info, 1, wxALL | wxEXPAND, 5);
 
 	BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
-    GameW = new GameScene(this, model);
+    GameW = new GameScene(this, model,this);
 	GameW->SetBackgroundColour(*wxWHITE);
     BoxSizer2->Add(GameW, 3, wxALL | wxEXPAND, 5);
     BoxSizer2->Add(BoxSizer4, 1,wxALL | wxEXPAND, 0);
@@ -124,4 +124,12 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 		break;
 	}
 	
+}
+
+void Game::WeAreDead()
+{
+	wxMessageDialog* msg = new wxMessageDialog(this, "DEATH", "You are died!", wxYES_DEFAULT);
+	int a = msg->ShowModal();
+	if (a == wxID_YES)
+		this->Close(true);
 }

@@ -6,7 +6,7 @@
 #include <wx/panel.h>
 #include "GameScene.h"
 #include "../Core/Player.h"
-
+class GameScene;
 
 using namespace std;
 
@@ -17,6 +17,7 @@ public:
 
 	void OnPaint(wxPaintEvent& event);
 	void OnPressKeyboard(wxKeyEvent& event);
+	void WeAreDead();
 private:
 	Model* model;
 

@@ -1,14 +1,17 @@
 #include "Player.h"
 
-Player::Player(wxPoint first, Level* level):direction(0)
+Player::Player(wxPoint first, Level* level):direction(0),fight(0),dead(false)
 {
 	wxImage::AddHandler(new wxPNGHandler);
+	SetDamage(10);
 	SetPosition(first);
+	SetHealth(20);
 	wxBitmap* bmp = new wxBitmap("Image/Player.png", wxBITMAP_TYPE_PNG);
 	SetImage(bmp);
 	SetCurrentImage(GetImage()->GetSubBitmap(wxRect(60,0,20,30)));
 	SetSpeed(5);
 	SetCurrentLevel(level);
+	
 }
 int Player::Move(int direction)
 {
@@ -66,7 +69,7 @@ int Player::Move(int direction)
 		if (newP.x % 20 == 0)
 		{
 			SetPosition(GetPosition()+=wxSize(-GetSpeed(),0));
-			if (p == true)
+			if (p == false)
 				SetCurrentImage(GetImage()->GetSubBitmap(wxRect(100,0,20,30)));
 			else
 				SetCurrentImage(GetImage()->GetSubBitmap(wxRect(120,0,20,30)));
@@ -83,7 +86,7 @@ int Player::Move(int direction)
 			if (level->GetArr()[y + 1][x] != 1)
 			{
 				SetPosition(GetPosition()+=wxSize(-GetSpeed(),0));
-				if (p == true)
+				if (p == false)
 					SetCurrentImage(GetImage()->GetSubBitmap(wxRect(100,0,20,30)));
 				else
 					SetCurrentImage(GetImage()->GetSubBitmap(wxRect(120,0,20,30)));
@@ -162,13 +165,76 @@ int Player::Move(int direction)
 	}
 }
 
-void Player::Fight(int a)
+void Player::Fight(int a, std::vector <Monster*>* units)
 {
-	
+	switch(a)
+	{
+	case 1:
+		if (direction == -1)
+		{
+			SetCurrentImage(GetImage()->GetSubBitmap(wxRect(140,0,20,30)));
+		}
+		if (direction == -2)
+		{
+			SetCurrentImage(GetImage()->GetSubBitmap(wxRect(160,0,20,30)));
+		}
+		break;
+	case 2:
+		if (direction == -1)
+		{
+			SetCurrentImage(GetImage()->GetSubBitmap(wxRect(0,0,20,30)));
+
+			for (int i = 0; i < units->size(); i++)
+			{
+				if (GetPosition().y == units->at(i)->GetPosition().y)
+				{
+					if (units->at(i)->GetPosition().x + 3 >= GetPosition().x + 14 && units->at(i)->GetPosition().x + 3 <= GetPosition().x + 20)
+					{
+						if (units->at(i)->HealthDown(this->GetDamage()) == false)
+							units->erase(units->begin() + i);
+						break;
+
+						
+					}
+				}
+			}
+		}
+		if (direction == -2)
+		{
+			SetCurrentImage(GetImage()->GetSubBitmap(wxRect(120,0,20,30)));
+
+			for (int i = 0; i < units->size(); i++)
+			{
+				if (GetPosition().y == units->at(i)->GetPosition().y)
+				{
+					if (units->at(i)->GetPosition().x + 17 >= GetPosition().x && units->at(i)->GetPosition().x + 17 <= GetPosition().x + 6)
+					{
+						if (units->at(i)->HealthDown(this->GetDamage()) == false)
+							units->erase(units->begin() + i);
+						break;
+					}
+				}
+			}
+		}
+		break;
+	case 3:
+		if (direction == -1)
+		{
+			SetCurrentImage(GetImage()->GetSubBitmap(wxRect(40,0,20,30)));
+		}
+		if (direction == -2)
+		{
+			SetCurrentImage(GetImage()->GetSubBitmap(wxRect(180,0,20,30)));
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 void Player::Death()
 {
+	dead = true;
 }
 
 void Player::LevelUp()
@@ -184,4 +250,19 @@ int Player::GetDirection() const
 void Player::SetDirection(int value)
 {
 	direction = value;
+}
+
+int Player::GetFight() const
+{
+	return fight;
+}
+
+void Player::SetFight(int value)
+{
+	fight = value;
+}
+
+bool Player::GetDead() const
+{
+	return dead;
 }

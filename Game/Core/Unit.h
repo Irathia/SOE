@@ -7,7 +7,7 @@
 class Unit
 {
 public:
-	virtual void Fight(int a) = 0;
+	//virtual void Fight(int a, std::vector <Unit*> units) = 0;
 	virtual void Death() = 0;
 	virtual int Move(int direction) = 0;
 	int GetHealth() const;
@@ -16,6 +16,7 @@ public:
 	int GetMana() const;
 	int GetDefence() const;
 	int GetFactor() const;
+	//int GetHealth() const;
 	wxPoint GetPosition() const;
 	wxBitmap* GetImage() const;
 	wxBitmap GetCurrentImage() const;
@@ -23,12 +24,13 @@ public:
 	bool GetP();
 
 	void HealthUp(int value);
-	void HealthDown(int value);
+	bool HealthDown(int value);
 	void ManaUp(int value);
 	bool ManaDown(int value);
 	void SetSpeed(int value);
 	void SetDamage(int value);
 	void SetDefence(int value);
+	void SetHealth(int value);
 	void SetImage(wxBitmap* value);
 	void SetCurrentImage(wxBitmap bmp);
 	void SetPosition(wxPoint value);

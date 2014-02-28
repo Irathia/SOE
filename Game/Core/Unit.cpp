@@ -58,12 +58,13 @@ void Unit::HealthUp(int value)
 		health += value;
 }
 
-void Unit::HealthDown(int value)
+bool Unit::HealthDown(int value)
 {
 	if (health - value <= 0)
-		Death();
+		return false;
 	else
 		health -= value;
+	return true;
 }
 
 void Unit::ManaUp(int value)
@@ -103,6 +104,10 @@ void Unit::SetImage(wxBitmap* value)
 	image = value;
 }
 
+void Unit::SetHealth(int value)
+{
+	health = value;
+}
 void Unit::SetPosition(wxPoint value)
 {
 	coordinate = value;

@@ -2,10 +2,12 @@
 
 #include <wx/bitmap.h>
 #include <wx/timer.h>
+#include <wx/list.h>
 #include <vector>
 #include "Level.h"
 #include "Player.h"
 #include "Monster.h"
+
 
 using namespace std;
 
@@ -21,7 +23,9 @@ public:
 	void CreateImage();
 	void OnPressKeyboard(int key);
 	wxBitmap CreateSubImage(wxPoint start, wxPoint end);
-	void OnTimer(wxTimerEvent& event);
+	void OnTimerMonster(wxTimerEvent& event);
+	void OnTimerPlayer(wxTimerEvent& event);
+	bool GetStatusOfPlayer() const;
 private:
 	wxBitmap* img;
 	
@@ -31,7 +35,10 @@ private:
 	int currentLevel;
 
 	wxSize size;
-	wxTimer* timer;
+	wxTimer* MonsterTimer;
+	wxTimer* PlayerTimer;
 
 	int counter;
+
+	wxDECLARE_EVENT_TABLE();
 };

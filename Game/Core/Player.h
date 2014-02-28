@@ -1,17 +1,28 @@
 #pragma once
 
 #include "Unit.h"
+#include "Monster.h"
+#include <vector>
 
 class Player : public Unit
 {
 public:
 	Player(wxPoint first, Level* level);
 	virtual int Move(int direction);
-	virtual void Fight(int a);
+	void Fight(int a,std::vector <Monster*>* units);
 	virtual void Death();
 	virtual void LevelUp();
+
 	int GetDirection() const;
 	void SetDirection(int value);
+
+	int GetFight() const;
+	void SetFight(int value);
+
+	bool GetDead() const;
 private:
 	int direction;
+	int fight;
+
+	bool dead;
 };

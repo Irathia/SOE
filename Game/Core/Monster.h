@@ -1,5 +1,6 @@
 #pragma once
 
+//#include "Player.h"
 #include "Unit.h"
 #include <vector>
 
@@ -7,8 +8,9 @@ class Monster : public Unit
 {
 public:
 	Monster(Level* level, wxString type, std::vector <Monster*> monster);
+	~Monster();
 	virtual int Move(int direction);
-	virtual void Fight(int a);
+	void Fight(Unit* player);
 	virtual void Death();
 	virtual void LevelUp();
 

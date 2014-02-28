@@ -3,10 +3,12 @@
 #include <wx/dcclient.h>
 #include <wx/dcmemory.h>
 #include <wx/thread.h>
+#include <wx/wx.h>
 #define TIMER_ID 1000
 
-GameScene::GameScene(wxWindow* parent, Model* model):wxPanel(parent),timer(this, TIMER_ID)
+GameScene::GameScene(wxWindow* parent, Model* model, Game* game):wxPanel(parent),timer(this, TIMER_ID)
 {
+	this->parent = game;
 	wxImage::AddHandler(new wxPNGHandler);
 	this->model  = model;
 	//image = model->GetImage());
@@ -64,7 +66,15 @@ void GameScene::OnPressKeyboard(wxKeyEvent& event)
 
 void GameScene::OnTimer(wxTimerEvent& event)
 {
-	this->Refresh();
+	if (model->GetStatusOfPlayer() == true)
+	{
+		timer.Stop();
+		parent->WeAreDead();
+		
+	//msg->SetYesNoLabels((language->getValue("exitMessageDialogYes")).c_str(), (language->getValue("exitMessageDialogNo")).c_str());
+	}
+	else
+		this->Refresh();
 }
 
 void GameScene::OnEraseBackground(wxEraseEvent & event)

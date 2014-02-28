@@ -13,7 +13,6 @@ Model::Model():wxEvtHandler()
 	player = new Player(p,levels[currentLevel]);
 	img = new wxBitmap(levels[0]->GetW()*20, levels[0]->GetH()*20);
 	CreateImage();
-	this->Connect(wxEVT_TIMER,wxTimerEventHandler(Model::OnTimer));
 	int numer = 30;
 	for(int i = 0; i < numer; i++)
 	{
@@ -31,8 +30,11 @@ Model::Model():wxEvtHandler()
 
 		
 	}
-	timer = new wxTimer(this);
-	timer->Start(200);
+	MonsterTimer = new wxTimer(this,1);
+	MonsterTimer->Start(1000);
+
+	PlayerTimer = new wxTimer(this,2);
+	PlayerTimer->Start(200);
 	counter = 0;
 }
 
@@ -41,26 +43,66 @@ void Model::SetSize(wxSize size)
 	this->size = size;
 }
 
-void Model::OnTimer(wxTimerEvent& event)
+void Model::OnTimerMonster(wxTimerEvent& event)
 {
-	if (counter == 5)
+	if (player->GetDead() == true)
+	{
+		MonsterTimer->Stop();
+	}
+	else
 	{
 		for(int i = 0; i < monsters.size(); i++)
 		{
 			monsters[i]->Move(0);
+			monsters[i]->Fight(player);
 			update(wxPoint(((int)((monsters[i]->GetPosition().x-monsters[i]->GetSpeed())/20))*20,((int)((monsters[i]->GetPosition().y-10)/20))*20),CreateSubImage(wxPoint((int)((monsters[i]->GetPosition().x-monsters[i]->GetSpeed())/20),(int)((monsters[i]->GetPosition().y-10)/20)),wxPoint((int)((monsters[i]->GetPosition().x+20+monsters[i]->GetSpeed())/20)+1,(int)((monsters[i]->GetPosition().y+30)/20))));
 		}
-		counter = 0;
 	}
-	counter++;
-	player->Move(player->GetDirection());
-	int startx = (int)((player->GetPosition().x - player->GetSpeed())/20);
-	int starty = (int)((player->GetPosition().y - player->GetSpeed())/20);
-	int endx = (int)((player->GetPosition().x + 40 + player->GetSpeed())/20);
-	int endy = (int)((player->GetPosition().y + player->GetSpeed() + 60)/20);
-	player->SetDirection(0);
+	
+	
+}
 
-	update(wxPoint(startx*20,starty*20),CreateSubImage(wxPoint(startx,starty),wxPoint(endx,endy)));
+void Model::OnTimerPlayer(wxTimerEvent& event)
+{
+	if (player->GetDead() == true)
+	{
+		//MonsterTimer->Stop();
+		PlayerTimer->Stop();
+	}
+	else
+	{
+		if (player->GetDirection() > 0)
+		{
+			player->Move(player->GetDirection());
+			int startx = (int)((player->GetPosition().x - player->GetSpeed())/20);
+			int starty = (int)((player->GetPosition().y - player->GetSpeed())/20);
+			int endx = (int)((player->GetPosition().x + 40 + player->GetSpeed())/20);
+			int endy = (int)((player->GetPosition().y + player->GetSpeed() + 60)/20);
+			counter++;
+	
+			update(wxPoint(startx*20,starty*20),CreateSubImage(wxPoint(startx,starty),wxPoint(endx,endy)));
+		}
+	
+		if (counter == 2)
+		{
+			counter = 0;
+			player->SetDirection(-1*player->GetDirection());
+		}
+
+		if (player->GetFight() != 0)
+		{
+			player->Fight(player->GetFight(),&monsters);
+			player->SetFight(player->GetFight()-1);
+
+			int startx = (int)((player->GetPosition().x)/20-1);
+			int starty = (int)((player->GetPosition().y)/20);
+			int endx = (int)((player->GetPosition().x)/20 + 3);
+			int endy = (int)((player->GetPosition().y + 30)/20);
+			update(wxPoint(startx*20,starty*20),CreateSubImage(wxPoint(startx,starty),wxPoint(endx,endy)));
+		}
+	}
+	
+	
 }
 wxBitmap Model::GetImage() const
 {
@@ -219,9 +261,6 @@ wxBitmap Model::CreateSubImage(wxPoint start, wxPoint end)
 		}
 		y++;
 	}
-
-	
-	//bmp.SaveFile("Image/bmp.png",wxBITMAP_TYPE_PNG);
 	return bmp;
 }
 
@@ -233,55 +272,15 @@ void Model::OnPressKeyboard(int key)
 	{
 	case WXK_CONTROL_W:
 		player->SetDirection(3);
-		/*P = player->GetPosition();
-		Endx = (int)((P.x + 20)/ 20)+1;
-		Endy = (int)((P.y  + 30)/ 20)+1;
-		if(player->Move(3))
-		{
-			P = player->GetPosition();
-			Startx = (int)(P.x / 20);
-			Starty = (int)(P.y / 20);
-			update(wxPoint(Startx*20, Starty*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
-		}*/
 		break;
 	case WXK_CONTROL_A:
 		player->SetDirection(2);
-		/*P = player->GetPosition();
-		Endx = (int)((P.x + 20)/ 20)+1;
-		Endy = (int)((P.y  + 30)/ 20)+1;
-		if(player->Move(2))
-		{
-			P = player->GetPosition();
-			Starty = (int)(P.y / 20);
-			Startx = (int)(P.x / 20);
-			update(wxPoint(Startx*20, Starty*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
-		}*/
 		break;
 	case WXK_CONTROL_S:
 		player->SetDirection(4);
-		/*P = player->GetPosition();
-		Starty = (int)(P.y / 20);
-		Startx = (int)(P.x / 20);
-		if(player->Move(4))
-		{
-			P = player->GetPosition();
-			Endx = (int)((P.x + 20) / 20)+1;
-			Endy = (int)((P.y + 30) / 20)+1;
-			update(wxPoint(Startx*20, Starty*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
-		}*/
 		break;
 	case WXK_CONTROL_D:
 		player->SetDirection(1);
-		/*P = player->GetPosition();
-		Starty = (int)(P.y / 20);
-		Startx = (int)(P.x / 20);
-		if(player->Move(1))
-		{
-			P = player->GetPosition();
-			Endx = (int)((P.x + 20) / 20)+1;
-			Endy = (int)((P.y + 30) / 20)+1;
-			update(wxPoint(Startx*20, Starty*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
-		}*/
 		break;
 	case WXK_CONTROL_E:
 		P = player->GetPosition();
@@ -309,7 +308,21 @@ void Model::OnPressKeyboard(int key)
 			}
 		}
 		break;
+	case WXK_SPACE - 64:
+		if (player->GetFight() == 0)
+			player->SetFight(3);
+		break;
 	default:
 		break;
 	}
 }
+
+bool Model::GetStatusOfPlayer() const
+{
+	return player->GetDead();
+}
+
+wxBEGIN_EVENT_TABLE(Model, wxEvtHandler)
+    EVT_TIMER(1, Model::OnTimerMonster)
+	EVT_TIMER(2, Model::OnTimerPlayer)
+wxEND_EVENT_TABLE()
