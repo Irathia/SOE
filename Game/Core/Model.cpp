@@ -1,9 +1,11 @@
 #include "Model.h"
 #include <wx/dcmemory.h>
 #include <wx/event.h>
+#include <wx/wx.h>
 
-Model::Model():wxEvtHandler()
+Model::Model(Game* game):wxEvtHandler()
 {
+	this->game = game;
 	wxImage::AddHandler(new wxPNGHandler);
 	this->size = size;
 	Level* zl = new Level(21,70,20, false);// zerro level h = 21*2-1 w = 50
@@ -68,6 +70,9 @@ void Model::OnTimerPlayer(wxTimerEvent& event)
 	{
 		//MonsterTimer->Stop();
 		PlayerTimer->Stop();
+
+		wxMessageDialog* msg = new wxMessageDialog(game, "DEATH", "You are died!", wxYES_DEFAULT);
+		int a = msg->ShowModal();
 	}
 	else
 	{
@@ -311,6 +316,8 @@ void Model::OnPressKeyboard(int key)
 	case WXK_SPACE - 64:
 		if (player->GetFight() == 0)
 			player->SetFight(3);
+		break;
+		//game->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(Game::OnPressKeyboard));
 		break;
 	default:
 		break;

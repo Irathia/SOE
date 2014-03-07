@@ -1,12 +1,14 @@
 #pragma once
 
 #include <wx/wx.h>
-#include <wx/frame.h>
+#include <wx/dialog.h>
 #include <string>
 #include <wx/panel.h>
 #include "GameScene.h"
 #include "../Core/Player.h"
+#include "Inventory.h"
 class GameScene;
+class Model;
 
 using namespace std;
 
@@ -37,4 +39,9 @@ private:
 	wxGauge* Exp;
 	wxGauge* Health;
 	wxGauge* Mana;
+
+	Inventory* inv;
+
+
+	DECLARE_EVENT_TABLE()
 };

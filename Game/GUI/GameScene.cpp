@@ -43,25 +43,6 @@ void GameScene::OnPaint(wxPaintEvent& event)
 
 void GameScene::OnPressKeyboard(wxKeyEvent& event)
 {
-	switch(event.GetKeyCode())
-	{
-	case WXK_LEFT:
-		this->Refresh();
-		break;
-	case WXK_RIGHT:
-		this->Refresh();
-		
-		break;
-	case WXK_UP:
-		this->Refresh();
-		break;
-	case WXK_DOWN:
-		this->Refresh();
-		break;
-	default:
-		break;
-
-	}
 }
 
 void GameScene::OnTimer(wxTimerEvent& event)
@@ -69,7 +50,7 @@ void GameScene::OnTimer(wxTimerEvent& event)
 	if (model->GetStatusOfPlayer() == true)
 	{
 		timer.Stop();
-		parent->WeAreDead();
+		//parent->WeAreDead();
 		
 	//msg->SetYesNoLabels((language->getValue("exitMessageDialogYes")).c_str(), (language->getValue("exitMessageDialogNo")).c_str());
 	}

@@ -4,6 +4,7 @@
 #include "../Core/Model.h"
 #include "Game.h"
 class Game;
+class Model;
 
 class GameScene: public wxPanel
 {

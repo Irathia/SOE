@@ -7,14 +7,17 @@
 #include "Level.h"
 #include "Player.h"
 #include "Monster.h"
+#include "../GUI/Game.h"
+//#include "../GUI/Inventory.h"
 
+class Game;
 
 using namespace std;
 
 class Model : public wxEvtHandler
 {
 public:
-	Model();
+	Model(Game* game);
 	wxBitmap GetImage() const;
 	wxPoint FindPositionForPlayer(bool direction);//0 - from top, 1 - from bottom
 	void SetSize(wxSize size);
@@ -37,6 +40,9 @@ private:
 	wxSize size;
 	wxTimer* MonsterTimer;
 	wxTimer* PlayerTimer;
+
+	Game* game;
+	
 
 	int counter;
 

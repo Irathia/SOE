@@ -19,8 +19,9 @@ public:
 	void OnButtonLoadGame(wxCommandEvent& event);
 	void OnButtonSettings(wxCommandEvent& event);
 	void OnButtonExit(wxCommandEvent& event);
-
 	void OnPaint(wxPaintEvent& event);
+
+
 
 	
 private:

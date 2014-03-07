@@ -78,6 +78,9 @@
     <ClCompile Include="Game\Core\Monster.cpp">
       <Filter>Source Files\Game\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GUI\Inventory.cpp">
+      <Filter>Source Files\Game\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\GUI\DialogForNewGame.h">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="Game\Core\Monster.h">
       <Filter>Header Files\Game\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\Inventory.h">
+      <Filter>Header Files\Game\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

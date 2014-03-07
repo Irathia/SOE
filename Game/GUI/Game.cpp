@@ -6,16 +6,21 @@
 
 Game::Game(wxFrame* parent, string name) : wxFrame(parent, 1, "Game", wxDefaultPosition, wxDefaultSize)
 {
-	model = new Model();
+	inv = new Inventory(this);
+	model = new Model(this);
 	this->ShowFullScreen(true);
 	this->name = name;
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Game::OnPaint));
+	//this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(Game::OnPressKeyboard));
+	//this->SetFocusIgnoringChildren();
+	this->SetFocus();
 }
 
 void Game::OnPaint(wxPaintEvent& event)
 {
+	//this->SetFocusIgnoringChildren();
 	wxImage::AddHandler(new wxPNGHandler);
-	this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(Game::OnPressKeyboard));
+	//this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(Game::OnPressKeyboard));
 	
 	wxBoxSizer* BoxSizer4;
 	wxBoxSizer* BoxSizer2;
@@ -113,11 +118,24 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 	UP = 3
 	DOWN = 4
 	*/
-
+	//this->Connect(wxEVT_KEY_DOWN, wxKeyEventHandler(Game::OnPressKeyboard));
+	
 	switch(event.GetKeyCode())
 	{
 	case WXK_ESCAPE:
+		this->GetParent()->Show();
 		this->Close(true);
+		break;
+	case WXK_CONTROL_I + 64:
+		if (inv->IsActive() == false)
+		{
+			inv->SetFocus();
+			if (inv->ShowModal() == wxID_CANCEL)
+			{
+				this->SetFocus();
+			}
+		}
+		
 		break;
 	default:
 		model->OnPressKeyboard(event.GetKeyCode());
@@ -133,3 +151,9 @@ void Game::WeAreDead()
 	if (a == wxID_YES)
 		this->Close(true);
 }
+
+BEGIN_EVENT_TABLE(Game, wxFrame)
+	EVT_CHAR_HOOK (	Game::OnPressKeyboard)
+END_EVENT_TABLE()
+
+

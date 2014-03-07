@@ -49,7 +49,7 @@ void MainWindow::OnButtonNewGame(wxCommandEvent& event)
 		dialog->Close(true);
 		AddUser(name,users);
 		newGame = new Game(this, name);
-		newGame = new Game(this, name);
+		this->Hide();
 	}
 	dialog->Close(true);
 }
@@ -62,6 +62,7 @@ void MainWindow::OnButtonLoadGame(wxCommandEvent& event)
 	{
 		name = dialog->GetNameOfUser();
 		newGame = new Game(this, name);
+		this->Hide();
 
 	}
 	dialog->Close(true);
