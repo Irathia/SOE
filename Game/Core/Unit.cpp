@@ -30,6 +30,10 @@ int Unit::GetFactor() const
 	return k;
 }
 
+int Unit::GetLevelOfEx() const
+{
+	return level;
+}
 wxPoint Unit::GetPosition() const
 {
 	return coordinate;
@@ -107,6 +111,21 @@ void Unit::SetImage(wxBitmap* value)
 void Unit::SetHealth(int value)
 {
 	health = value;
+}
+
+void Unit::SetMana(int value)
+{
+	mana = value;
+}
+
+void Unit::SetLevelOfEx(int value)
+{
+	level = value;
+}
+
+void Unit::SetFactor(int value)
+{
+	k = value;
 }
 void Unit::SetPosition(wxPoint value)
 {

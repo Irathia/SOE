@@ -16,6 +16,7 @@ public:
 	int GetMana() const;
 	int GetDefence() const;
 	int GetFactor() const;
+	int GetLevelOfEx() const;
 	//int GetHealth() const;
 	wxPoint GetPosition() const;
 	wxBitmap* GetImage() const;
@@ -31,6 +32,9 @@ public:
 	void SetDamage(int value);
 	void SetDefence(int value);
 	void SetHealth(int value);
+	void SetMana(int value);
+	void SetLevelOfEx(int value);
+	void SetFactor(int value);
 	void SetImage(wxBitmap* value);
 	void SetCurrentImage(wxBitmap bmp);
 	void SetPosition(wxPoint value);

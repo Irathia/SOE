@@ -4,7 +4,7 @@ Monster::Monster(Level* level, wxString type, std::vector <Monster*> monsters):d
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	this->type = type;
-	SetHealth(100);
+	SetHealth(20);
 	SetDamage(20);
 	wxBitmap* bmp = new wxBitmap("Image/"+type+".png", wxBITMAP_TYPE_PNG);
 	SetImage(bmp);

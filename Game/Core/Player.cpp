@@ -5,13 +5,33 @@ Player::Player(wxPoint first, Level* level):direction(0),fight(0),dead(false)
 	wxImage::AddHandler(new wxPNGHandler);
 	SetDamage(10);
 	SetPosition(first);
-	SetHealth(20);
+	SetHealth(100);
+	SetMana(80);
+	SetLevelOfEx(1);
+	SetFactor(1);
+	exp = 0;
 	wxBitmap* bmp = new wxBitmap("Image/Player.png", wxBITMAP_TYPE_PNG);
 	SetImage(bmp);
 	SetCurrentImage(GetImage()->GetSubBitmap(wxRect(60,0,20,30)));
 	SetSpeed(5);
 	SetCurrentLevel(level);
 	
+}
+
+int Player::GetExp() const
+{
+	return exp;
+}
+
+void Player::SetExp(int value)
+{
+	if (exp + value >= this->GetFactor()*GetLevelOfEx()*1000)
+	{
+		this->LevelUp();
+		exp = 0;
+	}
+	else
+		exp = exp + value;
 }
 int Player::Move(int direction)
 {
@@ -32,7 +52,7 @@ int Player::Move(int direction)
 		newP = GetPosition()+wxSize(GetSpeed(),0);
 		if ((newP.y + 10) % 20 != 0)
 			return false;
-		if (newP.x % 20 == 0)
+		if (newP.x % 20 == 0 && (level->GetArr()[newP.y/20 + 2][newP.x/20] != 0))
 		{
 			SetPosition(GetPosition()+=wxSize(GetSpeed(),0));
 			if (p == true)
@@ -66,7 +86,7 @@ int Player::Move(int direction)
 		newP = GetPosition()+wxSize(-GetSpeed(),0);
 		if ((newP.y + 10) % 20 != 0)
 			return false;
-		if (newP.x % 20 == 0)
+		if (newP.x % 20 == 0 && (level->GetArr()[newP.y/20 + 2][newP.x/20] != 0)) 
 		{
 			SetPosition(GetPosition()+=wxSize(-GetSpeed(),0));
 			if (p == false)
@@ -191,7 +211,10 @@ void Player::Fight(int a, std::vector <Monster*>* units)
 					if (units->at(i)->GetPosition().x + 3 >= GetPosition().x + 14 && units->at(i)->GetPosition().x + 3 <= GetPosition().x + 20)
 					{
 						if (units->at(i)->HealthDown(this->GetDamage()) == false)
+						{
 							units->erase(units->begin() + i);
+							this->SetExp(50);
+						}
 						break;
 
 						
@@ -210,7 +233,10 @@ void Player::Fight(int a, std::vector <Monster*>* units)
 					if (units->at(i)->GetPosition().x + 17 >= GetPosition().x && units->at(i)->GetPosition().x + 17 <= GetPosition().x + 6)
 					{
 						if (units->at(i)->HealthDown(this->GetDamage()) == false)
+						{
 							units->erase(units->begin() + i);
+							this->SetExp(50);
+						}
 						break;
 					}
 				}

@@ -19,10 +19,13 @@ public:
 	int GetFight() const;
 	void SetFight(int value);
 
+	int GetExp() const;
+	void SetExp(int value);
+
 	bool GetDead() const;
 private:
 	int direction;
 	int fight;
-
+	int exp;
 	bool dead;
 };

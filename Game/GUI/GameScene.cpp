@@ -22,6 +22,7 @@ GameScene::GameScene(wxWindow* parent, Model* model, Game* game):wxPanel(parent)
 
 void GameScene::OnPaint(wxPaintEvent& event)
 {
+	parent->Information();
 	if (timer.IsRunning() == false)
 		timer.Start(100);
 	int h = 0, w = 0;

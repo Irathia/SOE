@@ -29,6 +29,7 @@ public:
 	void OnTimerMonster(wxTimerEvent& event);
 	void OnTimerPlayer(wxTimerEvent& event);
 	bool GetStatusOfPlayer() const;
+	Player* GetPlayer() const;
 private:
 	wxBitmap* img;
 	

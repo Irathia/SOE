@@ -107,7 +107,9 @@ void Game::OnPaint(wxPaintEvent& event)
 
     SetSizer(BoxSizer1);
 	Layout();
-
+	Mana->SetValue((model->GetPlayer()->GetMana()/(model->GetPlayer()->GetLevelOfEx()*80))*100);
+	Health->SetValue((model->GetPlayer()->GetHealth()/(model->GetPlayer()->GetLevelOfEx()*100))*100);
+	Exp->SetValue((double)(model->GetPlayer()->GetExp())/((double)(model->GetPlayer()->GetFactor()*model->GetPlayer()->GetLevelOfEx()*1000)*100));
 }
 
 void Game::OnPressKeyboard(wxKeyEvent& event)
@@ -130,6 +132,7 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 		if (inv->IsActive() == false)
 		{
 			inv->SetFocus();
+			inv->Refresh();
 			if (inv->ShowModal() == wxID_CANCEL)
 			{
 				this->SetFocus();
@@ -144,6 +147,18 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 	
 }
 
+void Game::Information()
+{
+	double m = ((double)model->GetPlayer()->GetMana()/(double)(model->GetPlayer()->GetFactor()*model->GetPlayer()->GetLevelOfEx()*80))*100;
+	double h = ((double)model->GetPlayer()->GetHealth()/(double)(model->GetPlayer()->GetFactor()*model->GetPlayer()->GetLevelOfEx()*100))*100;
+	double e = (((double)(model->GetPlayer()->GetExp()))/((double)(model->GetPlayer()->GetFactor()*model->GetPlayer()->GetLevelOfEx()*1000)))*100;
+	if (Mana->GetValue() != m)
+		Mana->SetValue(m);
+	if (Health->GetValue() != h)
+		Health->SetValue(h);
+	if (Exp->GetValue() != e)
+		Exp->SetValue(e);
+}
 void Game::WeAreDead()
 {
 	wxMessageDialog* msg = new wxMessageDialog(this, "DEATH", "You are died!", wxYES_DEFAULT);

@@ -329,6 +329,10 @@ bool Model::GetStatusOfPlayer() const
 	return player->GetDead();
 }
 
+Player* Model::GetPlayer() const
+{
+	return player;
+}
 wxBEGIN_EVENT_TABLE(Model, wxEvtHandler)
     EVT_TIMER(1, Model::OnTimerMonster)
 	EVT_TIMER(2, Model::OnTimerPlayer)

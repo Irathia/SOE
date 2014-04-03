@@ -20,6 +20,7 @@ public:
 	void OnPaint(wxPaintEvent& event);
 	void OnPressKeyboard(wxKeyEvent& event);
 	void WeAreDead();
+	void Information();
 private:
 	Model* model;
 
