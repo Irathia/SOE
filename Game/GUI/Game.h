@@ -43,6 +43,6 @@ private:
 
 	Inventory* inv;
 
-
+	int lvlc;
 	DECLARE_EVENT_TABLE()
 };

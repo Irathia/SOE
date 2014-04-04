@@ -9,7 +9,7 @@ Player::Player(wxPoint first, Level* level):direction(0),fight(0),dead(false)
 	SetMana(80);
 	SetLevelOfEx(1);
 	SetFactor(1);
-	exp = 0;
+	exp = 950;
 	wxBitmap* bmp = new wxBitmap("Image/Player.png", wxBITMAP_TYPE_PNG);
 	SetImage(bmp);
 	SetCurrentImage(GetImage()->GetSubBitmap(wxRect(60,0,20,30)));
@@ -265,7 +265,7 @@ void Player::Death()
 
 void Player::LevelUp()
 {
-
+	this->SetLevelOfEx(this->GetLevelOfEx() + 1);
 }
 
 int Player::GetDirection() const

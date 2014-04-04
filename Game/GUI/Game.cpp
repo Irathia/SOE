@@ -40,8 +40,20 @@ void Game::OnPaint(wxPaintEvent& event)
 	
     BoxSizer9 = new wxBoxSizer(wxHORIZONTAL);
 	Icon = new wxStaticBitmap(Info,wxID_ANY, wxBitmap("Image/Icon.png",wxBITMAP_TYPE_PNG));
-    LVL = new wxStaticBitmap(Info,wxID_ANY,   wxBitmap("Image/Lvl.png",wxBITMAP_TYPE_PNG));
-	
+    //LVL = new wxStaticBitmap(Info,wxID_ANY,   wxBitmap("Image/Lvl.png",wxBITMAP_TYPE_PNG));
+	int a = model->GetPlayer()->GetLevelOfEx()/10;
+	int b = model->GetPlayer()->GetLevelOfEx() - a*10;
+	lvlc = model->GetPlayer()->GetLevelOfEx();
+	wxBitmap l;
+	l.Create(40,40);
+	wxMemoryDC mc(l);
+	wxBitmap Numlvl;
+	Numlvl.LoadFile("Image/NumLvl.png",wxBITMAP_TYPE_PNG);
+
+	mc.DrawBitmap(Numlvl.GetSubBitmap(wxRect(a*40,0,40,40)),0,0,true);
+	mc.DrawBitmap(Numlvl.GetSubBitmap(wxRect(b*40,40,40,40)),0,0,true);
+	l.SaveFile("Image/Test.png",wxBITMAP_TYPE_PNG);
+	LVL = new wxStaticBitmap(Info,wxID_ANY,   wxBitmap("Image/Test.png",wxBITMAP_TYPE_PNG));
 	//Icon = new wxPanel(this);
 	//LVL = new wxPanel(this);
 	BoxSizer9->Add(Icon, 2, wxALL|wxEXPAND, 0);
@@ -158,6 +170,26 @@ void Game::Information()
 		Health->SetValue(h);
 	if (Exp->GetValue() != e)
 		Exp->SetValue(e);
+	if (lvlc != model->GetPlayer()->GetLevelOfEx())
+	{
+		/*int a = model->GetPlayer()->GetLevelOfEx()/10;
+		int b = model->GetPlayer()->GetLevelOfEx() - a*10;
+		wxBitmap l;
+		l.Create(40,40);
+		wxMemoryDC mc(l);
+		wxBitmap Numlvl;
+		Numlvl.LoadFile("Image/NumLvl.png",wxBITMAP_TYPE_PNG);
+
+		mc.DrawBitmap(Numlvl.GetSubBitmap(wxRect(a*40,0,40,40)),0,0,true);
+		mc.DrawBitmap(Numlvl.GetSubBitmap(wxRect(b*40,40,40,40)),0,0,true);
+		l.SaveFile("Image/Test.png",wxBITMAP_TYPE_PNG);
+		//LVL-> = new wxStaticBitmap(Info,wxID_ANY,   wxBitmap("Image/Test.png",wxBITMAP_TYPE_PNG));
+		//LVL->SetBitmap(wxBitmap("Image/Test.png",wxBITMAP_TYPE_PNG));*/
+
+		lvlc = model->GetPlayer()->GetLevelOfEx();
+		this->Refresh();
+	}
+	
 }
 void Game::WeAreDead()
 {
