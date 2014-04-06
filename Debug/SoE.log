@@ -1,4 +1,4 @@
-﻿Build started 04.04.2014 23:54:00.
+﻿Build started 06.04.2014 22:33:01.
      1>Project "C:\Users\Админ\Documents\Visual Studio 2012\Projects\SoE\SOE\SoE.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\wxWidgets3\include /IC:\wxWidgets3\lib\vc_lib\mswud /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D __WXMSW__ /D __WXDEBUG__ /D _WINDOWS /D NOPCH /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game\GUI\Game.cpp
@@ -9,6 +9,7 @@
          Debug\Monster.obj
          Debug\Player.obj
          Debug\Unit.obj
+         Debug\Characteristic.obj
          Debug\DialogForNewGame.obj
          Debug\Game.obj
          Debug\GameScene.obj
@@ -23,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:42.45
+Time Elapsed 00:00:12.86

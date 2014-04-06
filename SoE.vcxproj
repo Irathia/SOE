@@ -16,6 +16,7 @@
     <ClCompile Include="Game\Core\Monster.cpp" />
     <ClCompile Include="Game\Core\Player.cpp" />
     <ClCompile Include="Game\Core\Unit.cpp" />
+    <ClCompile Include="Game\GUI\Characteristic.cpp" />
     <ClCompile Include="Game\GUI\DialogForNewGame.cpp" />
     <ClCompile Include="Game\GUI\Game.cpp" />
     <ClCompile Include="Game\GUI\GameScene.cpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="Game\Core\Monster.h" />
     <ClInclude Include="Game\Core\Player.h" />
     <ClInclude Include="Game\Core\Unit.h" />
+    <ClInclude Include="Game\GUI\Characteristic.h" />
     <ClInclude Include="Game\GUI\DialogForNewGame.h" />
     <ClInclude Include="Game\GUI\Game.h" />
     <ClInclude Include="Game\GUI\GameScene.h" />

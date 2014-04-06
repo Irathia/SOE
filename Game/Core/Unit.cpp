@@ -25,9 +25,32 @@ int Unit::GetDefence() const
 	return defence;
 }
 
-int Unit::GetFactor() const
+int Unit::GetFactor(int i) const
 {
-	return k;
+	switch(i)
+	{
+	case 0:
+		return chs.health;
+		break;
+	case 1:
+		return chs.mana;
+		break;
+	case 2:
+		return chs.strength;
+		break;
+	case 3:
+		return chs.magic;
+		break;
+	case 4:
+		return chs.agility;
+		break;
+	case 5:
+		return chs.notUsed;
+		break;
+	default:
+		break;
+	}
+	return 0;
 }
 
 int Unit::GetLevelOfEx() const
@@ -56,8 +79,8 @@ Level* Unit::GetCurrentLevel() const
 
 void Unit::HealthUp(int value)
 {
-	if (health+value >= (k*level)*100)
-		health = (k*level)*100;
+	if (health+value >= (chs.health*level)*100)
+		health = (chs.health*level)*100;
 	else
 		health += value;
 }
@@ -73,8 +96,8 @@ bool Unit::HealthDown(int value)
 
 void Unit::ManaUp(int value)
 {
-	if (mana+value >= (k*level)*50)
-		mana = (k*level)*50;
+	if (mana+value >= (chs.mana*level)*50)
+		mana = (chs.mana*level)*50;
 	else
 		mana += value;
 }
@@ -123,9 +146,31 @@ void Unit::SetLevelOfEx(int value)
 	level = value;
 }
 
-void Unit::SetFactor(int value)
+void Unit::SetFactor(int i,int value)
 {
-	k = value;
+	switch(i)
+	{
+	case 0:
+		chs.health = value;
+		break;
+	case 1:
+		chs.mana = value;
+		break;
+	case 2:
+		chs.strength = value;
+		break;
+	case 3:
+		chs.magic = value;
+		break;
+	case 4:
+		chs.agility = value;
+		break;
+	case 5:
+		chs.notUsed = value;
+		break;
+	default:
+		break;
+	}
 }
 void Unit::SetPosition(wxPoint value)
 {

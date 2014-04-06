@@ -7,6 +7,7 @@
 #include "GameScene.h"
 #include "../Core/Player.h"
 #include "Inventory.h"
+#include "Characteristic.h"
 class GameScene;
 class Model;
 
@@ -37,12 +38,19 @@ private:
 	wxStaticText* Name;
 	wxStaticText* TextHealth;
 	wxStaticText* TextMana;
-	wxGauge* Exp;
-	wxGauge* Health;
-	wxGauge* Mana;
+	wxStaticBitmap* Exp;
+	wxStaticBitmap* Health;
+	wxStaticBitmap* Mana;
+	wxStaticText* t_Exp;
+	wxStaticText* t_Health;
+	wxStaticText* t_Mana;
 
 	Inventory* inv;
+	Characteristic* chs;
 
 	int lvlc;
+	int expc;
+	int manac;
+	int healthc;
 	DECLARE_EVENT_TABLE()
 };

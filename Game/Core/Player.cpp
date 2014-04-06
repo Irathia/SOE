@@ -8,7 +8,12 @@ Player::Player(wxPoint first, Level* level):direction(0),fight(0),dead(false)
 	SetHealth(100);
 	SetMana(80);
 	SetLevelOfEx(1);
-	SetFactor(1);
+	SetFactor(0,1);
+	SetFactor(1,1);
+	SetFactor(2,1);
+	SetFactor(3,1);
+	SetFactor(4,1);
+	SetFactor(5,0);
 	exp = 950;
 	wxBitmap* bmp = new wxBitmap("Image/Player.png", wxBITMAP_TYPE_PNG);
 	SetImage(bmp);
@@ -25,7 +30,7 @@ int Player::GetExp() const
 
 void Player::SetExp(int value)
 {
-	if (exp + value >= this->GetFactor()*GetLevelOfEx()*1000)
+	if (exp + value >= GetLevelOfEx()*1000)
 	{
 		this->LevelUp();
 		exp = 0;
@@ -266,6 +271,8 @@ void Player::Death()
 void Player::LevelUp()
 {
 	this->SetLevelOfEx(this->GetLevelOfEx() + 1);
+	this->SetFactor(5,GetFactor(5)+3);
+	
 }
 
 int Player::GetDirection() const

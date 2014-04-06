@@ -4,6 +4,16 @@
 #include <wx/position.h>
 #include "Level.h"
 
+struct CHARACTERISTICS
+{
+	int health;
+	int mana;
+	int strength;
+	int magic;
+	int agility;
+	int notUsed;
+};
+
 class Unit
 {
 public:
@@ -15,7 +25,7 @@ public:
 	int GetSpeed() const;
 	int GetMana() const;
 	int GetDefence() const;
-	int GetFactor() const;
+	int GetFactor(int i) const;
 	int GetLevelOfEx() const;
 	//int GetHealth() const;
 	wxPoint GetPosition() const;
@@ -34,14 +44,14 @@ public:
 	void SetHealth(int value);
 	void SetMana(int value);
 	void SetLevelOfEx(int value);
-	void SetFactor(int value);
+	void SetFactor(int i,int value);
 	void SetImage(wxBitmap* value);
 	void SetCurrentImage(wxBitmap bmp);
 	void SetPosition(wxPoint value);
 	void SetCurrentLevel(Level* value);
 private:
 	bool p;
-	int k;
+	CHARACTERISTICS chs;
 	int health;
 	int speed;
 	int damage;
@@ -53,3 +63,4 @@ private:
 	wxPoint coordinate;
 	Level* currentLevel;
 };
+
