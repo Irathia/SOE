@@ -21,3 +21,13 @@ void Inventory::OnPaint(wxPaintEvent& event)
 	}
 	SetSizer(gridsizer);
 }
+
+std::vector <wxString> Inventory::GetItems() const
+{
+	return names;
+}
+
+wxString Inventory::GetItem(int i) const
+{
+	return names[i];
+}

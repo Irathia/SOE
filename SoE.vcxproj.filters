@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Resource">
       <UniqueIdentifier>{559bc92b-4275-4831-8191-ebc113888afd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\GUI\GameScenes">
+      <UniqueIdentifier>{be05e54c-a705-48f0-8ccb-e1e27749cc10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GUI\GameScenes">
+      <UniqueIdentifier>{99d3326e-524f-4b59-bdd1-6f33e1f05b86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\GUI\DialogForNewGame.cpp">
@@ -63,9 +69,6 @@
     <ClCompile Include="Resource\User.cpp">
       <Filter>Source Files\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GUI\GameScene.cpp">
-      <Filter>Source Files\Game\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Core\Player.cpp">
       <Filter>Source Files\Game\Core</Filter>
     </ClCompile>
@@ -83,6 +86,15 @@
     </ClCompile>
     <ClCompile Include="Game\GUI\Characteristic.cpp">
       <Filter>Source Files\Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GUI\GameScenes\GameScene.cpp">
+      <Filter>Source Files\Game\GUI\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GUI\GameScenes\Info.cpp">
+      <Filter>Source Files\Game\GUI\GameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GUI\GameScenes\FastItems.cpp">
+      <Filter>Source Files\Game\GUI\GameScenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,9 +122,6 @@
     <ClInclude Include="Resource\User.h">
       <Filter>Header Files\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GUI\GameScene.h">
-      <Filter>Header Files\Game\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Core\Unit.h">
       <Filter>Header Files\Game\Core</Filter>
     </ClInclude>
@@ -130,6 +139,15 @@
     </ClInclude>
     <ClInclude Include="Game\GUI\Characteristic.h">
       <Filter>Header Files\Game\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\GameScenes\GameScene.h">
+      <Filter>Header Files\Game\GUI\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\GameScenes\Info.h">
+      <Filter>Header Files\Game\GUI\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\GameScenes\FastItems.h">
+      <Filter>Header Files\Game\GUI\GameScenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

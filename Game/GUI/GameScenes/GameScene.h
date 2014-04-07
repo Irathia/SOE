@@ -1,8 +1,8 @@
 #pragma once
 #include <wx/panel.h>
 #include <wx/timer.h>
-#include "../Core/Model.h"
-#include "Game.h"
+#include "../../Core/Model.h"
+#include "../Game.h"
 class Game;
 class Model;
 

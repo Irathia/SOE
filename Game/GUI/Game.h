@@ -4,7 +4,9 @@
 #include <wx/dialog.h>
 #include <string>
 #include <wx/panel.h>
-#include "GameScene.h"
+#include "GameScenes/GameScene.h"
+#include "GameScenes\Info.h"
+#include "GameScenes\FastItems.h"
 #include "../Core/Player.h"
 #include "Inventory.h"
 #include "Characteristic.h"
@@ -27,14 +29,14 @@ private:
 
     GameScene* GameW;
     wxPanel* Map;
-    wxPanel* Info;
+    Info* info;
     wxPanel* Task;
-    wxPanel* Inv;
-    wxPanel* Magic;
-
-	wxStaticBitmap* Icon;
-	wxStaticBitmap* LVL;
+    FastItems* Inv;
+    FastItems* Magic;
 	string name;
+	/*wxStaticBitmap* Icon;
+	wxStaticBitmap* LVL;
+	
 	wxStaticText* Name;
 	wxStaticText* TextHealth;
 	wxStaticText* TextMana;
@@ -43,14 +45,14 @@ private:
 	wxStaticBitmap* Mana;
 	wxStaticText* t_Exp;
 	wxStaticText* t_Health;
-	wxStaticText* t_Mana;
+	wxStaticText* t_Mana;*/
 
 	Inventory* inv;
 	Characteristic* chs;
 
-	int lvlc;
+	/*int lvlc;
 	int expc;
 	int manac;
-	int healthc;
+	int healthc;*/
 	DECLARE_EVENT_TABLE()
 };

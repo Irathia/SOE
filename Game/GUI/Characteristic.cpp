@@ -8,12 +8,7 @@ Characteristic::Characteristic(wxWindow* parent, Player* player):wxDialog(parent
 	
 	this->player = player;
 
-	n_health = new wxSpinCtrl(this, 101, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);// _T("ID_SPINCTRL1"));
-	n_mana = new wxSpinCtrl(this, 102, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);// _T("ID_SPINCTRL2"));
-	n_strength = new wxSpinCtrl(this, 103, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);//, _T("ID_SPINCTRL3"));
-    n_magic = new wxSpinCtrl(this, 104, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);//_T("ID_SPINCTRL4"));
-	n_agility = new wxSpinCtrl(this, 105, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);//, _T("ID_SPINCTRL5"));
-
+	
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Characteristic::OnPaint));
 }
 
@@ -23,6 +18,13 @@ void Characteristic::OnPaint(wxPaintEvent& event)
     wxGridSizer* GridSizer1;
     wxBoxSizer* BoxSizer1;
     wxBoxSizer* BoxSizer3;
+
+	n_health = new wxSpinCtrl(this, 101, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
+	n_mana = new wxSpinCtrl(this, 102, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
+	n_strength = new wxSpinCtrl(this, 103, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
+    n_magic = new wxSpinCtrl(this, 104, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
+	n_agility = new wxSpinCtrl(this, 105, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
+
 
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
     GridSizer1 = new wxGridSizer(5, 2, 0, 0);
