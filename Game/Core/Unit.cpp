@@ -79,8 +79,8 @@ Level* Unit::GetCurrentLevel() const
 
 void Unit::HealthUp(int value)
 {
-	if (health+value >= (chs.health*level)*100)
-		health = (chs.health*level)*100;
+	if (health+value >= (chs.health)*100)
+		health = (chs.health)*100;
 	else
 		health += value;
 }
@@ -96,8 +96,8 @@ bool Unit::HealthDown(int value)
 
 void Unit::ManaUp(int value)
 {
-	if (mana+value >= (chs.mana*level)*50)
-		mana = (chs.mana*level)*50;
+	if (mana+value >= (chs.mana)*50)
+		mana = (chs.mana)*50;
 	else
 		mana += value;
 }
@@ -158,12 +158,14 @@ void Unit::SetFactor(int i,int value)
 		break;
 	case 2:
 		chs.strength = value;
+		SetDamage(value*10);
 		break;
 	case 3:
 		chs.magic = value;
 		break;
 	case 4:
 		chs.agility = value;
+		SetSpeed(value*2);
 		break;
 	case 5:
 		chs.notUsed = value;

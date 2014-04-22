@@ -57,7 +57,7 @@ void Info::OnPaint(wxPaintEvent& event)
 	Name = new wxStaticText(this, wxID_ANY, name);
     Exp = new wxStaticBitmap(this, wxID_ANY,wxBitmap());
 	wxString tt2 = "";
-	tt2 <<expc<<"/"<<lvlc*1000;
+	tt2 <<expc<<"/"<<player->GetLevelOfEx()*1000;
 	t_Exp = new wxStaticText(this,wxID_ANY,tt2);
 	BoxSizer2->Add(Name, 1, wxALL|wxEXPAND, 2);
     BoxSizer2->Add(Exp, 2, wxALL|wxEXPAND, 2);
@@ -73,7 +73,7 @@ void Info::OnPaint(wxPaintEvent& event)
     Health = new wxStaticBitmap(this, wxID_ANY, wxBitmap());
 	wxString tt = "";
 	tt.Clear();
-	tt<< healthc<< "/" << player->GetFactor(0)*lvlc*100;
+	tt<< healthc<< "/" << player->GetFactor(0)*100;
 	//t_Health->SetLabel(tt);
 	t_Health = new wxStaticText(this,wxID_ANY,"");
 	//t_Health->SetLabelText(tt);
@@ -89,7 +89,7 @@ void Info::OnPaint(wxPaintEvent& event)
     TextMana = new wxStaticText(this, wxID_ANY, "Mana:");
     Mana = new wxStaticBitmap(this, wxID_ANY, wxBitmap());
 	wxString tt1 = "";
-	tt1 <<manac<<"/"<<player->GetFactor(1)*lvlc*80;
+	tt1 <<manac<<"/"<<player->GetFactor(1)*80;
 	t_Mana = new wxStaticText(this,wxID_ANY,"--------------");
 	t_Mana->SetLabel(tt1);
 	BoxSizer7 = new wxBoxSizer(wxVERTICAL);
@@ -103,9 +103,9 @@ void Info::OnPaint(wxPaintEvent& event)
 	BoxSizer8->Add(BoxSizer4, 1, wxALL|wxEXPAND, 0);
 	BoxSizer8->Add(BoxSizer6, 1, wxALL|wxEXPAND, 0);
 	
-	double a1 = (double)healthc/((double)player->GetFactor(0)*lvlc*100);
-	double a2 = (double)manac/((double)player->GetFactor(1)*lvlc*80);
-	double a3 = (double)expc/((double)lvlc*1000);
+	double a1 = (double)healthc/((double)player->GetFactor(0)*100);
+	double a2 = (double)manac/((double)player->GetFactor(1)*80);
+	double a3 = (double)expc/((double)player->GetLevelOfEx()*1000);
 	for (int i = 0; i < 100; i++)
 	{
 		double i1 = (double)i/(double)100;
@@ -154,13 +154,16 @@ void Info::OnPaint(wxPaintEvent& event)
 
 bool Info::Information()
 {
+	bool a = false;
 	if (expc != player->GetExp())
-		return true;
+		a = true;
 	if (manac != player->GetMana())
-		return true;
+		a = true;
 	if (healthc != player->GetHealth())
-		return true;
+		a = true;
 	if (lvlc != player->GetLevelOfEx())
+		a = true;
+	if (a == true)
 		return true;
 	return false;
 }

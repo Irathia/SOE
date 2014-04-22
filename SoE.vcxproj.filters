@@ -96,6 +96,9 @@
     <ClCompile Include="Game\GUI\GameScenes\FastItems.cpp">
       <Filter>Source Files\Game\GUI\GameScenes</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Core\Item.cpp">
+      <Filter>Source Files\Game\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\GUI\DialogForNewGame.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Game\GUI\GameScenes\FastItems.h">
       <Filter>Header Files\Game\GUI\GameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Core\Item.h">
+      <Filter>Header Files\Game\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

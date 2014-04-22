@@ -7,8 +7,11 @@ Characteristic::Characteristic(wxWindow* parent, Player* player):wxDialog(parent
 {
 	
 	this->player = player;
-
-	
+	n_health = new wxSpinCtrl(this, 101,wxString::Format(wxT("%i"), player->GetFactor(0)), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
+	n_mana = new wxSpinCtrl(this, 102,wxString::Format(wxT("%i"), player->GetFactor(1)), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
+	n_strength = new wxSpinCtrl(this, 103,wxString::Format(wxT("%i"), player->GetFactor(2)), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
+    n_magic = new wxSpinCtrl(this, 104, wxString::Format(wxT("%i"), player->GetFactor(3)), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
+	n_agility = new wxSpinCtrl(this, 105, wxString::Format(wxT("%i"), player->GetFactor(4)), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Characteristic::OnPaint));
 }
 
@@ -19,11 +22,7 @@ void Characteristic::OnPaint(wxPaintEvent& event)
     wxBoxSizer* BoxSizer1;
     wxBoxSizer* BoxSizer3;
 
-	n_health = new wxSpinCtrl(this, 101, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
-	n_mana = new wxSpinCtrl(this, 102, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
-	n_strength = new wxSpinCtrl(this, 103, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
-    n_magic = new wxSpinCtrl(this, 104, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
-	n_agility = new wxSpinCtrl(this, 105, _T("1"), wxDefaultPosition, wxDefaultSize, 0, 1, 100, 1);
+	
 
 
     BoxSizer1 = new wxBoxSizer(wxVERTICAL);
@@ -31,12 +30,10 @@ void Characteristic::OnPaint(wxPaintEvent& event)
     t_health = new wxStaticText(this, wxID_ANY, _("Health"));//, wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     GridSizer1->Add(t_health, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     
-   // n_health->SetValue(_T("1"));
     GridSizer1->Add(n_health, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     t_mana = new wxStaticText(this, wxID_ANY, _("Mana"));//, wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
     GridSizer1->Add(t_mana, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    
-  //  n_mana->SetValue(_T("1"));
+
     GridSizer1->Add(n_mana, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     t_strength = new wxStaticText(this, wxID_ANY, _("Strength"));//, wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
     GridSizer1->Add(t_strength, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
