@@ -64,6 +64,68 @@ void Model::OnTimerMonster(wxTimerEvent& event)
 	
 }
 
+void Model::GoToLevel(int value)
+{
+	//clear all
+	PlayerTimer->Stop();
+	MonsterTimer->Stop();
+	
+	int nofm = monsters.size();
+	monsters.clear();
+	if (value < currentLevel)
+	{
+		currentLevel = value;
+		wxPoint p = FindPositionForPlayer(1);
+		player->SetPosition(p);
+		player->SetCurrentLevel(levels.at(currentLevel));
+		MonsterTimer->Start(1000);
+		PlayerTimer->Start(200);
+		counter = 0;
+	}
+	else
+	{
+		currentLevel = value;
+		if (currentLevel%2 == 0)
+		{
+			Level* zl = new Level(21+currentLevel*5,70+currentLevel*5,20+currentLevel*5, false);
+			levels.push_back(zl);
+		}
+		else
+		{
+			Level* zl = new Level(21+currentLevel*4,70+(currentLevel-1)*5,20+currentLevel*5, false);
+			levels.push_back(zl);
+		}
+	
+		wxPoint p = FindPositionForPlayer(0);
+		player->SetPosition(p);
+		player->SetCurrentLevel(levels.at(currentLevel));
+		img = new wxBitmap(levels[currentLevel]->GetW()*20, levels[currentLevel]->GetH()*20);
+		CreateImage();
+		for(int i = 0; i < nofm + currentLevel*5; i++)
+		{
+			int t = rand()%2;
+			if (t == 0)
+			{
+				Monster* m = new Monster(levels[currentLevel],wxString("Zomby"),monsters);
+				monsters.push_back(m);
+			}
+			else
+			{
+				Monster* m = new Monster(levels[currentLevel],wxString("Mummy"),monsters);
+				monsters.push_back(m);
+			}
+
+		
+		}
+		//MonsterTimer = new wxTimer(this,1);
+		MonsterTimer->Start(1000);
+
+		//PlayerTimer = new wxTimer(this,2);
+		PlayerTimer->Start(200);
+		counter = 0;
+	}
+	
+}
 void Model::OnTimerPlayer(wxTimerEvent& event)
 {
 	if (player->GetDead() == true)
@@ -78,7 +140,15 @@ void Model::OnTimerPlayer(wxTimerEvent& event)
 	{
 		if (player->GetDirection() > 0)
 		{
-			player->Move(player->GetDirection());
+			int a = player->Move(player->GetDirection());
+			if (a == 2)
+				//next level
+					if (currentLevel + 1 != 100)
+						this->GoToLevel(currentLevel+1);
+			if (a == 3)
+				//previous
+					if (currentLevel - 1 != -1)
+						this->GoToLevel(currentLevel-1);
 			int startx = (int)((player->GetPosition().x - player->GetSpeed())/20);
 			int starty = (int)((player->GetPosition().y - player->GetSpeed())/20);
 			int endx = (int)((player->GetPosition().x + 40 + player->GetSpeed())/20);

@@ -99,6 +99,9 @@
     <ClCompile Include="Game\Core\Item.cpp">
       <Filter>Source Files\Game\Core</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GUI\Chest.cpp">
+      <Filter>Source Files\Game\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\GUI\DialogForNewGame.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="Game\Core\Item.h">
       <Filter>Header Files\Game\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\Chest.h">
+      <Filter>Header Files\Game\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

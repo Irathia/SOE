@@ -80,7 +80,7 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 		if (inv->IsActive() == false)
 		{
 			inv->SetFocus();
-			inv->Refresh();
+			//inv->Refresh();
 			if (inv->ShowModal() == wxID_CANCEL)
 			{
 				this->SetFocus();
@@ -93,7 +93,7 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 		if (chs->IsActive() == false)
 		{
 			chs->SetFocus();
-			chs->Refresh();
+			//chs->Refresh();
 			if (chs->ShowModal() == 1)
 			{
 				this->SetFocus();

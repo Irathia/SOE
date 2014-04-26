@@ -143,6 +143,8 @@ int Player::Move(int direction)
 		break;
 	case UP:
 		newP = GetPosition()+wxSize(0,-GetSpeed());
+		if (newP.y <= 0 && level->GetArr()[(int)(newP.y/20)][(int)(newP.x/20)] == 4)
+			return 3;//previous level
 		if (newP.x % 20 != 0)
 		{
 			if (level->GetArr()[(int)(newP.y/20)][(int)(newP.x/20)] == 4 || level->GetArr()[(int)(newP.y/20)][(int)(newP.x/20)+1] == 4 )
@@ -198,6 +200,9 @@ int Player::Move(int direction)
 		break;
 	case DOWN:
 		newP = GetPosition()+wxSize(0,GetSpeed());
+
+		if (newP.y >= level->GetW()*20 && level->GetArr()[(int)(newP.y/20)+2][(int)(newP.x/20)] == 4)
+			return 2;//next level
 		if (newP.x % 20 != 0)
 		{
 			if (level->GetArr()[(int)(newP.y/20)+2][(int)(newP.x/20)] == 4 || level->GetArr()[(int)(newP.y/20)+2][(int)(newP.x/20)+1] == 4 )
