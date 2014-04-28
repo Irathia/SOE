@@ -5,7 +5,7 @@ Inventory::Inventory(wxWindow* parent):wxDialog(parent,wxID_ANY,"Inventory")
 	for (int i = 0; i < 25; i++)
 	{
 		Item* panel = new Item(this);//,i+1,wxNullBitmap);//(this,wxID_ANY,wxPoint(0,0),wxSize(0,0));
-		panel->SetBackgroundColour(*wxBLACK);
+		//panel->SetBackgroundColour(*wxBLACK);
 		items.push_back(panel);
 	}
 

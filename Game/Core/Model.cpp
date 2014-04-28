@@ -8,14 +8,14 @@ Model::Model(Game* game):wxEvtHandler()
 	this->game = game;
 	wxImage::AddHandler(new wxPNGHandler);
 	this->size = size;
-	Level* zl = new Level(21,70,20, false);// zerro level h = 21*2-1 w = 50
+	Level* zl = new Level(11,20,20, false);// zerro level h = 21*2-1 w = 50
 	levels.push_back(zl);
 	currentLevel = 0;
 	wxPoint p = FindPositionForPlayer(0);
 	player = new Player(p,levels[currentLevel]);
 	img = new wxBitmap(levels[0]->GetW()*20, levels[0]->GetH()*20);
 	CreateImage();
-	int numer = 30;
+	int numer = 10;
 	for(int i = 0; i < numer; i++)
 	{
 		int t = rand()%2;
@@ -182,8 +182,28 @@ void Model::OnTimerPlayer(wxTimerEvent& event)
 wxBitmap Model::GetImage() const
 {
 	wxPoint start = FindStartForImage();
-
-	return img->GetSubBitmap(wxRect(start.x,start.y,size.x,size.y));
+	if (size.x > img->GetSize().x)
+	{
+		if (size.y > img->GetSize().y)
+		{
+			return img->GetSubBitmap(wxRect(start.x,start.y,img->GetSize().x,img->GetSize().y));
+		}
+		else
+		{
+			return img->GetSubBitmap(wxRect(start.x,start.y,img->GetSize().x,size.y));
+		}
+	}
+	else
+	{
+		if (size.y > img->GetSize().y)
+		{
+			return img->GetSubBitmap(wxRect(start.x,start.y,size.x,img->GetSize().y));
+		}
+		else
+		{
+			return img->GetSubBitmap(wxRect(start.x,start.y,size.x,size.y));
+		}
+	}
 }
 
 wxPoint Model::FindStartForImage() const
@@ -191,7 +211,7 @@ wxPoint Model::FindStartForImage() const
 	wxPoint point = player->GetPosition();
 	wxPoint finish(levels[currentLevel]->GetW()*20,levels[currentLevel]->GetH()*20);
 
-	wxRect ret(point.x - size.x / 2, point.y - size.y /2 , point.x + size.x / 2, point.y + size.y /2);
+	wxRect ret(point.x - size.x / 2, point.y - size.y /2 ,size.x,size.y);//, point.x + size.x / 2, point.y + size.y /2);
 
 	if (ret.x < 0)
 		ret.x = 0;
@@ -199,11 +219,16 @@ wxPoint Model::FindStartForImage() const
 	if (ret.y < 0)
 		ret.y = 0;
 
-	if (ret.x + ret.width > finish.x)
-		ret.x = finish.x - size.x;
+	if (ret.width > finish.x)
+		ret.x = 0;
 
-	if (ret.y + ret.height > finish.y)
-		ret.y = finish.y - size.y;
+	if (ret.height > finish.y)
+		ret.y = 0;
+	if (ret.x + ret.width > finish.x && ret.x != 0)
+		ret.x = finish.x - ret.width;
+
+	if (ret.y + ret.height > finish.y && ret.y != 0)
+		ret.y = finish.y - ret.height;
 
 	return wxPoint(ret.x,ret.y);
 }
@@ -289,13 +314,17 @@ void Model::CreateImage()
 wxBitmap Model::CreateSubImage(wxPoint start, wxPoint end)
 {
 	int** arr = levels[currentLevel]->GetArr();
-
+	/*if (end.x > levels[currentLevel]->GetH())
+		end.x = levels[currentLevel]->GetH()+1;
+	if  (end.y > levels[currentLevel]->GetW())
+		end.y = levels[currentLevel]->GetW()+1;*/
 	wxBitmap bmp((end.x-start.x)*20,(end.y-start.y)*20);
 	wxMemoryDC mc(bmp);
 	wxBitmap texture;
 	texture.LoadFile("Image/Texture.png",wxBITMAP_TYPE_PNG);
 	int x = 0;
 	int y = 0;
+	
 	for(int i = start.y; i < end.y; i++)
 	{
 		x = 0;

@@ -200,8 +200,7 @@ int Player::Move(int direction)
 		break;
 	case DOWN:
 		newP = GetPosition()+wxSize(0,GetSpeed());
-
-		if (newP.y >= level->GetW()*20 && level->GetArr()[(int)(newP.y/20)+2][(int)(newP.x/20)] == 4)
+		if (newP.y >= level->GetH()*20 - 40)// && level->GetArr()[(int)((GetPosition().y+30)/20)][(int)(newP.x/20)] == 4)
 			return 2;//next level
 		if (newP.x % 20 != 0)
 		{
