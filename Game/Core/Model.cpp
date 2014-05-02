@@ -88,7 +88,7 @@ void Model::GoToLevel(int value)
 			currentLevel = value;
 			p = FindPositionForPlayer(1);
 			player->SetPosition(p-wxSize(0,30));
-			nn = nofm + currentLevel*5
+			nn = nofm + currentLevel*5;
 		}
 		
 		
