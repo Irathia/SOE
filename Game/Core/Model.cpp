@@ -75,23 +75,26 @@ void Model::GoToLevel(int value)
 	if (value < levels.size())
 	{
 		wxPoint p;
+		int nn = 0;
 		if (currentLevel < value)
 		{
 			currentLevel = value;
 			p = FindPositionForPlayer(0);
 			player->SetPosition(p);
+			nn = nofm - currentLevel*5;
 		}
 		else
 		{
 			currentLevel = value;
 			p = FindPositionForPlayer(1);
 			player->SetPosition(p-wxSize(0,30));
+			nn = nofm + currentLevel*5
 		}
 		
 		
 		
 		player->SetCurrentLevel(levels.at(currentLevel));
-		for(int i = 0; i < nofm + currentLevel*5; i++)
+		for(int i = 0; i < nn; i++)
 		{
 			int t = rand()%2;
 			if (t == 0)
