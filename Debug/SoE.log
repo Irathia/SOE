@@ -1,11 +1,12 @@
-﻿Build started 28.04.2014 19:05:48.
+﻿Build started 02.05.2014 23:21:38.
      1>Project "C:\Users\Админ\Documents\Visual Studio 2012\Projects\SoE\SOE\SoE.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /IC:\wxWidgets3\include /IC:\wxWidgets3\lib\vc_lib\mswud /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D __WXMSW__ /D __WXDEBUG__ /D _WINDOWS /D NOPCH /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game\Core\Model.cpp
          Model.cpp
      1>c:\users\админ\documents\visual studio 2012\projects\soe\soe\game\core\model.cpp(56): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\админ\documents\visual studio 2012\projects\soe\soe\game\core\model.cpp(241): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\админ\documents\visual studio 2012\projects\soe\soe\game\core\model.cpp(265): warning C4715: 'Model::FindPositionForPlayer' : not all control paths return a value
+     1>c:\users\админ\documents\visual studio 2012\projects\soe\soe\game\core\model.cpp(75): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\админ\documents\visual studio 2012\projects\soe\soe\game\core\model.cpp(294): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\админ\documents\visual studio 2012\projects\soe\soe\game\core\model.cpp(318): warning C4715: 'Model::FindPositionForPlayer' : not all control paths return a value
        Link:
          C:\Program Files\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Админ\Documents\Visual Studio 2012\Projects\SoE\Debug\SoE.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\wxWidgets3\lib\vc_lib wxmsw30ud_core.lib wxbase30ud.lib wxtiffd.lib wxjpegd.lib wxpngd.lib wxzlibd.lib wxregexud.lib wxexpatd.lib winmm.lib comctl32.lib rpcrt4.lib wsock32.lib odbc32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Админ\Documents\Visual Studio 2012\Projects\SoE\Debug\SoE.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Админ\Documents\Visual Studio 2012\Projects\SoE\Debug\SoE.lib" /MACHINE:X86 Debug\Item.obj
          Debug\Level.obj
@@ -31,4 +32,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:11.76
+Time Elapsed 00:00:08.31

@@ -84,7 +84,7 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 			if (inv->ShowModal() == wxID_CANCEL)
 			{
 				this->SetFocus();
-				this->Refresh();
+				//this->Refresh();
 			}
 		}
 		
@@ -97,7 +97,8 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 			if (chs->ShowModal() == 1)
 			{
 				this->SetFocus();
-				this->Refresh();
+				info->Refresh();
+				//this->Refresh();
 			}
 		}
 		
@@ -109,10 +110,20 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 	
 }
 
-void Game::Information()
+bool Game::Information(int a)
 {
+	if (a == 1)
+	{
+		/*this->GameW->SetBackgroundColour(*wxBLACK);
+		this->GameW->Refresh();*/
+		return true;
+	}
 	if (info->Information() == true)
-		this->Refresh();
+	{
+		this->info->Refresh();
+		return true;
+	}
+	return false;
 }
 void Game::WeAreDead()
 {

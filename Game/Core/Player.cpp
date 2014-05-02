@@ -143,7 +143,7 @@ int Player::Move(int direction)
 		break;
 	case UP:
 		newP = GetPosition()+wxSize(0,-GetSpeed());
-		if (newP.y <= 0 && level->GetArr()[(int)(newP.y/20)][(int)(newP.x/20)] == 4)
+		if (newP.y <= 20 )//&& level->GetArr()[(int)(newP.y/20)][(int)(newP.x/20)] == 4)
 			return 3;//previous level
 		if (newP.x % 20 != 0)
 		{

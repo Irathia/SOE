@@ -23,7 +23,7 @@ public:
 	void SetSize(wxSize size);
 	wxPoint FindStartForImage() const;
 	void update(wxPoint point, wxBitmap set);
-	void CreateImage();
+	void CreateImage(int a = 0);
 	void OnPressKeyboard(int key);
 	void GoToLevel(int value);
 	wxBitmap CreateSubImage(wxPoint start, wxPoint end);

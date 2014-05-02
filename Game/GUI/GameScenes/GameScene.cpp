@@ -22,7 +22,11 @@ GameScene::GameScene(wxWindow* parent, Model* model, Game* game):wxPanel(parent)
 
 void GameScene::OnPaint(wxPaintEvent& event)
 {
-	parent->Information();
+	if (parent->Information() == true)
+	{
+		parent->Refresh();
+	}
+	//this->ClearBackground();
 	if (timer.IsRunning() == false)
 		timer.Start(100);
 	int h = 0, w = 0;
@@ -31,9 +35,9 @@ void GameScene::OnPaint(wxPaintEvent& event)
 		return;
 	this->model->SetSize(wxSize(w,h));
 	wxBufferedPaintDC dc(this);
-	
 	wxBitmap image = model->GetImage();
 	dc.Clear();
+	//this->SetBackgroundColour(*wxBLACK);
 	dc.DrawBitmap(image,0,0);
 	//wxMemoryDC mc(image);
 	//dc.Blit(0,0,h,w,&mc,0,0);

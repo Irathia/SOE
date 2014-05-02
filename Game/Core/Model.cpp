@@ -8,13 +8,13 @@ Model::Model(Game* game):wxEvtHandler()
 	this->game = game;
 	wxImage::AddHandler(new wxPNGHandler);
 	this->size = size;
-	Level* zl = new Level(11,20,20, false);// zerro level h = 21*2-1 w = 50
+	Level* zl = new Level(11,20,5, false);// zerro level h = 21*2-1 w = 50
 	levels.push_back(zl);
 	currentLevel = 0;
 	wxPoint p = FindPositionForPlayer(0);
 	player = new Player(p,levels[currentLevel]);
 	img = new wxBitmap(levels[0]->GetW()*20, levels[0]->GetH()*20);
-	CreateImage();
+	CreateImage(1);
 	int numer = 10;
 	for(int i = 0; i < numer; i++)
 	{
@@ -72,27 +72,58 @@ void Model::GoToLevel(int value)
 	
 	int nofm = monsters.size();
 	monsters.clear();
-	if (value < currentLevel)
+	if (value < levels.size())
 	{
-		currentLevel = value;
-		wxPoint p = FindPositionForPlayer(1);
-		player->SetPosition(p);
+		wxPoint p;
+		if (currentLevel < value)
+		{
+			currentLevel = value;
+			p = FindPositionForPlayer(0);
+			player->SetPosition(p);
+		}
+		else
+		{
+			currentLevel = value;
+			p = FindPositionForPlayer(1);
+			player->SetPosition(p-wxSize(0,30));
+		}
+		
+		
+		
 		player->SetCurrentLevel(levels.at(currentLevel));
+		for(int i = 0; i < nofm + currentLevel*5; i++)
+		{
+			int t = rand()%2;
+			if (t == 0)
+			{
+				Monster* m = new Monster(levels[currentLevel],wxString("Zomby"),monsters);
+				monsters.push_back(m);
+			}
+			else
+			{
+				Monster* m = new Monster(levels[currentLevel],wxString("Mummy"),monsters);
+				monsters.push_back(m);
+			}
+
+		
+		}
 		MonsterTimer->Start(1000);
 		PlayerTimer->Start(200);
+		CreateImage();
 		counter = 0;
+		player->SetDirection(-1*player->GetDirection());
 	}
 	else
 	{
 		currentLevel = value;
 		if (currentLevel%2 == 0)
-		{
-			Level* zl = new Level(21+currentLevel*5,70+currentLevel*5,20+currentLevel*5, false);
+		{//11,20,5
+			Level* zl = new Level(11+currentLevel*5,20+currentLevel*5,5+currentLevel*5, false);
 			levels.push_back(zl);
 		}
 		else
 		{
-			Level* zl = new Level(21+currentLevel*4,70+(currentLevel-1)*5,20+currentLevel*5, false);
+			Level* zl = new Level(11+currentLevel*4,20+(currentLevel-1)*5,5+currentLevel*5, false);
 			levels.push_back(zl);
 		}
 	
@@ -100,7 +131,7 @@ void Model::GoToLevel(int value)
 		player->SetPosition(p);
 		player->SetCurrentLevel(levels.at(currentLevel));
 		img = new wxBitmap(levels[currentLevel]->GetW()*20, levels[currentLevel]->GetH()*20);
-		CreateImage();
+		
 		for(int i = 0; i < nofm + currentLevel*5; i++)
 		{
 			int t = rand()%2;
@@ -122,7 +153,9 @@ void Model::GoToLevel(int value)
 
 		//PlayerTimer = new wxTimer(this,2);
 		PlayerTimer->Start(200);
+		CreateImage();
 		counter = 0;
+		player->SetDirection(-1*player->GetDirection());
 	}
 	
 }
@@ -141,18 +174,30 @@ void Model::OnTimerPlayer(wxTimerEvent& event)
 		if (player->GetDirection() > 0)
 		{
 			int a = player->Move(player->GetDirection());
-			if (a == 2)
-				//next level
+			if (a == 2)//next level
 					if (currentLevel + 1 != 100)
+					{
 						this->GoToLevel(currentLevel+1);
-			if (a == 3)
-				//previous
+						return;
+					}
+			if (a == 3)//previous
 					if (currentLevel - 1 != -1)
+					{
 						this->GoToLevel(currentLevel-1);
+						return;
+					}
 			int startx = (int)((player->GetPosition().x - player->GetSpeed())/20);
 			int starty = (int)((player->GetPosition().y - player->GetSpeed())/20);
 			int endx = (int)((player->GetPosition().x + 40 + player->GetSpeed())/20);
 			int endy = (int)((player->GetPosition().y + player->GetSpeed() + 60)/20);
+			if (startx < 0)
+				startx = 0;
+			if (starty < 0)
+				starty = 0;
+			if (endx > levels[currentLevel]->GetH())
+				endx = levels[currentLevel]->GetH();
+			if (endy > levels[currentLevel]->GetW())
+				endy = levels[currentLevel]->GetW();
 			counter++;
 	
 			update(wxPoint(startx*20,starty*20),CreateSubImage(wxPoint(startx,starty),wxPoint(endx,endy)));
@@ -173,6 +218,14 @@ void Model::OnTimerPlayer(wxTimerEvent& event)
 			int starty = (int)((player->GetPosition().y)/20);
 			int endx = (int)((player->GetPosition().x)/20 + 3);
 			int endy = (int)((player->GetPosition().y + 30)/20);
+			if (startx < 0)
+				startx = 0;
+			if (starty < 0)
+				starty = 0;
+			if (endx > levels[currentLevel]->GetH())
+				endx = levels[currentLevel]->GetH();
+			if (endy > levels[currentLevel]->GetW())
+				endy = levels[currentLevel]->GetW();
 			update(wxPoint(startx*20,starty*20),CreateSubImage(wxPoint(startx,starty),wxPoint(endx,endy)));
 		}
 	}
@@ -264,9 +317,10 @@ wxPoint Model::FindPositionForPlayer(bool direction)
 	
 }
 
-void Model::CreateImage()
+void Model::CreateImage(int a)
 {
 	wxMemoryDC mc(*img);
+	mc.Clear();
 	wxBitmap* texture = new wxBitmap("Image/Texture.png",wxBITMAP_TYPE_PNG);
 	int** arr = levels[currentLevel]->GetArr();
 	for (int i = 0; i < levels[currentLevel]->GetH(); i++)
@@ -308,16 +362,15 @@ void Model::CreateImage()
 	}
 	img->SaveFile("Image/Map.png",wxBITMAP_TYPE_PNG);
 	//draw player
+	
 	mc.DrawBitmap(player->GetCurrentImage(),player->GetPosition().x,player->GetPosition().y, true);
+	if (a != 1)
+		game->Information(1);
 }
 
 wxBitmap Model::CreateSubImage(wxPoint start, wxPoint end)
 {
 	int** arr = levels[currentLevel]->GetArr();
-	/*if (end.x > levels[currentLevel]->GetH())
-		end.x = levels[currentLevel]->GetH()+1;
-	if  (end.y > levels[currentLevel]->GetW())
-		end.y = levels[currentLevel]->GetW()+1;*/
 	wxBitmap bmp((end.x-start.x)*20,(end.y-start.y)*20);
 	wxMemoryDC mc(bmp);
 	wxBitmap texture;

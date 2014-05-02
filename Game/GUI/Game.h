@@ -23,7 +23,7 @@ public:
 	void OnPaint(wxPaintEvent& event);
 	void OnPressKeyboard(wxKeyEvent& event);
 	void WeAreDead();
-	void Information();
+	bool Information(int a = 0);
 private:
 	Model* model;
 

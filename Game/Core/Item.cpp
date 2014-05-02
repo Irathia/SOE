@@ -4,6 +4,7 @@ Item::Item(wxWindow* parent):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	wxBitmap bitmap("Image/items.png",wxBITMAP_TYPE_PNG);
+	this->SetBackgroundColour(*wxBLACK);
 	menu = new wxMenu();
 	menu->Append(1,"Use");
 	menu->Append(2,"Fast key");
@@ -511,6 +512,18 @@ Item::Item(wxWindow* parent, wxString type):wxStaticBitmap(parent,wxID_ANY,wxNul
 		a = 2;
 	if (type == "Other")
 		a = 3;
+	if (type == "Empty")
+	{
+		subtype = "";
+		quality = "";
+		bmp = wxNullBitmap;
+
+		this->SetBitmap(bmp);
+		this->SetBackgroundColour(*wxBLACK);
+		CreateInfo();
+		return;
+	}
+	this->SetBackgroundColour(*wxBLACK);
 	int b = 0;
 	int nq = 0;
 	int sq = rand()%5;
@@ -1001,13 +1014,19 @@ Item::Item(wxWindow* parent,int level, wxString type, wxString subtype, wxString
 	this->subtype = subtype;
 	this->quality = quality;
 	CreateInfo();
+	this->SetBackgroundColour(*wxBLACK);
 	this->SetBitmap(bmp);
 }
 
 void Item::CreateInfo()
 {
 	info = new wxMenu();
-	info->Append(1,type + " - " + subtype + " " + quality);
+	if (type == "Empty")
+	{
+		info->Append(1,"Empty");
+	}
+	else
+		info->Append(1,type + " - " + subtype + " " + quality);
 }
 
 wxString Item::GetName() const
@@ -1045,8 +1064,11 @@ wxBitmap Item::GetBitmap() const
 
 void Item::ShowMenu(wxMouseEvent& event)
 {
-	wxPoint p = event.GetPosition();
-	this->DoPopupMenu(menu, p.x,p.y);
+	if (type != "Empty")
+	{
+		wxPoint p = event.GetPosition();
+		this->DoPopupMenu(menu, p.x,p.y);
+	}
 }
 
 void Item::ShowInfo(wxMouseEvent& event)
