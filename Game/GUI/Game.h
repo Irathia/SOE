@@ -24,10 +24,12 @@ public:
 	void OnPressKeyboard(wxKeyEvent& event);
 	void WeAreDead();
 	bool Information(int a = 0);
+	void OpenChest();
 private:
 	Model* model;
 
     GameScene* GameW;
+	//Chest* chest;
     wxPanel* Map;
     Info* info;
     wxPanel* Task;

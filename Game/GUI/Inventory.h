@@ -6,14 +6,14 @@
 #include <wx/menu.h>
 
 #include "../Core/Item.h"
-
+class Item;
 class Inventory: public wxDialog
 {
 public:
 	Inventory(wxWindow* parent);
 	void OnPaint(wxPaintEvent& event);
-	
-	std::vector <wxString> GetItems() const;
+	bool AddItem(Item* itm);
+	std::vector <Item*> GetItems() const;
 	wxString GetItem(int i) const;
 private:
 	std::vector <Item*> items;

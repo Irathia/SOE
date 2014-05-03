@@ -454,6 +454,7 @@ void Model::OnPressKeyboard(int key)
 				Endx = (int)((P.x + 20) / 20);
 				Endy = (int)((P.y + 30) / 20);
 				update(wxPoint(Startx*20, Starty*20),CreateSubImage(wxPoint(Startx,Starty),wxPoint(Endx, Endy)));
+				game->OpenChest();
 				break;
 			}
 		}

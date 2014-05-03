@@ -1,7 +1,9 @@
 #include "Item.h"
-
-Item::Item(wxWindow* parent):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
+//int Item::ALL = 0;
+Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
 {
+	//ID = ALL;
+	//ALL++;
 	wxImage::AddHandler(new wxPNGHandler);
 	wxBitmap bitmap("Image/items.png",wxBITMAP_TYPE_PNG);
 	this->SetBackgroundColour(*wxBLACK);
@@ -9,6 +11,8 @@ Item::Item(wxWindow* parent):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
 	menu->Append(1,"Use");
 	menu->Append(2,"Fast key");
 	menu->Append(3,"Destroy");
+
+	this->inchest = inchest;
 
 	int a = rand()%5;
 	int b = 0;
@@ -321,7 +325,7 @@ Item::Item(wxWindow* parent):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
 		case 6:
 			subtype = "Money";
 			quality = "";
-			quality << "Mana" << "+" <<rand()%20 + 1 << "money  "; 
+			quality << "+" <<rand()%20 + 1 << "money  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(240,120,40,40));
 			break;
 		default:
@@ -480,7 +484,7 @@ Item::Item(wxWindow* parent):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
 		case 6:
 			subtype = "Money";
 			quality = "";
-			quality << "Mana" << "+" <<rand()%20 + 1 << "money  "; 
+			quality <<  "+" <<rand()%20 + 1 << "money  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(240,120,40,40));
 			break;
 		default:
@@ -491,11 +495,14 @@ Item::Item(wxWindow* parent):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
 		break;
 	}
 	this->SetBitmap(bmp);
-	CreateInfo();
+	//CreateInfo();
 }
 
-Item::Item(wxWindow* parent, wxString type):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
+Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
 {
+	//ID = ALL;
+	//ALL++;
+
 	wxImage::AddHandler(new wxPNGHandler);
 	wxBitmap bitmap("Image/items.png",wxBITMAP_TYPE_PNG);
 	menu = new wxMenu();
@@ -503,6 +510,8 @@ Item::Item(wxWindow* parent, wxString type):wxStaticBitmap(parent,wxID_ANY,wxNul
 	menu->Append(2,"Fast key");
 	menu->Append(3,"Destroy");
 	this->type = type;
+
+	this->inchest = inchest;
 	int a = 0;
 	if (type == "Apparel")
 		a = 0;
@@ -520,7 +529,7 @@ Item::Item(wxWindow* parent, wxString type):wxStaticBitmap(parent,wxID_ANY,wxNul
 
 		this->SetBitmap(bmp);
 		this->SetBackgroundColour(*wxBLACK);
-		CreateInfo();
+		//CreateInfo();
 		return;
 	}
 	this->SetBackgroundColour(*wxBLACK);
@@ -834,7 +843,7 @@ Item::Item(wxWindow* parent, wxString type):wxStaticBitmap(parent,wxID_ANY,wxNul
 		case 6:
 			subtype = "Money";
 			quality = "";
-			quality << "Mana" << "+" <<rand()%20 + 1 << "money  "; 
+			quality <<  "+" <<rand()%20 + 1 << "money  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(240,120,40,40));
 			break;
 		default:
@@ -993,7 +1002,7 @@ Item::Item(wxWindow* parent, wxString type):wxStaticBitmap(parent,wxID_ANY,wxNul
 		case 6:
 			subtype = "Money";
 			quality = "";
-			quality << "Mana" << "+" <<rand()%20 + 1 << "money  "; 
+			quality << "+" <<rand()%20 + 1 << "money  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(240,120,40,40));
 			break;
 		default:
@@ -1003,19 +1012,26 @@ Item::Item(wxWindow* parent, wxString type):wxStaticBitmap(parent,wxID_ANY,wxNul
 	default:
 		break;
 	}
-	CreateInfo();
+	
 	this->SetBitmap(bmp);
 }
 
-Item::Item(wxWindow* parent,int level, wxString type, wxString subtype, wxString quality):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
+Item::Item(wxWindow* parent,int level, wxString type, wxString subtype, wxString quality,int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullBitmap)
 {
+	//ID = ALL;
+	//ALL++;
+	menu = new wxMenu();
+	menu->Append(1,"Use");
+	menu->Append(2,"Fast key");
+	menu->Append(3,"Destroy");
 	this->level = level;
 	this->type = type;
 	this->subtype = subtype;
 	this->quality = quality;
-	CreateInfo();
+	this->inchest = inchest;
+	//CreateInfo();
 	this->SetBackgroundColour(*wxBLACK);
-	this->SetBitmap(bmp);
+	//this->SetBitmap(bmp);
 }
 
 void Item::CreateInfo()
@@ -1053,6 +1069,10 @@ wxString Item::GetQuality() const
 	return quality;
 }
 
+/*int Item::GetID() const
+{
+	return ID;
+}*/
 int Item::GetCost() const
 {
 	return cost;
@@ -1062,9 +1082,20 @@ wxBitmap Item::GetBitmap() const
 	return bmp;
 }
 
+void Item::SetInChest()
+{
+	if (inchest == true)
+		inchest = false;
+	else
+		inchest = true;
+}
+bool Item::AmIInChest()
+{
+	return inchest;
+}
 void Item::ShowMenu(wxMouseEvent& event)
 {
-	if (type != "Empty")
+	if (type != "Empty" && inchest == false)
 	{
 		wxPoint p = event.GetPosition();
 		this->DoPopupMenu(menu, p.x,p.y);
@@ -1073,18 +1104,26 @@ void Item::ShowMenu(wxMouseEvent& event)
 
 void Item::ShowInfo(wxMouseEvent& event)
 {
+	CreateInfo();
 	wxPoint p = event.GetPosition();
 	this->DoPopupMenu(info, p.x,p.y);
 }
 
 void Item::Shift(wxMouseEvent& event)
 {
-
+	if (inchest == true)
+	{
+		if (type != "Empty")
+		{
+			((Chest*)(this->GetParent()))->Shift(this->GetId());
+		}
+	}
 }
 
 
 BEGIN_EVENT_TABLE(Item,wxStaticBitmap)
 	EVT_RIGHT_DOWN (	Item::ShowMenu)
 	EVT_LEFT_DOWN (	Item::ShowInfo)
-	EVT_LEFT_DCLICK (	Item::Shift)
+	//EVT_LEFT_DCLICK (	Item::Shift)
+	EVT_MIDDLE_DOWN (	Item::Shift)
 END_EVENT_TABLE()

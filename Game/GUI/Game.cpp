@@ -7,6 +7,7 @@
 Game::Game(wxFrame* parent, string name) : wxFrame(parent, 1, "Game", wxDefaultPosition, wxDefaultSize)
 {
 	inv = new Inventory(this);
+	
 	model = new Model(this);
 	chs = new Characteristic(this,model->GetPlayer());
 	this->ShowFullScreen(true);
@@ -108,6 +109,22 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 		break;
 	}
 	
+}
+
+void Game::OpenChest()
+{
+	Chest* chest = new Chest(this,inv);
+	if (chest->IsActive() == false)
+	{
+		chest->SetFocus();
+			//chs->Refresh();
+		if (chest->ShowModal() == wxID_CANCEL)
+		{
+			this->SetFocus();
+			//info->Refresh();
+				//this->Refresh();
+		}
+	}
 }
 
 bool Game::Information(int a)
