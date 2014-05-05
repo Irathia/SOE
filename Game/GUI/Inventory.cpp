@@ -2,12 +2,13 @@
 
 Inventory::Inventory(wxWindow* parent):wxDialog(parent,wxID_ANY,"Inventory")
 {
+	
 	for (int i = 0; i < 25; i++)
 	{
 		Item* panel = new Item(this,"Empty");
+		//panel->Hide();
 		items.push_back(panel);
 	}
-
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Inventory::OnPaint));
 	//this->Connect(wxEVT_RIGHT_DOWN,wxMouseEventHandler(Inventory::ShowMenu));
 	//this->Refresh();
@@ -17,10 +18,13 @@ void Inventory::OnPaint(wxPaintEvent& event)
 {
 	//this->ClearBackground();
 	wxGridSizer* gridsizer = new wxGridSizer(5,5,0,0);
+	//this->GetSizer()->Detach(true);
+
 	//gridsizer->Clear();
 	for (int i = 24; i >= 0; i--)
 	{
 		gridsizer->Add(items[i],1,wxALL|wxEXPAND,5);
+		items[i]->Show();
 	}
 	SetSizer(gridsizer);
 	Layout();

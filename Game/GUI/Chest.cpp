@@ -23,13 +23,14 @@ Chest::Chest(wxWindow* parent, Inventory* inv):wxDialog(parent,wxID_ANY,"Chest")
 void Chest::OnPaint(wxPaintEvent& event)
 {
 	wxGridSizer* g = new wxGridSizer(2,2,0,0);
-
+	g->Clear();
 	for (int i = 0; i < 4; i++)
 	{
 		g->Add(chestItems[i],1,wxALL|wxEXPAND,5);
+		chestItems[i]->Show();
 	}
 	SetSizer(g);
-	Fit();
+	//Fit();
 	Layout();
 }
 
@@ -48,9 +49,23 @@ void Chest::Shift(int id)
 	{
 		if (inv->AddItem(chestItems.at(a)) == false)
 			return;
-		chestItems.erase(chestItems.begin()+a);
-		Item* it = new Item(this,"Empty",true);
-		chestItems.push_back(it);
+		/*std::vector <Item*> chestItems1;
+		for (int i = 0; i < 4; i++)
+		{
+			if (i == a)
+			{
+				Item* it = new Item(this,"Empty",true);
+				chestItems1.push_back(it);
+			}
+			else
+			{
+				chestItems1.push_back(chestItems[i]);
+			}
+		}*/
+		chestItems.at(a)->SetType("Empty");
+		//chestItems.clear();
+
+		//chestItems = chestItems1;
 		this->Refresh();
 	}
 }

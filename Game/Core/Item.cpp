@@ -4,6 +4,9 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 {
 	//ID = ALL;
 	//ALL++;
+	info = new wxMenu();
+	info->Append(1,"-");
+	this->Hide();
 	wxImage::AddHandler(new wxPNGHandler);
 	wxBitmap bitmap("Image/items.png",wxBITMAP_TYPE_PNG);
 	this->SetBackgroundColour(*wxBLACK);
@@ -502,7 +505,9 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 {
 	//ID = ALL;
 	//ALL++;
-
+	info = new wxMenu();
+	info->Append(1,"-");
+	this->Hide();
 	wxImage::AddHandler(new wxPNGHandler);
 	wxBitmap bitmap("Image/items.png",wxBITMAP_TYPE_PNG);
 	menu = new wxMenu();
@@ -1020,6 +1025,9 @@ Item::Item(wxWindow* parent,int level, wxString type, wxString subtype, wxString
 {
 	//ID = ALL;
 	//ALL++;
+	info = new wxMenu();
+	info->Append(1,"-");
+	this->Hide();
 	menu = new wxMenu();
 	menu->Append(1,"Use");
 	menu->Append(2,"Fast key");
@@ -1036,8 +1044,9 @@ Item::Item(wxWindow* parent,int level, wxString type, wxString subtype, wxString
 
 void Item::CreateInfo()
 {
-	info = new wxMenu();
-	if (type == "Empty")
+	//info->
+	info->Delete(1);
+	if (this->type == "Empty")
 	{
 		info->Append(1,"Empty");
 	}
@@ -1089,6 +1098,16 @@ void Item::SetInChest()
 	else
 		inchest = true;
 }
+
+void Item::SetType(wxString value)
+{
+	this->type = value;
+	if (value == "Empty")
+	{
+		SetBitmap(wxNullBitmap);
+	}
+}
+
 bool Item::AmIInChest()
 {
 	return inchest;

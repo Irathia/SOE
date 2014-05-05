@@ -25,6 +25,7 @@ public:
 	wxBitmap GetBitmap() const;
 
 	void SetInChest();
+	void SetType(wxString value);
 	bool AmIInChest();
 
 	void CreateInfo();
