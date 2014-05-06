@@ -21,7 +21,8 @@ public:
 
 	int GetExp() const;
 	void SetExp(int value);
-
+	void Quality(wxString data, bool type);
+	void Teleport(wxString data);
 	bool GetDead() const;
 private:
 	int direction;

@@ -49,23 +49,7 @@ void Chest::Shift(int id)
 	{
 		if (inv->AddItem(chestItems.at(a)) == false)
 			return;
-		/*std::vector <Item*> chestItems1;
-		for (int i = 0; i < 4; i++)
-		{
-			if (i == a)
-			{
-				Item* it = new Item(this,"Empty",true);
-				chestItems1.push_back(it);
-			}
-			else
-			{
-				chestItems1.push_back(chestItems[i]);
-			}
-		}*/
 		chestItems.at(a)->SetType("Empty");
-		//chestItems.clear();
-
-		//chestItems = chestItems1;
 		this->Refresh();
 	}
 }

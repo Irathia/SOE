@@ -6,9 +6,10 @@
 
 Game::Game(wxFrame* parent, string name) : wxFrame(parent, 1, "Game", wxDefaultPosition, wxDefaultSize)
 {
-	inv = new Inventory(this);
+	
 	
 	model = new Model(this);
+	inv = new Inventory(this,model->GetPlayer());
 	chs = new Characteristic(this,model->GetPlayer());
 	this->ShowFullScreen(true);
 	this->name = name;

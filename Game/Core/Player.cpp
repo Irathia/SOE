@@ -15,6 +15,8 @@ Player::Player(wxPoint first, Level* level):direction(0),fight(0),dead(false)
 	SetFactor(3,1);
 	SetFactor(4,1);
 	SetFactor(5,0);
+	SetBonus(0,0);
+	SetBonus(1,0);
 	exp = 950;
 	wxBitmap* bmp = new wxBitmap("Image/Player.png", wxBITMAP_TYPE_PNG);
 	SetImage(bmp);
@@ -366,4 +368,192 @@ void Player::SetFight(int value)
 bool Player::GetDead() const
 {
 	return dead;
+}
+
+void Player::Quality(wxString data, bool type)
+{
+	wxString first, second, third, last;
+	int f,s,t;
+	f = data.Find(" ");
+	first = data.substr(0,f);
+	data = data.substr(f+1,data.length());
+	s = data.Find(" ");
+	second = data.substr(0,s);
+	data = data.substr(s+1,data.length());
+	t = data.Find(" ");
+	third = data.substr(0,t);
+	last = data.substr(t+1,data.length());
+	if (type == true)
+	{
+		if (first == "")
+			return;
+		else
+		{
+			if (first.at(0) == '+')
+			{
+				int a = wxAtoi(first.substr(1,first.length()));
+				if (second == "health")
+					SetBonus(0,GetBonus(0)+a);
+				if (second == "mana")
+					SetBonus(1,GetBonus(1)+a);
+				if (second == "strength")
+					SetBonus(2,GetBonus(0)+a);
+				if (second == "magic")
+					SetBonus(3,GetBonus(0)+a);
+				if (second == "agility")
+					SetBonus(4,GetBonus(0)+a);
+				if (second == "defense")
+					SetBonus(5,GetBonus(0)+a);
+			}
+			if (first.at(0) == '-')
+			{
+				int a = wxAtoi(first.substr(1,first.length()));
+				if (second == "health")
+					SetBonus(0,GetBonus(0)-a);
+				if (second == "mana")
+					SetBonus(1,GetBonus(1)-a);
+				if (second == "strength")
+					SetBonus(2,GetBonus(0)-a);
+				if (second == "magic")
+					SetBonus(3,GetBonus(0)-a);
+				if (second == "agility")
+					SetBonus(4,GetBonus(0)-a);
+				if (second == "defense")
+					SetBonus(5,GetBonus(0)-a);
+			}
+		}
+
+		if (third == "")
+			return;
+		else
+		{
+			if (third.at(0) == '+')
+			{
+				int a = wxAtoi(third.substr(1,third.length()));
+				if (last == "health")
+					SetBonus(0,GetBonus(0)+a);
+				if (last == "mana")
+					SetBonus(1,GetBonus(1)+a);
+				if (last == "strength")
+					SetBonus(2,GetBonus(0)+a);
+				if (last == "magic")
+					SetBonus(3,GetBonus(0)+a);
+				if (last == "agility")
+					SetBonus(4,GetBonus(0)+a);
+				if (last == "defense")
+					SetBonus(5,GetBonus(0)+a);
+			}
+			if (third.at(0) == '-')
+			{
+				int a = wxAtoi(third.substr(1,third.length()));
+				if (last == "health")
+					SetBonus(0,GetBonus(0)-a);
+				if (last == "mana")
+					SetBonus(1,GetBonus(1)-a);
+				if (last == "strength")
+					SetBonus(2,GetBonus(0)-a);
+				if (last == "magic")
+					SetBonus(3,GetBonus(0)-a);
+				if (last == "agility")
+					SetBonus(4,GetBonus(0)-a);
+				if (last == "defense")
+					SetBonus(5,GetBonus(0)-a);
+			}
+		}
+	}
+	else
+	{
+		if (first == "")
+			return;
+		else
+		{
+			if (first.at(0) == '+')
+			{
+				int a = wxAtoi(first.substr(1,first.length()));
+				if (second == "health")
+					SetBonus(0,GetBonus(0)-a);
+				if (second == "mana")
+					SetBonus(1,GetBonus(1)-a);
+				if (second == "strength")
+					SetBonus(2,GetBonus(0)-a);
+				if (second == "magic")
+					SetBonus(3,GetBonus(0)-a);
+				if (second == "agility")
+					SetBonus(4,GetBonus(0)-a);
+				if (second == "defense")
+					SetBonus(5,GetBonus(0)-a);
+			}
+			if (first.at(0) == '-')
+			{
+				int a = wxAtoi(first.substr(1,first.length()));
+				if (second == "health")
+					SetBonus(0,GetBonus(0)+a);
+				if (second == "mana")
+					SetBonus(1,GetBonus(1)+a);
+				if (second == "strength")
+					SetBonus(2,GetBonus(0)+a);
+				if (second == "magic")
+					SetBonus(3,GetBonus(0)+a);
+				if (second == "agility")
+					SetBonus(4,GetBonus(0)+a);
+				if (second == "defense")
+					SetBonus(5,GetBonus(0)+a);
+			}
+		}
+
+		if (third == "")
+			return;
+		else
+		{
+			if (third.at(0) == '+')
+			{
+				int a = wxAtoi(third.substr(1,third.length()));
+				if (last == "health")
+					SetBonus(0,GetBonus(0)+a);
+				if (last == "mana")
+					SetBonus(1,GetBonus(1)+a);
+				if (last == "strength")
+					SetBonus(2,GetBonus(0)+a);
+				if (last == "magic")
+					SetBonus(3,GetBonus(0)+a);
+				if (last == "agility")
+					SetBonus(4,GetBonus(0)+a);
+				if (last == "defense")
+					SetBonus(5,GetBonus(0)+a);
+			}
+			if (third.at(0) == '-')
+			{
+				int a = wxAtoi(third.substr(1,third.length()));
+				if (last == "health")
+					SetBonus(0,GetBonus(0)-a);
+				if (last == "mana")
+					SetBonus(1,GetBonus(1)-a);
+				if (last == "strength")
+					SetBonus(2,GetBonus(0)-a);
+				if (last == "magic")
+					SetBonus(3,GetBonus(0)-a);
+				if (last == "agility")
+					SetBonus(4,GetBonus(0)-a);
+				if (last == "defense")
+					SetBonus(5,GetBonus(0)-a);
+			}
+		}
+	}
+	
+}
+void Player::Teleport(wxString data)
+{
+	wxString first, second, third, last;
+	int f,s,t;
+	f = data.Find(" ");
+	first = data.substr(0,f);
+	data = data.substr(f+1,data.length());
+	s = data.Find(" ");
+	second = data.substr(0,s);
+	data = data.substr(s+1,data.length());
+	t = data.Find(" ");
+	third = data.substr(0,t);
+	last = data.substr(t+1,data.length());
+
+
 }

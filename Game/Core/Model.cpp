@@ -197,10 +197,10 @@ void Model::OnTimerPlayer(wxTimerEvent& event)
 				startx = 0;
 			if (starty < 0)
 				starty = 0;
-			if (endx > levels[currentLevel]->GetH())
-				endx = levels[currentLevel]->GetH();
-			if (endy > levels[currentLevel]->GetW())
-				endy = levels[currentLevel]->GetW();
+			if (endx > levels[currentLevel]->GetW())
+				endx = levels[currentLevel]->GetW();
+			if (endy > levels[currentLevel]->GetH())
+				endy = levels[currentLevel]->GetH();
 			counter++;
 	
 			update(wxPoint(startx*20,starty*20),CreateSubImage(wxPoint(startx,starty),wxPoint(endx,endy)));

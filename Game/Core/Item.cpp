@@ -4,17 +4,16 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 {
 	//ID = ALL;
 	//ALL++;
-	info = new wxMenu();
-	info->Append(1,"-");
+	
 	this->Hide();
 	wxImage::AddHandler(new wxPNGHandler);
 	wxBitmap bitmap("Image/items.png",wxBITMAP_TYPE_PNG);
 	this->SetBackgroundColour(*wxBLACK);
 	menu = new wxMenu();
 	menu->Append(1,"Use");
-	menu->Append(2,"Fast key");
-	menu->Append(3,"Destroy");
-
+	//menu->Append(2,"Fast key");
+	menu->Append(2,"Destroy");
+	this->Connect(wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(Item::SelectItem));
 	this->inchest = inchest;
 
 	int a = rand()%5;
@@ -505,15 +504,16 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 {
 	//ID = ALL;
 	//ALL++;
-	info = new wxMenu();
-	info->Append(1,"-");
+	/*info = new wxMenu();
+	info->Append(3,"-");*/
 	this->Hide();
 	wxImage::AddHandler(new wxPNGHandler);
 	wxBitmap bitmap("Image/items.png",wxBITMAP_TYPE_PNG);
 	menu = new wxMenu();
 	menu->Append(1,"Use");
-	menu->Append(2,"Fast key");
-	menu->Append(3,"Destroy");
+	//menu->Append(2,"Fast key");
+	menu->Append(2,"Destroy");
+	this->Connect(wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(Item::SelectItem));
 	this->type = type;
 
 	this->inchest = inchest;
@@ -1025,13 +1025,14 @@ Item::Item(wxWindow* parent,int level, wxString type, wxString subtype, wxString
 {
 	//ID = ALL;
 	//ALL++;
-	info = new wxMenu();
-	info->Append(1,"-");
+	/*info = new wxMenu();
+	info->Append(3,"-");*/
 	this->Hide();
 	menu = new wxMenu();
 	menu->Append(1,"Use");
-	menu->Append(2,"Fast key");
-	menu->Append(3,"Destroy");
+	//menu->Append(2,"Fast key");
+	menu->Append(2,"Destroy");
+	this->Connect(wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(Item::SelectItem));
 	this->level = level;
 	this->type = type;
 	this->subtype = subtype;
@@ -1045,13 +1046,15 @@ Item::Item(wxWindow* parent,int level, wxString type, wxString subtype, wxString
 void Item::CreateInfo()
 {
 	//info->
-	info->Delete(1);
+	//info->Delete(3);
+	info = new wxMenu();
+	//info->Append(3,"-");
 	if (this->type == "Empty")
 	{
-		info->Append(1,"Empty");
+		info->Append(3,"Empty");
 	}
 	else
-		info->Append(1,type + " - " + subtype + " " + quality);
+		info->Append(3,type + " - " + subtype + " " + quality);
 }
 
 wxString Item::GetName() const
@@ -1139,6 +1142,17 @@ void Item::Shift(wxMouseEvent& event)
 	}
 }
 
+void Item::SelectItem(wxCommandEvent& event)
+{
+	if (event.GetSelection() == 1)
+	{
+		((Inventory*)(this->GetParent()))->Use(this->GetId());
+	}
+	if (event.GetSelection() == 2)
+	{
+		((Inventory*)(this->GetParent()))->Delete(this->GetId());
+	}
+}
 
 BEGIN_EVENT_TABLE(Item,wxStaticBitmap)
 	EVT_RIGHT_DOWN (	Item::ShowMenu)

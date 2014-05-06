@@ -99,7 +99,7 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 		}
 	}
 
-	int enter = rand()%(w-2)+1;
+	int enter = rand()%(w-3)+2;
 	int exit = rand()%(w-2)+1;
 
 	arr[0][enter] = ladder;

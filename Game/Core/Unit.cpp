@@ -77,10 +77,39 @@ Level* Unit::GetCurrentLevel() const
 	return currentLevel;
 }
 
+int Unit::GetBonus(int i) const
+{
+	switch(i)
+	{
+	case 0:
+		return bonushealth;
+		break;
+	case 1:
+		return bonusmana;
+		break;
+	case 2:
+		return bonusstrength;
+		break;
+	case 3:
+		return bonusmagic;
+		break;
+	case 4:
+		return bonusagility;
+		break;
+	case 5:
+		return bonusdefense;
+		break;
+	default:
+		break;
+	}
+	return 0;
+}
+
+
 void Unit::HealthUp(int value)
 {
-	if (health+value >= (chs.health)*100)
-		health = (chs.health)*100;
+	if (health+value >= (chs.health)*100  + GetBonus(0))
+		health = (chs.health)*100 + + GetBonus(0);
 	else
 		health += value;
 }
@@ -96,8 +125,8 @@ bool Unit::HealthDown(int value)
 
 void Unit::ManaUp(int value)
 {
-	if (mana+value >= (chs.mana)*50)
-		mana = (chs.mana)*50;
+	if (mana+value >= (chs.mana)*80 + + GetBonus(1))
+		mana = (chs.mana)*80 + + GetBonus(1);
 	else
 		mana += value;
 }
@@ -134,6 +163,41 @@ void Unit::SetImage(wxBitmap* value)
 void Unit::SetHealth(int value)
 {
 	health = value;
+}
+
+void Unit::SetBonus(int i, int value)
+{
+	int diff = 0;
+	switch(i)
+	{
+	case 0:
+		bonushealth = value;
+		break;
+	case 1:
+		bonusmana = value;
+		break;
+	case 2:
+		bonusstrength = value;
+		diff = value - bonusstrength;
+		SetDamage(GetDamage() + diff);
+		break;
+	case 3:
+		bonusmagic = value;
+		//int diff = value - bonusstrength;
+		//SetDamage(GetDamage() + diff);
+		break;
+	case 4:
+		bonusagility = value;
+		diff = value - bonusagility;
+		SetSpeed(GetSpeed() + diff);
+		break;
+	case 5:
+		bonusdefense = value;
+		SetDefence(bonusdefense);
+		break;
+	default:
+		break;
+	}
 }
 
 void Unit::SetMana(int value)

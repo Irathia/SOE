@@ -21,6 +21,7 @@ public:
 	virtual void Death() = 0;
 	virtual int Move(int direction) = 0;
 	int GetHealth() const;
+	int GetBonus(int i) const;
 	int GetDamage() const;
 	int GetSpeed() const;
 	int GetMana() const;
@@ -42,6 +43,7 @@ public:
 	void SetDamage(int value);
 	void SetDefence(int value);
 	void SetHealth(int value);
+	void SetBonus(int i, int value);
 	void SetMana(int value);
 	void SetLevelOfEx(int value);
 	void SetFactor(int i,int value);
@@ -52,6 +54,14 @@ public:
 private:
 	bool p;
 	CHARACTERISTICS chs;
+
+	int bonushealth;
+	int bonusmana;
+	int bonusagility;
+	int bonusstrength;
+	int bonusmagic;
+	int bonusdefense;
+
 	int health;
 	int speed;
 	int damage;

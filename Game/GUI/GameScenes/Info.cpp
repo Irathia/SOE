@@ -73,7 +73,7 @@ void Info::OnPaint(wxPaintEvent& event)
     Health = new wxStaticBitmap(this, wxID_ANY, wxBitmap());
 	wxString tt = "";
 	tt.Clear();
-	tt<< healthc<< "/" << player->GetFactor(0)*100;
+	tt<< healthc<< "/" << player->GetFactor(0)*100+player->GetBonus(0);
 	//t_Health->SetLabel(tt);
 	t_Health = new wxStaticText(this,wxID_ANY,"");
 	//t_Health->SetLabelText(tt);
@@ -89,7 +89,7 @@ void Info::OnPaint(wxPaintEvent& event)
     TextMana = new wxStaticText(this, wxID_ANY, "Mana:");
     Mana = new wxStaticBitmap(this, wxID_ANY, wxBitmap());
 	wxString tt1 = "";
-	tt1 <<manac<<"/"<<player->GetFactor(1)*80;
+	tt1 <<manac<<"/"<<player->GetFactor(1)*80 + player->GetBonus(1);
 	t_Mana = new wxStaticText(this,wxID_ANY,"--------------");
 	t_Mana->SetLabel(tt1);
 	BoxSizer7 = new wxBoxSizer(wxVERTICAL);
@@ -103,8 +103,8 @@ void Info::OnPaint(wxPaintEvent& event)
 	BoxSizer8->Add(BoxSizer4, 1, wxALL|wxEXPAND, 0);
 	BoxSizer8->Add(BoxSizer6, 1, wxALL|wxEXPAND, 0);
 	
-	double a1 = (double)healthc/((double)player->GetFactor(0)*100);
-	double a2 = (double)manac/((double)player->GetFactor(1)*80);
+	double a1 = (double)healthc/((double)player->GetFactor(0)*100+player->GetBonus(0));
+	double a2 = (double)manac/((double)player->GetFactor(1)*80+player->GetBonus(1));
 	double a3 = (double)expc/((double)player->GetLevelOfEx()*1000);
 	for (int i = 0; i < 100; i++)
 	{
