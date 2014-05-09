@@ -21,7 +21,7 @@
     <ClCompile Include="Game\GUI\Chest.cpp" />
     <ClCompile Include="Game\GUI\DialogForNewGame.cpp" />
     <ClCompile Include="Game\GUI\Game.cpp" />
-    <ClCompile Include="Game\GUI\GameScenes\FastItems.cpp" />
+    <ClCompile Include="Game\GUI\GameScenes\Rooms.cpp" />
     <ClCompile Include="Game\GUI\GameScenes\GameScene.cpp" />
     <ClCompile Include="Game\GUI\GameScenes\Info.cpp" />
     <ClCompile Include="Game\GUI\Inventory.cpp" />
@@ -42,7 +42,7 @@
     <ClInclude Include="Game\GUI\Chest.h" />
     <ClInclude Include="Game\GUI\DialogForNewGame.h" />
     <ClInclude Include="Game\GUI\Game.h" />
-    <ClInclude Include="Game\GUI\GameScenes\FastItems.h" />
+    <ClInclude Include="Game\GUI\GameScenes\Rooms.h" />
     <ClInclude Include="Game\GUI\GameScenes\GameScene.h" />
     <ClInclude Include="Game\GUI\GameScenes\Info.h" />
     <ClInclude Include="Game\GUI\Inventory.h" />

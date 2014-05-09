@@ -186,23 +186,23 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -219,23 +219,23 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -252,23 +252,23 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -285,23 +285,23 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -345,23 +345,23 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -378,23 +378,23 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -411,23 +411,23 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -444,23 +444,23 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -707,23 +707,23 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -740,23 +740,23 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -773,23 +773,23 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -806,23 +806,23 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -866,23 +866,23 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -899,23 +899,23 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -932,23 +932,23 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";
@@ -965,23 +965,23 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 			{
 			case 0:
 				quality = "";
-				quality << "teleport left" << "-40 mana  "; 
+				quality << "teleport left" << " -40 mana  "; 
 				break;
 			case 1:
 				quality = "";
-				quality << "teleport right" << "-40 mana  "; 
+				quality << "teleport right" << " -40 mana  "; 
 				break;
 			case 2:
 				quality = "";
-				quality << "teleport up" << "-40 mana  "; 
+				quality << "teleport up" << " -40 mana  "; 
 				break;
 			case 3:
 				quality = "";
-				quality << "teleport down" << "-40 mana  "; 
+				quality << "teleport down" << " -40 mana  "; 
 				break;
 			case 4:
 				quality = "";
-				quality << "Heal" << "-40 mana +20 health "; 
+				quality << "Heal" << " -40 mana +20 health "; 
 				break;
 			case 5:
 				quality = "";

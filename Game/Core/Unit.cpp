@@ -165,21 +165,27 @@ void Unit::SetHealth(int value)
 	health = value;
 }
 
-void Unit::SetBonus(int i, int value)
+void Unit::SetBonus(int i, int value, bool first)
 {
 	int diff = 0;
 	switch(i)
 	{
 	case 0:
 		bonushealth = value;
+		if (first == false)
+			SetFactor(0,GetFactor(0));
 		break;
 	case 1:
 		bonusmana = value;
+		if (first == false)
+			SetFactor(1,GetFactor(1));
 		break;
 	case 2:
 		bonusstrength = value;
-		diff = value - bonusstrength;
-		SetDamage(GetDamage() + diff);
+		//diff = value - bonusstrength;
+		//SetDamage(GetDamage() + diff);
+		if (first == false)
+			SetFactor(2,GetFactor(2));
 		break;
 	case 3:
 		bonusmagic = value;
@@ -188,8 +194,10 @@ void Unit::SetBonus(int i, int value)
 		break;
 	case 4:
 		bonusagility = value;
-		diff = value - bonusagility;
-		SetSpeed(GetSpeed() + diff);
+		//diff = value - bonusagility;
+		//(GetSpeed() + diff);
+		if (first == false)
+			SetFactor(4,GetFactor(4));
 		break;
 	case 5:
 		bonusdefense = value;
@@ -222,14 +230,14 @@ void Unit::SetFactor(int i,int value)
 		break;
 	case 2:
 		chs.strength = value;
-		SetDamage(value*10);
+		SetDamage(value*10+bonusstrength);
 		break;
 	case 3:
 		chs.magic = value;
 		break;
 	case 4:
 		chs.agility = value;
-		SetSpeed(value*2);
+		SetSpeed(value*2 + bonusagility);
 		break;
 	case 5:
 		chs.notUsed = value;

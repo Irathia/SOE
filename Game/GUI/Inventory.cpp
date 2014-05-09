@@ -99,8 +99,8 @@ void Inventory::Use(int id)
 			}
 			if (items[a]->GetSubType() == "Scroll")
 			{
-				//player->Teleport();
-				items.at(a)->SetType("Empty");
+				if (player->Teleport(items.at(a)->GetQuality()) == true)
+					items.at(a)->SetType("Empty");
 			}
 		}
 		if (items[a]->GetType() == "Apparel")
@@ -306,6 +306,44 @@ void Inventory::Use(int id)
 				{
 					if (items[i]->GetSubType() == "Gloves" && items[i]->GetId() != id && items[i]->GetBackgroundColour() == *wxYELLOW)
 					{
+						b = i;
+						break;
+					}
+				}
+				if (b == -1)
+				{
+					items[a]->SetBackgroundColour(*wxYELLOW);
+					player->Quality(items[a]->GetQuality(),true);
+					//quality+
+				}
+				else
+				{
+					items[b]->SetBackgroundColour(*wxBLACK);
+					player->Quality(items[b]->GetQuality(),false);
+					//quality-
+					items[a]->SetBackgroundColour(*wxYELLOW);
+					player->Quality(items[a]->GetQuality(),true);
+					//quality+
+				}
+			}
+		}
+		if (items[a]->GetType() == "Weapon")
+		{
+			if (items[a]->GetSubType() == "Sword")
+			{
+				if (items[a]->GetBackgroundColour() == *wxYELLOW)
+				{
+					items[a]->SetBackgroundColour(*wxBLACK);
+					player->Quality(items[a]->GetQuality(),false);
+					this->Refresh();
+					return;
+				}
+				int b = -1;
+				for(int i = 0; i < 25; i++)
+				{
+					if (items[i]->GetSubType() == "Sword" && items[i]->GetId() != id && items[i]->GetBackgroundColour() == *wxYELLOW)
+					{
+						
 						b = i;
 						break;
 					}

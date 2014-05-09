@@ -7,7 +7,7 @@
 class Monster : public Unit
 {
 public:
-	Monster(Level* level, wxString type, std::vector <Monster*> monster);
+	Monster(Level* level, wxString type, std::vector <Monster*> monster, int nl);
 	~Monster();
 	virtual int Move(int direction);
 	void Fight(Unit* player);

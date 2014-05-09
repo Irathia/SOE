@@ -25,7 +25,7 @@ public:
 	void update(wxPoint point, wxBitmap set);
 	void CreateImage(int a = 0);
 	void OnPressKeyboard(int key);
-	void GoToLevel(int value);
+	void GoToLevel(int value, bool teleport = false);
 	wxBitmap CreateSubImage(wxPoint start, wxPoint end);
 	void OnTimerMonster(wxTimerEvent& event);
 	void OnTimerPlayer(wxTimerEvent& event);

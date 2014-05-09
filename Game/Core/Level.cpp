@@ -45,14 +45,22 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 	//создание перегородок в уровнях
 	for (int i = 1; i < h-1; i++)
 	{
+		int b = 0;
 		for (int j = 1; j < w-1; j++)
 		{
 			int a = rand()%10;
 			if (a == 0)
 			{
 				if (arr[i][j] == back)
+				{
 					arr[i][j] = wall;
+					b++;
+				}
 			}
+		}
+		if (b == 0)
+		{
+			arr[i][rand()%(w-3)+1] = wall;
 		}
 	}
 
@@ -64,6 +72,9 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 		for (int j = 1; j < w-1; j++)
 		{
 			int count = 0;
+			int s = 0;
+			int f = 0;
+			int b = 0;
 			if (arr[i-1][j] == back)
 				count++;
 			if(arr[i+1][j] == back)
@@ -74,33 +85,48 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 				count++;
 			if (arr[i][j] == back && count < 2)
 			{
-				int a = rand()%2;
-				if (a == 0)
-				{
+				//int a = rand()%2;
+				//if (a == 0)
+				//{
 					if (i+1 != h-1)
+					{
 						arr[i+1][j] = back;
+						s = j;
+						b++;
+					}
 					//**add
 					if (i+1 == h-1)
+					{
 						arr[i-1][j] = back;
-					//
+						s = j;
+						b++;
+					}
+					
 					while (arr[i][j] != wall)
 						j++;
-				}
-				else
-				{
-					while (arr[i][j] != wall)
-						j++;
-
+					f = j-1;
 					if (i+1 != h-1 && j-1 != 0)
+					{
 						arr[i+1][j-1] = back;
-				}
+						b++;
+						
+					}
+					if (i+1 != h-1)
+					{
+						if (b == 0)
+							arr[i+1][rand()%(f-s)+s] = back;
+						b++;
+					}
+				//}
 
 			}
+			if (b == 0 && i+1 != h-1)
+				arr[i+1][rand()%(w-2)+1] = back;
 		}
 	}
 
 	int enter = rand()%(w-3)+2;
-	int exit = rand()%(w-2)+1;
+	int exit = rand()%(w-3)+2;
 
 	arr[0][enter] = ladder;
 	arr[1][enter] = ladder;
@@ -141,7 +167,17 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 			}
 		}
 	}
-
+	//убирание дыр
+	for (int i = 1; i < h-1; i++)
+	{
+		for (int j = 1; j < w-1; j++)
+		{
+			if (i%2 == 0 && arr[i][j] == back)
+			{
+				arr[i][j] = wall;
+			}
+		}
+	}
 	//создание телепорта
 	int teleport_x = rand()%(w-2)+1;
 	int teleport_y = rand()%(h-2)+1;
@@ -170,6 +206,8 @@ Level::Level(int _n, int _m, int _chest_n, bool _sealed)
 		}
 	}
 
+	cteleport.x = -1;
+	cteleport.y = -1;
 	//создание сундуков
 
 	int count = 0;
@@ -273,6 +311,8 @@ Level::Level(string file_name)
 		else if (a == 0 && b == 0 && c == 255)
 		{
 			map[i][j] = 2;
+			cteleport.x = j;
+			cteleport.y = i;
 			j++;
 		}
 		else if (a == 0 && b == 255 && c == 0)
@@ -293,6 +333,8 @@ Level::Level(string file_name)
 		else if (a == 255 && b == 0 && c == 255)//deactivate portals
 		{
 			map[i][j] = 6;
+			cteleport.x = -1;
+			cteleport.y = -1;
 			j++;
 		}
 		if (j == w)
@@ -316,6 +358,44 @@ Level::Level(string file_name)
 		cout << endl;
 	}
 	sealed = false;
+}
+
+Level::Level()
+{
+	//create final level
+	int wall = 1;
+	int back = 0;
+	int teleport = 6;
+	int chest = 3;
+	int ladder = 4;
+
+	h = 10;
+	w = 10;
+	map = new int*[h];
+
+	for (int i = 0; i < h; i++)
+	{
+		map[i] = new int[w];
+	}
+	//создание внешних стен
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			map[i][j] = 0;
+			if (i == 0 || i == h-1)
+				map[i][j] = wall;
+			if (j == 0 || j == w-1)
+				map[i][j] = wall;
+
+		}
+	}
+
+	for(int i = 0; i < h-1; i++)
+		map[i][1] = ladder;
+
+	Save("Image/FinalLevel.png");
+
 }
 void Level::Save(string file_name) const
 {
@@ -380,5 +460,12 @@ bool Level::OpenChest(wxPoint point)
 bool Level::ActivatePortal(wxPoint point)
 {
 	this->map[point.x][point.y] = 2;
+	cteleport.x = point.y;
+	cteleport.y = point.x;
 	return true;
+}
+
+wxPoint Level::GetCT() const
+{
+	return cteleport;
 }

@@ -93,14 +93,14 @@
     <ClCompile Include="Game\GUI\GameScenes\Info.cpp">
       <Filter>Source Files\Game\GUI\GameScenes</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GUI\GameScenes\FastItems.cpp">
-      <Filter>Source Files\Game\GUI\GameScenes</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Core\Item.cpp">
       <Filter>Source Files\Game\Core</Filter>
     </ClCompile>
     <ClCompile Include="Game\GUI\Chest.cpp">
       <Filter>Source Files\Game\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GUI\GameScenes\Rooms.cpp">
+      <Filter>Source Files\Game\GUI\GameScenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,14 +152,14 @@
     <ClInclude Include="Game\GUI\GameScenes\Info.h">
       <Filter>Header Files\Game\GUI\GameScenes</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GUI\GameScenes\FastItems.h">
-      <Filter>Header Files\Game\GUI\GameScenes</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Core\Item.h">
       <Filter>Header Files\Game\Core</Filter>
     </ClInclude>
     <ClInclude Include="Game\GUI\Chest.h">
       <Filter>Header Files\Game\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GUI\GameScenes\Rooms.h">
+      <Filter>Header Files\Game\GUI\GameScenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

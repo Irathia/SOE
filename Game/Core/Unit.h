@@ -43,7 +43,7 @@ public:
 	void SetDamage(int value);
 	void SetDefence(int value);
 	void SetHealth(int value);
-	void SetBonus(int i, int value);
+	void SetBonus(int i, int value, bool first = false);
 	void SetMana(int value);
 	void SetLevelOfEx(int value);
 	void SetFactor(int i,int value);

@@ -9,14 +9,19 @@ Player::Player(wxPoint first, Level* level):direction(0),fight(0),dead(false)
 	SetHealth(100);
 	SetMana(80);
 	SetLevelOfEx(1);
+	SetBonus(0,0,true);
+	SetBonus(1,0,true);
+	SetBonus(2,0,true);
+	SetBonus(3,0,true);
+	SetBonus(4,0,true);
+	SetBonus(5,0,true);
 	SetFactor(0,1);
 	SetFactor(1,1);
 	SetFactor(2,1);
 	SetFactor(3,1);
 	SetFactor(4,1);
 	SetFactor(5,0);
-	SetBonus(0,0);
-	SetBonus(1,0);
+	SetSpeed(10);
 	exp = 950;
 	wxBitmap* bmp = new wxBitmap("Image/Player.png", wxBITMAP_TYPE_PNG);
 	SetImage(bmp);
@@ -203,7 +208,10 @@ int Player::Move(int direction)
 	case DOWN:
 		newP = GetPosition()+wxSize(0,GetSpeed());
 		if (newP.y >= level->GetH()*20 - 40)// && level->GetArr()[(int)((GetPosition().y+30)/20)][(int)(newP.x/20)] == 4)
-			return 2;//next level
+		{
+			if (level->GetArr()[level->GetH()-1][(int)(newP.x/20)] == 4 || level->GetArr()[level->GetH()-1][(int)(newP.x/20) + 1] == 4 || level->GetArr()[level->GetH()-1][(int)(newP.x/20) - 1] == 4)
+				return 2;//next level
+		}
 		if (newP.x % 20 != 0)
 		{
 			if (level->GetArr()[(int)(newP.y/20)+2][(int)(newP.x/20)] == 4 || level->GetArr()[(int)(newP.y/20)+2][(int)(newP.x/20)+1] == 4 )
@@ -541,7 +549,7 @@ void Player::Quality(wxString data, bool type)
 	}
 	
 }
-void Player::Teleport(wxString data)
+bool Player::Teleport(wxString data)
 {
 	wxString first, second, third, last;
 	int f,s,t;
@@ -555,5 +563,92 @@ void Player::Teleport(wxString data)
 	third = data.substr(0,t);
 	last = data.substr(t+1,data.length());
 
+	int a = wxAtoi(third.substr(1,third.length()));
 
+	if (second == "right")
+	{
+		if (this->ManaDown(a) == true)
+		{
+			if ((GetCurrentLevel()->GetW() - 1)*20 > (int)GetPosition().x + 40)
+			{
+				SetPosition(GetPosition()+wxSize(40,0));
+				return true;
+			}
+			this->ManaUp(a);
+			return false;
+		}
+		return false;
+	}
+	
+	if (second == "left")
+	{
+		if (this->ManaDown(a) == true)
+		{
+			if (0 < (int)GetPosition().x - 40)
+			{
+				SetPosition(GetPosition()-wxSize(40,0));
+				return true;
+			}
+			this->ManaUp(a);
+			return false;
+		}
+		return false;
+	}
+
+	if (second == "up")
+	{
+		if (this->ManaDown(a) == true)
+		{
+			if (0 < (int)GetPosition().y -80)
+			{
+				SetPosition(GetPosition()-wxSize(0,80));
+				return true;
+			}
+			this->ManaUp(a);
+			return false;
+		}
+		return false;
+	}
+
+	if (second == "down")
+	{
+		if (this->ManaDown(a) == true)
+		{
+			if ((GetCurrentLevel()->GetH() - 1)*20 > (int)GetPosition().y + 80)
+			{
+				SetPosition(GetPosition()+wxSize(0,80));
+				return true;
+			}
+			this->ManaUp(a);
+			return false;
+		}
+		return false;
+	}
+}
+
+void Player::DestroyWall()
+{
+	wxPoint pos = this->GetPosition();
+	
+
+	if (pos.x%20 == 0 && (pos.y+10)%20 == 0)
+	{
+		int x = pos.x/20;
+		int y = (pos.y+10)/20;
+
+		if (this->GetCurrentLevel()->GetArr()[y][x-1] == 1 && x-1 != 0)
+		{
+			this->GetCurrentLevel()->GetArr()[y][x-1] = 0;
+			this->GetCurrentLevel()->GetArr()[y-1][x-1] = 0;
+			this->GetCurrentLevel()->GetArr()[y-2][x-1] = 0;
+			return;
+		}
+		if (this->GetCurrentLevel()->GetArr()[y][x+1] == 1 && x+1 != this->GetCurrentLevel()->GetW()-1)
+		{
+			this->GetCurrentLevel()->GetArr()[y][x+1] = 0;
+			this->GetCurrentLevel()->GetArr()[y-1][x+1] = 0;
+			this->GetCurrentLevel()->GetArr()[y-2][x+1] = 0;
+			return;
+		}
+	}
 }

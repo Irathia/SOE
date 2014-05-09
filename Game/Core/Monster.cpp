@@ -1,16 +1,17 @@
 #include "Monster.h"
 
-Monster::Monster(Level* level, wxString type, std::vector <Monster*> monsters):direction(1)
+Monster::Monster(Level* level, wxString type, std::vector <Monster*> monsters, int nl):direction(1)
 {
 	wxImage::AddHandler(new wxPNGHandler);
 	this->type = type;
-	SetHealth(20);
-	SetDamage(20);
+	nl = nl+1;
+	SetHealth(100*nl);
+	SetDamage(20*nl);
 	wxBitmap* bmp = new wxBitmap("Image/"+type+".png", wxBITMAP_TYPE_PNG);
 	SetImage(bmp);
 	SetCurrentImage(GetImage()->GetSubBitmap(wxRect(0,0,20,30)));
 	SetCurrentLevel(level);
-	SetSpeed(5);
+	SetSpeed(5*nl);
 	wxPoint p = FindPosition(monsters);
 	SetPosition(p);
 }
