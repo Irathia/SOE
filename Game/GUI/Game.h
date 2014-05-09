@@ -19,7 +19,7 @@ class Game : public wxFrame
 {
 public:
 	Game(wxFrame* parent, string name);
-
+	Game(wxFrame* parent, string name, bool flag);
 	void OnPaint(wxPaintEvent& event);
 	void OnPressKeyboard(wxKeyEvent& event);
 	void WeAreDead();
@@ -27,6 +27,8 @@ public:
 	void OpenChest();
 	void PortalActivate(int nl);
 	void TeleportToLevel(int nl);
+
+	void Save();
 private:
 	Model* model;
 

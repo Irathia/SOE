@@ -1,8 +1,7 @@
 #include "MainWindow.h"
-#include "../../Resource/Language.h"
 #include "DialogForNewGame.h"
 #include "LoadGame.h"
-Language* language;
+//Language* language;
 #include "../Core/Level.h"
 #include <wx/imaglist.h>
 
@@ -12,7 +11,7 @@ MainWindow::MainWindow(string name) : wxFrame(NULL, 1, "Main Window", wxDefaultP
 {
 	
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(MainWindow::OnPaint));
-	language = new Language(name);
+	//language = new Language(name);
 	this->ShowFullScreen(true);
 	this->GetSize(&height, &wight);
 	users = new USERS;
@@ -28,10 +27,10 @@ void MainWindow::OnPaint(wxPaintEvent& event)
 	wxButton* exit;
 	wxBitmap* background;
 
-	newGame = new wxButton(this, 2, language->getValue("newGameButton") ,wxPoint(5*height/8, 11*wight/27),wxSize(height/4, 2*wight/27));
-	loadGame = new wxButton(this, 3, language->getValue("loadGameButton") , wxPoint(5*height/8, 15*wight/27),wxSize(height/4, 2*wight/27));
-	settings = new wxButton(this, 4, language->getValue("settingsButton") , wxPoint(5*height/8, 19*wight/27),wxSize(height/4, 2*wight/27));
-	exit = new wxButton(this, 5, language->getValue("exitButton") , wxPoint(5*height/8, 23*wight/27),wxSize(height/4, 2*wight/27));
+	newGame = new wxButton(this, 2, "NEW GAME"/*language->getValue("newGameButton")*/ ,wxPoint(5*height/8, 11*wight/27),wxSize(height/4, 2*wight/27));
+	loadGame = new wxButton(this, 3, "LOAD GAME"/*language->getValue("loadGameButton")*/ , wxPoint(5*height/8, 15*wight/27),wxSize(height/4, 2*wight/27));
+	settings = new wxButton(this, 4, "INFORAMTION"/*language->getValue("settingsButton")*/ , wxPoint(5*height/8, 19*wight/27),wxSize(height/4, 2*wight/27));
+	exit = new wxButton(this, 5, "EXIT"/*language->getValue("exitButton")*/ , wxPoint(5*height/8, 23*wight/27),wxSize(height/4, 2*wight/27));
 	background = new wxBitmap(wight,height);
 	background->LoadFile("Image/Background.bmp",wxBITMAP_TYPE_BMP);
 	this->SetBackgroundColour(wxNullColour);
@@ -61,7 +60,7 @@ void MainWindow::OnButtonLoadGame(wxCommandEvent& event)
 	if (a  == 1)
 	{
 		name = dialog->GetNameOfUser();
-		newGame = new Game(this, name);
+		newGame = new Game(this, name, true);
 		this->Hide();
 
 	}
@@ -75,8 +74,8 @@ void MainWindow::OnButtonSettings(wxCommandEvent& event)
 void MainWindow::OnButtonExit(wxCommandEvent& event)
 {
 	SaveUsers(users);
-	wxMessageDialog* msg = new wxMessageDialog(this, language->getValue("exitMessageDialogMessage"), language->getValue("exitMessageDialogTitle"), wxYES_NO);
-	msg->SetYesNoLabels((language->getValue("exitMessageDialogYes")).c_str(), (language->getValue("exitMessageDialogNo")).c_str());
+	wxMessageDialog* msg = new wxMessageDialog(this, "Exit"/*language->getValue("exitMessageDialogMessage")*/, "Do you want to exit?"/*language->getValue("exitMessageDialogTitle")*/, wxYES_NO);
+	msg->SetYesNoLabels("Yes"/*language->getValue("exitMessageDialogYes")).c_str()*/, "No"/*(language->getValue("exitMessageDialogNo")).c_str()*/);
 	int a = msg->ShowModal();
 	if (a == wxID_YES)
 		this->Close(true);

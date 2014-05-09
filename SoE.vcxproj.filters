@@ -63,9 +63,6 @@
     <ClCompile Include="Game\Core\Level.cpp">
       <Filter>Source Files\Game\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Resource\Language.cpp">
-      <Filter>Source Files\Resource</Filter>
-    </ClCompile>
     <ClCompile Include="Resource\User.cpp">
       <Filter>Source Files\Resource</Filter>
     </ClCompile>
@@ -121,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="Game\Core\Level.h">
       <Filter>Header Files\Game\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource\Language.h">
-      <Filter>Header Files\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Resource\User.h">
       <Filter>Header Files\Resource</Filter>

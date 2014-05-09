@@ -28,16 +28,71 @@ Player::Player(wxPoint first, Level* level):direction(0),fight(0),dead(false)
 	SetCurrentImage(GetImage()->GetSubBitmap(wxRect(60,0,20,30)));
 	//SetSpeed(7);
 	SetCurrentLevel(level);
-	
 }
 
+Player::Player(std::string name)
+{
+	ifstream f("Save/"+name+"/Player.chs");
+	f >> name;
+	int a,b;
+	f >> b;
+	f >> a;
+	SetHealth(a);
+	f >> a;
+	SetMana(a);
+	f >> a;
+	SetSpeed(a);
+	f >> a;
+	SetDamage(a);
+	f >> a;
+	SetLevelOfEx(a);
+	f >> a;
+	SetExp(a, true);
+	f >> a;
+	SetDefence(a);
+
+	f >> a;
+	SetBonus(0,a,true);
+	f >> a;
+	SetBonus(1,a,true);
+	f >> a;
+	SetBonus(2,a,true);
+	f >> a;
+	SetBonus(3,a,true);
+	f >> a;
+	SetBonus(4,a,true);
+	f >> a;
+	SetBonus(5,a,true);
+
+	f >> a;
+	SetFactor(0,a);
+	f >> a;
+	SetFactor(1,a);
+	f >> a;
+	SetFactor(2,a);
+	f >> a;
+	SetFactor(3,a);
+	f >> a;
+	SetFactor(4,a);
+	f >> a;
+	SetFactor(5,a);
+	
+	f >> a >> b;
+	SetPosition(wxPoint(a,b));
+	wxBitmap* bmp = new wxBitmap("Image/Player.png", wxBITMAP_TYPE_PNG);
+	SetImage(bmp);
+	SetCurrentImage(GetImage()->GetSubBitmap(wxRect(60,0,20,30)));
+	f.close();
+}
 int Player::GetExp() const
 {
 	return exp;
 }
 
-void Player::SetExp(int value)
+void Player::SetExp(int value, bool flag)
 {
+	if (flag == true)
+		exp = value;
 	if (exp + value >= GetLevelOfEx()*1000)
 	{
 		this->LevelUp();
@@ -651,4 +706,16 @@ void Player::DestroyWall()
 			return;
 		}
 	}
+}
+
+void Player::Save(std::string str, std::string name, int nl)
+{
+	ofstream f(str+"Player.chs");
+	f << name << "\n";
+	f << nl << "\n";
+	f << GetHealth() << "\t" << GetMana() << "\t" << GetSpeed() << "\t" << GetDamage() << "\t" << GetLevelOfEx() << "\t" << GetExp() << "\t" << GetDefence() << "\n";
+	f << GetBonus(0) << "\t" << GetBonus(1) << "\t" << GetBonus(2) << "\t" << GetBonus(3) << "\t" << GetBonus(4) << "\t" << GetBonus(5) << "\n";
+	f << GetFactor(0) << "\t" << GetFactor(1) << "\t" << GetFactor(2) << "\t" << GetFactor(3) << "\t" << GetFactor(4) << "\t" << GetFactor(5) << "\n";
+	f << GetPosition().x << " " << GetPosition().y << "\n";
+	f.close();
 }

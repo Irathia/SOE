@@ -28,7 +28,6 @@
     <ClCompile Include="Game\GUI\LoadGame.cpp" />
     <ClCompile Include="Game\GUI\MainWindow.cpp" />
     <ClCompile Include="Game\GUI\MyApp.cpp" />
-    <ClCompile Include="Resource\Language.cpp" />
     <ClCompile Include="Resource\User.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +48,6 @@
     <ClInclude Include="Game\GUI\LoadGame.h" />
     <ClInclude Include="Game\GUI\MainWindow.h" />
     <ClInclude Include="Game\GUI\MyApp.h" />
-    <ClInclude Include="Resource\Language.h" />
     <ClInclude Include="Resource\User.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -18,6 +18,7 @@ class Model : public wxEvtHandler
 {
 public:
 	Model(Game* game);
+	Model(Game* game, bool flag, std::string name);
 	wxBitmap GetImage() const;
 	wxPoint FindPositionForPlayer(bool direction);//0 - from top, 1 - from bottom
 	void SetSize(wxSize size);
@@ -31,6 +32,8 @@ public:
 	void OnTimerPlayer(wxTimerEvent& event);
 	bool GetStatusOfPlayer() const;
 	Player* GetPlayer() const;
+
+	void Save(std::string str, std::string name);
 private:
 	wxBitmap* img;
 	

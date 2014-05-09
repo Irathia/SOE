@@ -282,7 +282,7 @@ Level::Level(string file_name)
 	string type;
 	file >> type;
 
-	file >> h >> w;
+	file >> w >> h;
 	int a, b, c;
 	file >> a;
 
@@ -401,7 +401,7 @@ void Level::Save(string file_name) const
 {
 	ofstream file(file_name.c_str());
 	file << "P3" << endl;
-	file << h << " " << w << endl;
+	file << w << " " << h << endl;
 	file << 255 << endl;
 	//file <<	255 << " " << 0 << " " << 0 << endl;
 	//file <<	0 << " " << 255 << " " << 0 << endl;

@@ -2,6 +2,7 @@
 #include <wx/dcmemory.h>
 #include <wx/event.h>
 #include <wx/wx.h>
+#include <wx/file.h>
 
 Model::Model(Game* game):wxEvtHandler()
 {
@@ -41,6 +42,52 @@ Model::Model(Game* game):wxEvtHandler()
 	counter = 0;
 }
 
+Model::Model(Game* game, bool flag, std::string name):wxEvtHandler()
+{
+	this->game = game;
+	wxImage::AddHandler(new wxPNGHandler);
+	this->size = size;
+	int i = 0;
+	while(wxFile::Exists("Save/"+name+"/"+std::to_string(i)+".png"))
+	{
+		Level* lv = new Level("Save/"+name+"/"+std::to_string(i)+".png");
+		levels.push_back(lv);
+		i++;
+	}
+	player = new Player(name);
+	ifstream f("Save/"+name+"/Player.chs");
+	f >> name;
+	int b;
+	f >> b;
+	f.close();
+	currentLevel = b;
+	player->SetCurrentLevel(levels[currentLevel]);
+	img = new wxBitmap(levels[currentLevel]->GetW()*20, levels[currentLevel]->GetH()*20);
+	CreateImage(1);
+	int numer = 10;
+	for(int i = 0; i < numer + currentLevel*5; i++)
+	{
+		int t = rand()%2;
+		if (t == 0)
+		{
+			Monster* m = new Monster(levels[currentLevel],wxString("Zomby"),monsters,currentLevel);
+			monsters.push_back(m);
+		}
+		else
+		{
+			Monster* m = new Monster(levels[currentLevel],wxString("Mummy"),monsters,currentLevel);
+			monsters.push_back(m);
+		}
+
+		
+	}
+	MonsterTimer = new wxTimer(this,1);
+	MonsterTimer->Start(1000);
+
+	PlayerTimer = new wxTimer(this,2);
+	PlayerTimer->Start(200);
+	counter = 0;
+}
 void Model::SetSize(wxSize size)
 {
 	this->size = size;
@@ -574,6 +621,15 @@ bool Model::GetStatusOfPlayer() const
 Player* Model::GetPlayer() const
 {
 	return player;
+}
+
+void Model::Save(std::string str, std::string name)
+{
+	player->Save(str,name,currentLevel);
+	for(int i = 0; i < levels.size(); i++)
+	{
+		levels[i]->Save(str+std::to_string(i)+".png");
+	}
 }
 wxBEGIN_EVENT_TABLE(Model, wxEvtHandler)
     EVT_TIMER(1, Model::OnTimerMonster)

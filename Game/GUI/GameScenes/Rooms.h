@@ -7,6 +7,7 @@ class Rooms: public wxPanel
 {
 public:
 	Rooms(wxWindow* parent, int n);
+	Rooms(wxWindow* parent, int n, std::string name);
 	void OnPaint(wxPaintEvent& event);
 	void Activate(int a);
 
@@ -20,6 +21,8 @@ public:
 	void OnButton7(wxCommandEvent& event);
 	void OnButton8(wxCommandEvent& event);
 	void OnButton9(wxCommandEvent& event);
+
+	void Save(std::string str);
 private:
 	wxButton* l0;
 	wxButton* l1;

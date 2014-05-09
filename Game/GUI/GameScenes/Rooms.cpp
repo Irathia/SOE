@@ -28,6 +28,53 @@ Rooms::Rooms(wxWindow* parent, int n):wxPanel(parent)
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Rooms::OnPaint));
 }
 
+Rooms::Rooms(wxWindow* parent, int n, std::string name)
+{
+	ifstream f("Save/"+name+"/Room"+std::to_string(n)+".r");
+	std::string t;
+	
+	l0 = new wxButton(this,10,"0");
+	f >> t;
+	if ( t == "false")
+		l0->Disable();
+	l1 = new wxButton(this,11,"1");
+	f >> t;
+	if ( t == "false")
+		l1->Disable();
+	l2 = new wxButton(this,12,"2");
+	f >> t;
+	if ( t == "false")
+		l2->Disable();
+	l3 = new wxButton(this,13,"3");
+	f >> t;
+	if ( t == "false")
+		l3->Disable();
+	l4 = new wxButton(this,14,"4");
+	f >> t;
+	if ( t == "false")
+		l4->Disable();
+	l5 = new wxButton(this,15,"5");
+	f >> t;
+	if ( t == "false")
+		l5->Disable();
+	l6 = new wxButton(this,16,"6");
+	f >> t;
+	if ( t == "false")
+		l6->Disable();
+	l7 = new wxButton(this,17,"7");
+	f >> t;
+	if ( t == "false")
+		l7->Disable();
+	l8 = new wxButton(this,18,"8");
+	f >> t;
+	if ( t == "false")
+		l8->Disable();
+	l9 = new wxButton(this,19,"9");
+	f >> t;
+	if ( t == "false")
+		l9->Disable();
+	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Rooms::OnPaint));
+}
 void Rooms::OnPaint(wxPaintEvent& event)
 {
 	wxGridSizer* g = new wxGridSizer(5,2,0,0);
@@ -134,7 +181,59 @@ void Rooms::OnButton9(wxCommandEvent& event)
 	((Game*)GetParent())->TeleportToLevel(10*n+9);
 }
 
+void Rooms::Save(std::string str)
+{
+	ofstream f(str+"Room"+std::to_string(n)+".r");
+	if (l0->IsEnabled())
+		f << "true" << "\n";
+	else
+		f << "false" << "\n";
 
+	if (l1->IsEnabled())
+		f << "true" << "\n";
+	else
+		f << "false" << "\n";
+
+	if (l2->IsEnabled())
+		f << "true" << "\n";
+	else
+		f << "false" << "\n";
+
+	if (l3->IsEnabled())
+		f << "true" << "\n";
+	else
+		f << "false" << "\n";
+
+	if (l4->IsEnabled())
+		f << "true" << "\n";
+	else
+		f << "false" << "\n";
+
+	if (l5->IsEnabled())
+		f << "true" << "\n";
+	else
+		f << "false" << "\n";
+
+	if (l6->IsEnabled())
+		f << "true" << "\n";
+	else
+		f << "false" << "\n";
+
+	if (l7->IsEnabled())
+		f << "true" << "\n";
+	else
+		f << "false" << "\n";
+
+	if (l8->IsEnabled())
+		f << "true" << "\n";
+	else
+		f << "false" << "\n";
+
+	if (l9->IsEnabled())
+		f << "true" << "\n";
+	else
+		f << "false" << "\n";
+}
 BEGIN_EVENT_TABLE(Rooms, wxPanel)
 	EVT_BUTTON(10,	Rooms::OnButton0)
 	EVT_BUTTON(11,	Rooms::OnButton1)

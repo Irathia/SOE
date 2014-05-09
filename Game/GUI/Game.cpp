@@ -3,11 +3,10 @@
 #include <wx/panel.h>
 #include <wx/colour.h>
 #include <wx/animate.h>
+#include <wx/dir.h>
 
 Game::Game(wxFrame* parent, string name) : wxFrame(parent, 1, "Game", wxDefaultPosition, wxDefaultSize)
 {
-	
-	
 	model = new Model(this);
 	inv = new Inventory(this,model->GetPlayer());
 	chs = new Characteristic(this,model->GetPlayer());
@@ -26,6 +25,24 @@ Game::Game(wxFrame* parent, string name) : wxFrame(parent, 1, "Game", wxDefaultP
 	this->SetFocus();
 }
 
+Game::Game(wxFrame* parent, string name, bool flag) : wxFrame(parent, 1, "Game", wxDefaultPosition, wxDefaultSize)
+{
+	//load game
+	this->name = name;
+	model = new Model(this, true, name);
+	inv = new Inventory(this,model->GetPlayer(), name);
+	chs = new Characteristic(this,model->GetPlayer());
+	
+	
+
+	info = new Info(this,model->GetPlayer(),name);
+	R1 = new Rooms(this,0, name);
+	R2 = new Rooms(this,1, name);
+	R3 = new Rooms(this,2, name);
+	GameW = new GameScene(this, model,this);
+	this->ShowFullScreen(true);
+	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Game::OnPaint));
+}
 void Game::OnPaint(wxPaintEvent& event)
 {
 	wxImage::AddHandler(new wxPNGHandler);
@@ -81,12 +98,7 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 	
 	switch(event.GetKeyCode())
 	{
-	case WXK_ESCAPE:
-		//wxMessageDialog* msg = new wxMessageDialog(this, "DEATH", "You are died!", wxYES_DEFAULT);
-		//int a = msg->ShowModal();
-		this->GetParent()->Show();
-		this->Close(true);
-		break;
+	
 	case WXK_CONTROL_I + 64:
 		if (inv->IsActive() == false)
 		{
@@ -114,6 +126,19 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 		}
 		
 		break;
+	case WXK_ESCAPE:
+		{
+			wxMessageDialog* msg = new wxMessageDialog(this, "Exit", "Do you want to exit?", wxYES_NO);
+			msg->SetYesNoLabels("Yes","No");
+			if (msg->ShowModal() == wxID_YES)
+			{
+				this->Save();
+				this->GetParent()->Show();
+				this->Close(true);
+			}
+		
+			break;
+		}
 	default:
 		model->OnPressKeyboard(event.GetKeyCode());
 		break;
@@ -184,6 +209,19 @@ void Game::TeleportToLevel(int nl)
 	model->GoToLevel(nl,true);
 }
 
+void Game::Save()
+{
+
+	//Dir dir("Save/"+name);
+	if (wxDir::Exists("Save/"+name) == false)
+		wxDir::Make("Save/"+name,777);
+	model->Save("Save/"+name+"/", name);
+	inv->Save("Save/"+name+"/");
+	R1->Save("Save/"+name+"/");
+	R2->Save("Save/"+name+"/");
+	R3->Save("Save/"+name+"/");
+
+}
 BEGIN_EVENT_TABLE(Game, wxFrame)
 	EVT_CHAR_HOOK (	Game::OnPressKeyboard)
 END_EVENT_TABLE()

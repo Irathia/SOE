@@ -13,7 +13,20 @@ Inventory::Inventory(wxWindow* parent, Player* player):wxDialog(parent,wxID_ANY,
 	//this->Connect(wxEVT_RIGHT_DOWN,wxMouseEventHandler(Inventory::ShowMenu));
 	//this->Refresh();
 }
-
+Inventory::Inventory(wxWindow* parent, Player* player, std::string name)
+{
+	this->player = player;
+	ifstream f("Save/"+name+"/Inventory.chs");
+	for (int i = 0; i < 25; i++)
+	{
+		std::string type, subtype, quality, flag;
+		f >> type >> subtype >> quality >> flag;
+		Item* panel = new Item(this,1,type,subtype,quality);
+		//panel->Hide();
+		items.push_back(panel);
+	}
+	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Inventory::OnPaint));
+}
 void Inventory::OnPaint(wxPaintEvent& event)
 {
 	//this->ClearBackground();
@@ -377,4 +390,18 @@ std::vector <Item*> Inventory::GetItems() const
 wxString Inventory::GetItem(int i) const
 {
 	return names[i];
+}
+
+void Inventory::Save(std::string str)
+{
+	ofstream f(str+"Inventory.chs");
+
+	for(int i = 24; i >=0; i--)
+	{
+		f << items[i]->GetType() << "\t" << items[i]->GetSubType() << "\t" << items[i]->GetQuality() << "\t";
+		if (items[i]->GetBackgroundColour() == *wxBLACK)
+			f << "false" << "\n";
+		else
+			f << "true" << "\n";
+	}
 }
