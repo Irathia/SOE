@@ -82,8 +82,8 @@ void Game::OnPressKeyboard(wxKeyEvent& event)
 	switch(event.GetKeyCode())
 	{
 	case WXK_ESCAPE:
-		wxMessageDialog* msg = new wxMessageDialog(this, "DEATH", "You are died!", wxYES_DEFAULT);
-		int a = msg->ShowModal();
+		//wxMessageDialog* msg = new wxMessageDialog(this, "DEATH", "You are died!", wxYES_DEFAULT);
+		//int a = msg->ShowModal();
 		this->GetParent()->Show();
 		this->Close(true);
 		break;
