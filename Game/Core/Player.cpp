@@ -92,7 +92,10 @@ int Player::GetExp() const
 void Player::SetExp(int value, bool flag)
 {
 	if (flag == true)
+	{
 		exp = value;
+		return;
+	}
 	if (exp + value >= GetLevelOfEx()*1000)
 	{
 		this->LevelUp();

@@ -13,27 +13,41 @@ Inventory::Inventory(wxWindow* parent, Player* player):wxDialog(parent,wxID_ANY,
 	//this->Connect(wxEVT_RIGHT_DOWN,wxMouseEventHandler(Inventory::ShowMenu));
 	//this->Refresh();
 }
-Inventory::Inventory(wxWindow* parent, Player* player, std::string name)
+Inventory::Inventory(wxWindow* parent, Player* player, std::string name):wxDialog(parent,wxID_ANY,"Inventory")
 {
 	this->player = player;
 	ifstream f("Save/"+name+"/Inventory.chs");
 	for (int i = 0; i < 25; i++)
 	{
 		std::string type, subtype, quality, flag;
-		f >> type >> subtype >> quality >> flag;
+		std::getline(f, type);
+		if (type == "Empty")
+		{
+			subtype = "";
+			quality = "";
+			std::getline(f, flag);
+		}
+		else
+		{
+			std::getline(f, subtype);
+			std::getline(f, quality);
+			std::getline(f, flag);
+		}
 		Item* panel = new Item(this,1,type,subtype,quality);
+		if (flag == "true")
+		{
+			panel->SetBackgroundColour(*wxYELLOW);
+			player->Quality(quality,true);
+		}
 		//panel->Hide();
 		items.push_back(panel);
 	}
+	f.close();
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Inventory::OnPaint));
 }
 void Inventory::OnPaint(wxPaintEvent& event)
 {
-	//this->ClearBackground();
 	wxGridSizer* gridsizer = new wxGridSizer(5,5,0,0);
-	//this->GetSizer()->Detach(true);
-
-	//gridsizer->Clear();
 	for (int i = 24; i >= 0; i--)
 	{
 		gridsizer->Add(items[i],1,wxALL|wxEXPAND,5);
@@ -396,9 +410,15 @@ void Inventory::Save(std::string str)
 {
 	ofstream f(str+"Inventory.chs");
 
-	for(int i = 24; i >=0; i--)
+	for(int i = 0; i <25; i++)
 	{
-		f << items[i]->GetType() << "\t" << items[i]->GetSubType() << "\t" << items[i]->GetQuality() << "\t";
+		f << items[i]->GetType() << "\n";
+		if (items[i]->GetType() != "Empty")
+		{
+			f << items[i]->GetSubType() << "\n";
+			f << items[i]->GetQuality() << "\n";
+		}
+		
 		if (items[i]->GetBackgroundColour() == *wxBLACK)
 			f << "false" << "\n";
 		else

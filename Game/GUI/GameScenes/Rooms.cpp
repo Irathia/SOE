@@ -28,7 +28,7 @@ Rooms::Rooms(wxWindow* parent, int n):wxPanel(parent)
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Rooms::OnPaint));
 }
 
-Rooms::Rooms(wxWindow* parent, int n, std::string name)
+Rooms::Rooms(wxWindow* parent, int n, std::string name):wxPanel(parent)
 {
 	ifstream f("Save/"+name+"/Room"+std::to_string(n)+".r");
 	std::string t;
@@ -73,6 +73,7 @@ Rooms::Rooms(wxWindow* parent, int n, std::string name)
 	f >> t;
 	if ( t == "false")
 		l9->Disable();
+	f.close();
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Rooms::OnPaint));
 }
 void Rooms::OnPaint(wxPaintEvent& event)

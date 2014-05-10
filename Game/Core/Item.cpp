@@ -315,13 +315,13 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 		case 4:
 			subtype = "Mana potion";
 			quality = "";
-			quality << "Mana" << "+50 mana  "; 
+			quality << "Mana" << " +50 mana  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(160,120,40,40));
 			break;
 		case 5:
 			subtype = "Health potion";
 			quality = "";
-			quality << "Mana" << "+50 health  "; 
+			quality << "Health" << " +100 health  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(200,120,40,40));
 			break;
 		case 6:
@@ -474,13 +474,13 @@ Item::Item(wxWindow* parent, int inchest):wxStaticBitmap(parent,wxID_ANY,wxNullB
 		case 4:
 			subtype = "Mana potion";
 			quality = "";
-			quality << "Mana" << "+50 mana  "; 
+			quality << "Mana" << " +50 mana  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(160,120,40,40));
 			break;
 		case 5:
 			subtype = "Health potion";
 			quality = "";
-			quality << "Mana" << "+50 health  "; 
+			quality << "Health" << " +100 health  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(200,120,40,40));
 			break;
 		case 6:
@@ -836,13 +836,13 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 		case 4:
 			subtype = "Mana potion";
 			quality = "";
-			quality << "Mana" << "+50 mana  "; 
+			quality << "Mana" << " +50 mana  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(160,120,40,40));
 			break;
 		case 5:
 			subtype = "Health potion";
 			quality = "";
-			quality << "Mana" << "+50 health  "; 
+			quality << "Health" << " +100 health  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(200,120,40,40));
 			break;
 		case 6:
@@ -995,13 +995,13 @@ Item::Item(wxWindow* parent, wxString type, int inchest):wxStaticBitmap(parent,w
 		case 4:
 			subtype = "Mana potion";
 			quality = "";
-			quality << "Mana" << "+50 mana  "; 
+			quality << "Mana" << " +50 mana  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(160,120,40,40));
 			break;
 		case 5:
 			subtype = "Health potion";
 			quality = "";
-			quality << "Mana" << "+50 health  "; 
+			quality << "Health" << " +100 health  "; 
 			bmp = bitmap.GetSubBitmap(wxRect(200,120,40,40));
 			break;
 		case 6:
@@ -1032,7 +1032,9 @@ Item::Item(wxWindow* parent,int level, wxString type, wxString subtype, wxString
 	menu->Append(1,"Use");
 	//menu->Append(2,"Fast key");
 	menu->Append(2,"Destroy");
-	this->Connect(wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(Item::SelectItem));
+	wxImage::AddHandler(new wxPNGHandler);
+	wxBitmap bitmap("Image/items.png",wxBITMAP_TYPE_PNG);
+	
 	this->level = level;
 	this->type = type;
 	this->subtype = subtype;
@@ -1040,7 +1042,81 @@ Item::Item(wxWindow* parent,int level, wxString type, wxString subtype, wxString
 	this->inchest = inchest;
 	//CreateInfo();
 	this->SetBackgroundColour(*wxBLACK);
-	//this->SetBitmap(bmp);
+
+	//картинка
+	if (type == "Empty")
+		return;
+	if (type == "Apparel")
+	{
+		if (subtype == "Helm")
+			bmp = bitmap.GetSubBitmap(wxRect(120,0,40,40));
+		if (subtype == "Mail")
+			bmp = bitmap.GetSubBitmap(wxRect(0,0,40,40));
+		if (subtype == "Pants")
+			bmp = bitmap.GetSubBitmap(wxRect(40,0,40,40));
+		if (subtype == "Boots")
+			bmp = bitmap.GetSubBitmap(wxRect(80,0,40,40));
+		//return;
+	}
+	if (type == "Weapon")
+	{
+		int a = rand()%3;
+
+		switch(a)
+		{
+		case 0:
+			bmp = bitmap.GetSubBitmap(wxRect(0,40,40,40));
+			break;
+		case 1:
+			bmp = bitmap.GetSubBitmap(wxRect(40,40,40,40));
+			break;
+		case 2:
+			bmp = bitmap.GetSubBitmap(wxRect(80,40,40,40));
+			break;
+		default:
+			break;
+		}
+		//return;
+	}
+	if (type == "Accassory")
+	{
+		if (subtype == "Ring")
+		{
+			int b = rand()%3;
+			switch(b)
+			{
+			case 0:
+				bmp = bitmap.GetSubBitmap(wxRect(0,80,40,40));
+			break;
+				case 1:
+				bmp = bitmap.GetSubBitmap(wxRect(40,80,40,40));
+				break;
+			case 2:
+				bmp = bitmap.GetSubBitmap(wxRect(80,80,40,40));
+				break;
+			default:
+				break;
+			}
+		}
+		if (subtype == "Gloves")
+			bmp = bitmap.GetSubBitmap(wxRect(120,80,40,40));
+	}
+	if (type == "Other")
+	{
+		if (subtype == "Scroll")
+			bmp = bitmap.GetSubBitmap(wxRect(120,120,40,40));
+
+		if (subtype == "Mana potion")
+			bmp = bitmap.GetSubBitmap(wxRect(160,120,40,40));
+
+		if (subtype == "Health potion")
+			bmp = bitmap.GetSubBitmap(wxRect(200,120,40,40));
+		
+		if (subtype == "Money")
+			bmp = bitmap.GetSubBitmap(wxRect(240,120,40,40));
+	}
+	this->SetBitmap(bmp);
+	this->Connect(wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(Item::SelectItem));
 }
 
 void Item::CreateInfo()
@@ -1108,6 +1184,9 @@ void Item::SetType(wxString value)
 	if (value == "Empty")
 	{
 		SetBitmap(wxNullBitmap);
+		subtype = "";
+		quality = "";
+		this->SetBackgroundColour(*wxBLACK);
 	}
 }
 
@@ -1153,6 +1232,15 @@ void Item::SelectItem(wxCommandEvent& event)
 		((Inventory*)(this->GetParent()))->Delete(this->GetId());
 	}
 }
+
+/*Item::~Item()
+{
+	info->Destroy(3);
+	menu->Destroy(1);
+	menu->Destroy(2);
+	delete info;
+	delete menu;
+}*/
 
 BEGIN_EVENT_TABLE(Item,wxStaticBitmap)
 	EVT_RIGHT_DOWN (	Item::ShowMenu)

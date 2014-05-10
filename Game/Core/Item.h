@@ -34,6 +34,7 @@ public:
 	void ShowInfo(wxMouseEvent& event);
 	void Shift(wxMouseEvent& event);
 	void SelectItem(wxCommandEvent& event);
+
 private:
 //	static int ALL;
 //	int ID;

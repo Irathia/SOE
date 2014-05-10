@@ -32,16 +32,16 @@ Game::Game(wxFrame* parent, string name, bool flag) : wxFrame(parent, 1, "Game",
 	model = new Model(this, true, name);
 	inv = new Inventory(this,model->GetPlayer(), name);
 	chs = new Characteristic(this,model->GetPlayer());
-	
-	
 
+	this->ShowFullScreen(true);
 	info = new Info(this,model->GetPlayer(),name);
 	R1 = new Rooms(this,0, name);
 	R2 = new Rooms(this,1, name);
 	R3 = new Rooms(this,2, name);
 	GameW = new GameScene(this, model,this);
-	this->ShowFullScreen(true);
+	
 	this->Connect(wxEVT_PAINT, wxPaintEventHandler(Game::OnPaint));
+	this->SetFocus();
 }
 void Game::OnPaint(wxPaintEvent& event)
 {
